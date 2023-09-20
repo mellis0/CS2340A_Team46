@@ -4,7 +4,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.widget.Button;
-import android.widget.RadioGroup;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -16,12 +15,12 @@ public class MainActivity extends AppCompatActivity {
         Button startBtn = findViewById(R.id.startButton);
         Button exitBtn = findViewById(R.id.exitButton);
 
-        // TODO: implement transition from start screen to game
-//        startBtn.setOnClickListener(v -> {
-//            Intent game = new Intent(MainActivity.this, GameActivity.class);
-//            startActivity(game);
-//            finish();
-//        });
+
+        startBtn.setOnClickListener(v -> {
+            Intent game = new Intent(MainActivity.this, ConfigActivity.class);
+            startActivity(game);
+            finish();
+        });
 
         exitBtn.setOnClickListener(v -> {
             MainActivity.this.finish();
