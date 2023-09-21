@@ -12,10 +12,28 @@
         android:layout_marginTop="135dp"
         android:layout_marginEnd="151dp"
         android:layout_marginBottom="566dp"
-        android:text="Game Over"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content" />
+
+    <EditText
+        android:id="@+id/editTextText2"
+        android:layout_width="103dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="300dp"
+        android:layout_marginBottom="302dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.35000002"
+        tools:text="Game Over" />
 </androidx.constraintlayout.widget.ConstraintLayout>
