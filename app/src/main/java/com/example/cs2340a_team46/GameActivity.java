@@ -10,6 +10,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.config_screen);
+        setContentView(R.layout.game_screen);
     }
 }
