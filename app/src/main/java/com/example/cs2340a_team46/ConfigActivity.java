@@ -4,16 +4,20 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.view.View;
 
 import android.widget.EditText;
 public class ConfigActivity extends AppCompatActivity {
-    private EditText editText;
-    private TextView displayTextView;
-    private String name;
+    private RadioGroup characterRadioGroup;
+    private RadioGroup difficultyRadioGroup;
+    private ImageView imageView;
+    private EditText nameEditText;
     private int difficulty;
-    private int health;
     private int character;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,24 +25,70 @@ public class ConfigActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.config_screen);
 
-        editText = findViewById(R.id.editText);
-        displayTextView = findViewById(R.id.displayTextView);
+        nameEditText = findViewById(R.id.editText);
+//        displayTextView = findViewById(R.id.displayTextView);
 
 
         Button startGameBtn = findViewById(R.id.startGameButton);
 
         startGameBtn.setOnClickListener(v -> {
-            Intent game = new Intent(ConfigActivity.this, GameActivity.class);
-            game.putExtra("name", name);
-            game.putExtra("difficulty", difficulty);
-            game.putExtra("health", health);
-            game.putExtra("character", character);
-            startActivity(game);
-            finish();
+            String enteredName = nameEditText.getText().toString().trim();
+            if (enteredName.isEmpty()) {
+                // Display a message if the name is empty
+                Toast.makeText(ConfigActivity.this, "Please enter a name.", Toast.LENGTH_SHORT).show();
+            } else if (difficulty == 0) {
+                Toast.makeText(ConfigActivity.this, "Please select difficulty.", Toast.LENGTH_SHORT).show();
+            } else if (character == 0) {
+                Toast.makeText(ConfigActivity.this, "Please select a character.", Toast.LENGTH_SHORT).show();
+            }else {
+                Intent game = new Intent(ConfigActivity.this, GameActivity.class);
+                game.putExtra("name", enteredName);
+                game.putExtra("difficulty", difficulty);
+                game.putExtra("character", character);
+                startActivity(game);
+                finish();
+            }
+
         });
-    }
-    public void onDisplayButtonClick(View view) {
-        String userInput = editText.getText().toString();
-        displayTextView.setText("User Input: " + userInput);
+
+        characterRadioGroup = findViewById(R.id.characterRadioGroup);
+        imageView = findViewById(R.id.imageView);
+
+        // Set a listener for the RadioGroup
+        characterRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Handle the radio button selection
+                RadioButton selectedRadioButton = findViewById(checkedId);
+
+                if (selectedRadioButton.getId() == R.id.characterRadioOption1) {
+                    imageView.setImageResource(R.drawable.angel);
+                    character = 1;
+                } else if (selectedRadioButton.getId() == R.id.characterRadioOption2) {
+                    imageView.setImageResource(R.drawable.knight);
+                    character = 2;
+                } else if (selectedRadioButton.getId() == R.id.characterRadioOption3) {
+                    imageView.setImageResource(R.drawable.lizard);
+                    character = 3;
+                }
+            }
+        });
+
+        difficultyRadioGroup = findViewById(R.id.difficultyRadioGroup);
+        difficultyRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Handle the radio button selection
+                RadioButton selectedRadioButton = findViewById(checkedId);
+
+                if (selectedRadioButton.getId() == R.id.difficultyRadioOption1) {
+                    difficulty = 1;
+                } else if (selectedRadioButton.getId() == R.id.difficultyRadioOption2) {
+                    difficulty = 2;
+                } else if (selectedRadioButton.getId() == R.id.difficultyRadioOption3) {
+                    difficulty = 3;
+                }
+            }
+        });
     }
 }
