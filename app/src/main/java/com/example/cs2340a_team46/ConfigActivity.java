@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-import android.view.View;
 
 import android.widget.EditText;
 public class ConfigActivity extends AppCompatActivity {
@@ -26,8 +24,6 @@ public class ConfigActivity extends AppCompatActivity {
         setContentView(R.layout.config_screen);
 
         nameEditText = findViewById(R.id.editText);
-//        displayTextView = findViewById(R.id.displayTextView);
-
 
         Button startGameBtn = findViewById(R.id.startGameButton);
 
@@ -35,12 +31,18 @@ public class ConfigActivity extends AppCompatActivity {
             String enteredName = nameEditText.getText().toString().trim();
             if (enteredName.isEmpty()) {
                 // Display a message if the name is empty
-                Toast.makeText(ConfigActivity.this, "Please enter a name.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConfigActivity.this,
+                        "Please enter a name.",
+                        Toast.LENGTH_SHORT).show();
             } else if (difficulty == 0) {
-                Toast.makeText(ConfigActivity.this, "Please select difficulty.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConfigActivity.this,
+                        "Please select difficulty.",
+                        Toast.LENGTH_SHORT).show();
             } else if (character == 0) {
-                Toast.makeText(ConfigActivity.this, "Please select a character.", Toast.LENGTH_SHORT).show();
-            }else {
+                Toast.makeText(ConfigActivity.this,
+                        "Please select a character.",
+                        Toast.LENGTH_SHORT).show();
+            } else {
                 Intent game = new Intent(ConfigActivity.this, GameActivity.class);
                 game.putExtra("name", enteredName);
                 game.putExtra("difficulty", difficulty);
