@@ -1,6 +1,5 @@
 package com.example.cs2340a_team46;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -27,12 +26,5 @@ public class MainActivity extends AppCompatActivity {
             MainActivity.this.finish();
             System.exit(0);
         });
-
-
-
-
-
-
-
     }
 }
