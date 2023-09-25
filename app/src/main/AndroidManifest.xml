@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CS2340A_Team46">
+
         <activity
             android:name="com.example.cs2340a_team46.MainActivity"
             android:exported="true">
