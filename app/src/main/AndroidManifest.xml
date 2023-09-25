@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GameActivity"/>
-        <activity
             android:name=".ConfigActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
+        <activity
+            android:name=".GameActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
