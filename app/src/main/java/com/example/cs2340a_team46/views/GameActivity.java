@@ -15,7 +15,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.game_screen);
+        setContentView(R.layout.game_screen_1);
 
         String name = getIntent().getStringExtra("name");
         int difficulty = getIntent().getIntExtra("difficulty", 0);
