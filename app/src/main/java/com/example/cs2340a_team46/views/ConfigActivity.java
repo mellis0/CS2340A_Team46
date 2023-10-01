@@ -1,4 +1,4 @@
-package com.example.cs2340a_team46;
+package com.example.cs2340a_team46.views;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,9 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import android.widget.EditText;
+
+import com.example.cs2340a_team46.R;
+
 public class ConfigActivity extends AppCompatActivity {
     private RadioGroup characterRadioGroup;
     private RadioGroup difficultyRadioGroup;

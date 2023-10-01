@@ -13,7 +13,7 @@
         android:theme="@style/Theme.CS2340A_Team46">
 
         <activity
-            android:name="com.example.cs2340a_team46.MainActivity"
+            android:name="com.example.cs2340a_team46.views.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,13 +22,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ConfigActivity"
+            android:name=".views.ConfigActivity"
             android:exported="false" />
         <activity
-            android:name=".GameActivity"
+            android:name=".views.GameActivity"
             android:exported="false" />
         <activity
-            android:name=".EndActivity"
+            android:name=".views.EndActivity"
             android:exported="false" />
     </application>
 
