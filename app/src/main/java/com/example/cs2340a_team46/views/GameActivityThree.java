@@ -16,7 +16,7 @@ public class GameActivityThree extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.game_screen_2);
+        setContentView(R.layout.game_screen_3);
 
         String name = getIntent().getStringExtra("name");
         int difficulty = getIntent().getIntExtra("difficulty", 0);
