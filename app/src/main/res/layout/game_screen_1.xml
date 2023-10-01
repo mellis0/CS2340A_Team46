@@ -8,7 +8,7 @@
     android:background="@drawable/background_1">
 
     <Button
-        android:id="@+id/screen_1_next_screen"
+        android:id="@+id/next_button"
         android:layout_width="448dp"
         android:layout_height="39dp"
         android:text="Next Screen"

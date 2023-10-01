@@ -1,8 +1,9 @@
 package com.example.cs2340a_team46.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 import com.example.cs2340a_team46.R;
 
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivityOne extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +60,14 @@ public class GameActivity extends AppCompatActivity {
             avatar.setImageResource(R.drawable.lizard);
         }
 
-        //Game Screen to End Screen Button
-        Button endScreen = findViewById(R.id.gs_es);
-        endScreen.setOnClickListener(v -> {
-            Intent end = new Intent(GameActivity.this, EndActivity.class);
-            startActivity(end);
+
+        Button nextButton = findViewById(R.id.next_button);
+        nextButton.setOnClickListener(v -> {
+            Intent secondScreen = new Intent(GameActivityOne.this, GameActivityTwo.class);
+            secondScreen.putExtra("name", name);
+            secondScreen.putExtra("difficulty", difficulty);
+            secondScreen.putExtra("character", character);
+            startActivity(secondScreen);
             finish();
         });
     }

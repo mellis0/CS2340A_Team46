@@ -8,7 +8,7 @@
     android:background="@drawable/background_3">
 
     <Button
-        android:id="@+id/gs_es"
+        android:id="@+id/next_button"
         android:layout_width="448dp"
         android:layout_height="39dp"
         android:text="End Screen"

@@ -46,7 +46,7 @@ public class ConfigActivity extends AppCompatActivity {
                         "Please select a character.",
                         Toast.LENGTH_SHORT).show();
             } else {
-                Intent game = new Intent(ConfigActivity.this, GameActivity.class);
+                Intent game = new Intent(ConfigActivity.this, GameActivityOne.class);
                 game.putExtra("name", enteredName);
                 game.putExtra("difficulty", difficulty);
                 game.putExtra("character", character);
