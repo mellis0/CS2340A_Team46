@@ -46,10 +46,16 @@ public class ConfigActivity extends AppCompatActivity {
                         "Please select a character.",
                         Toast.LENGTH_SHORT).show();
             } else {
+
                 Intent game = new Intent(ConfigActivity.this, GameActivityOne.class);
-                game.putExtra("name", enteredName);
-                game.putExtra("difficulty", difficulty);
-                game.putExtra("character", character);
+                com.example.cs2340a_team46.viewmodels.GameViewModel.setPlayerName(enteredName);
+                com.example.cs2340a_team46.viewmodels.GameViewModel.setDifficulty(difficulty);
+                com.example.cs2340a_team46.viewmodels.GameViewModel.setPlayerHealth(difficulty);
+                com.example.cs2340a_team46.viewmodels.GameViewModel.setCharacter(character);
+//                game.putExtra("name", enteredName);
+//                game.putExtra("difficulty", difficulty);
+//                game.putExtra("character", character);
+
                 startActivity(game);
                 finish();
             }
