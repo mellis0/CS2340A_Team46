@@ -1,7 +1,5 @@
 package com.example.cs2340a_team46.viewmodels;
 
-import android.widget.TextView;
-
 import com.example.cs2340a_team46.R;
 
 public class GameViewModel {
@@ -10,8 +8,8 @@ public class GameViewModel {
     private static String playerName;
     private static int character;
 
-//    private static Player player = null; // need to implement player singleton model first. Once implemented, we might not need the static vars above
-
+// need to implement player singleton model first. Once implemented, we might not need the static vars above
+//    private static Player player = null;
 
     public static void setPlayerHealth(int difficultyVal) {
         if (difficultyVal == 1) {
