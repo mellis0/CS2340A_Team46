@@ -45,7 +45,6 @@ public class ConfigActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.editText);
 
         Button startGameBtn = findViewById(R.id.startGameButton);
-
         startGameBtn.setOnClickListener(v -> {
             String enteredName = nameEditText.getText().toString().trim();
             int enteredDifficulty = difficulty; // copy these vals so that they are not modified by a race condition
