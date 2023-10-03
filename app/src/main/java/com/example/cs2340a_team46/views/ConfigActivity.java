@@ -20,6 +20,36 @@ public class ConfigActivity extends AppCompatActivity {
     private EditText nameEditText;
     private int difficulty;
     private int character;
+
+    protected void takeConfigInput(String enteredName){
+        enteredName = enteredName.trim(); // trim whitespace
+        if (enteredName.isEmpty()) {
+            // Display a message if the name is empty
+            Toast.makeText(ConfigActivity.this,
+                    "Please enter a name.",
+                    Toast.LENGTH_SHORT).show();
+        } else if (difficulty == 0) {
+            Toast.makeText(ConfigActivity.this,
+                    "Please select difficulty.",
+                    Toast.LENGTH_SHORT).show();
+        } else if (character == 0) {
+            Toast.makeText(ConfigActivity.this,
+                    "Please select a character.",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+
+            Intent game = new Intent(ConfigActivity.this, GameActivityOne.class);
+
+            com.example.cs2340a_team46.viewmodels.GameViewModel.setPlayerName(enteredName);
+            com.example.cs2340a_team46.viewmodels.GameViewModel.setDifficulty(difficulty);
+            com.example.cs2340a_team46.viewmodels.GameViewModel.setPlayerHealth(difficulty);
+            com.example.cs2340a_team46.viewmodels.GameViewModel.setCharacter(character);
+
+            startActivity(game);
+            finish();
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,37 +60,7 @@ public class ConfigActivity extends AppCompatActivity {
 
         Button startGameBtn = findViewById(R.id.startGameButton);
 
-        startGameBtn.setOnClickListener(v -> {
-            String enteredName = nameEditText.getText().toString().trim();
-            if (enteredName.isEmpty()) {
-                // Display a message if the name is empty
-                Toast.makeText(ConfigActivity.this,
-                        "Please enter a name.",
-                        Toast.LENGTH_SHORT).show();
-            } else if (difficulty == 0) {
-                Toast.makeText(ConfigActivity.this,
-                        "Please select difficulty.",
-                        Toast.LENGTH_SHORT).show();
-            } else if (character == 0) {
-                Toast.makeText(ConfigActivity.this,
-                        "Please select a character.",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-
-                Intent game = new Intent(ConfigActivity.this, GameActivityOne.class);
-                com.example.cs2340a_team46.viewmodels.GameViewModel.setPlayerName(enteredName);
-                com.example.cs2340a_team46.viewmodels.GameViewModel.setDifficulty(difficulty);
-                com.example.cs2340a_team46.viewmodels.GameViewModel.setPlayerHealth(difficulty);
-                com.example.cs2340a_team46.viewmodels.GameViewModel.setCharacter(character);
-//                game.putExtra("name", enteredName);
-//                game.putExtra("difficulty", difficulty);
-//                game.putExtra("character", character);
-
-                startActivity(game);
-                finish();
-            }
-
-        });
+        startGameBtn.setOnClickListener(v -> {takeConfigInput(nameEditText.getText().toString());});
 
         characterRadioGroup = findViewById(R.id.characterRadioGroup);
         imageView = findViewById(R.id.imageView);
