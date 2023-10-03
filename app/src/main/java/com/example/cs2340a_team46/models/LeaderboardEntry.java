@@ -25,6 +25,8 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry> {
         return date;
     }
 
+
+
     @Override
     public int compareTo(LeaderboardEntry another) {
         return Integer.compare(this.score, another.score);

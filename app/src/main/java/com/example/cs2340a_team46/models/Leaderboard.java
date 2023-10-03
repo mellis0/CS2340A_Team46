@@ -23,8 +23,8 @@ import java.util.List;
 
         public void addEntry(String playerName, int score) {
             LeaderboardEntry entry = new LeaderboardEntry(playerName, score, new Date());
-            entries.add(entry);
-            Collections.sort(entries, Collections.reverseOrder());
+            this.entries.add(entry);
+            Collections.sort(this.entries, Collections.reverseOrder());
         }
 
         public List<LeaderboardEntry> getEntries() {
