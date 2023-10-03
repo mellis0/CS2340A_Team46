@@ -20,5 +20,17 @@ public class EndActivity extends AppCompatActivity {
             EndActivity.this.finish();
             System.exit(0);
         });
+
+        // Retrieve the leaderboard entries
+        Leaderboard leaderboard = Leaderboard.getInstance();
+        List<LeaderboardEntry> entries = leaderboard.getEntries();
+
+        // Create an adapter to display the entries in a ListView
+        ArrayAdapter<LeaderboardEntry> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, entries);
+
+        // Bind the adapter to the ListView
+        ListView leaderboardListView = findViewById(R.id.leaderboardListView);
+        leaderboardListView.setAdapter(adapter);
     }
 }
