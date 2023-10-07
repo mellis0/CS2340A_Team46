@@ -17,6 +17,7 @@ public class GameActivityView extends AppCompatActivity {
         String difficulty = com.example.cs2340a_team46.viewmodels.GameViewModel.getDifficulty();
         int character = com.example.cs2340a_team46.viewmodels.GameViewModel.getCharacter();
         int hp = com.example.cs2340a_team46.viewmodels.GameViewModel.getPlayerHealth();
+        int score = com.example.cs2340a_team46.viewmodels.GameViewModel.getPlayerScore();
 
         //Name
         TextView nameText = findViewById(R.id.name);
@@ -33,5 +34,9 @@ public class GameActivityView extends AppCompatActivity {
         //Image
         ImageView avatar = findViewById(R.id.avatar);
         avatar.setImageResource(character);
+
+        //Health
+        TextView scoreText = findViewById(R.id.score);
+        scoreText.setText("Score: " + String.valueOf(score));
     }
 }

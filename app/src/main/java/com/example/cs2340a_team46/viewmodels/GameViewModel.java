@@ -7,6 +7,7 @@ public class GameViewModel {
     private static String difficulty;
     private static String playerName;
     private static int character;
+    private static int score;
 
 // need to implement player singleton model first. Once implemented, we might not need the static vars above
 //    private static Player player = null;
@@ -65,5 +66,8 @@ public class GameViewModel {
 
     public static int getCharacter() {
         return character;
+    }
+    public static int getPlayerScore() {
+        return score;
     }
 }
