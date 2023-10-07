@@ -55,7 +55,7 @@ public class ConfigActivity extends AppCompatActivity {
 //                game.putExtra("name", enteredName);
 //                game.putExtra("difficulty", difficulty);
 //                game.putExtra("character", character);
-
+                com.example.cs2340a_team46.viewmodels.GameViewModel.startScoreCountdown();
                 startActivity(game);
                 finish();
             }

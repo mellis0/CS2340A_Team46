@@ -1,5 +1,6 @@
 package com.example.cs2340a_team46.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -19,6 +20,13 @@ public class EndActivity extends AppCompatActivity {
         exitBtn.setOnClickListener(v -> {
             EndActivity.this.finish();
             System.exit(0);
+        });
+
+        Button retryButton = findViewById(R.id.retryButton);
+        retryButton.setOnClickListener(v -> {
+            Intent main = new Intent(EndActivity.this, MainActivity.class);
+            startActivity(main);
+            finish();
         });
     }
 }

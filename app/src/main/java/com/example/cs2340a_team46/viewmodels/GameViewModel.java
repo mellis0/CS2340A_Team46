@@ -1,13 +1,21 @@
 package com.example.cs2340a_team46.viewmodels;
 
+import android.os.CountDownTimer;
+
 import com.example.cs2340a_team46.R;
 
-public class GameViewModel {
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
+public class GameViewModel extends ViewModel {
     private static int playerHealth;
     private static String difficulty;
     private static String playerName;
     private static int character;
-    private static int score;
+    private static MutableLiveData<Integer> score = new MutableLiveData<>();;
+    private static final int countdownDuration = 100000;
+    private static final int countdownInterval = 1000;
 
 // need to implement player singleton model first. Once implemented, we might not need the static vars above
 //    private static Player player = null;
@@ -67,7 +75,22 @@ public class GameViewModel {
     public static int getCharacter() {
         return character;
     }
-    public static int getPlayerScore() {
+    public static MutableLiveData<Integer> getPlayerScore() {
         return score;
+    }
+
+    public static void startScoreCountdown() {
+        CountDownTimer countDownTimer = new CountDownTimer(countdownDuration, countdownInterval) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                GameViewModel.score.setValue(GameViewModel.score.getValue()-1);
+            }
+            @Override
+            public void onFinish() {
+            }
+        };
+        GameViewModel.score.setValue(100);
+        countDownTimer.start();
+        return;
     }
 }
