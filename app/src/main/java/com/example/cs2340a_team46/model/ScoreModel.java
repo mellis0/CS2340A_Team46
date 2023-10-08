@@ -14,6 +14,7 @@ public class ScoreModel {
     }
 
     public void setScore(int newScore) {
+        if (newScore < 0) return;
         score.setValue(newScore);
     }
 }
