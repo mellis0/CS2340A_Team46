@@ -14,6 +14,7 @@ public class EndActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.end_screen);
+        com.example.cs2340a_team46.viewmodels.GameViewModel.endScoreCountdown();
 
         Button exitBtn = findViewById(R.id.exitButton);
 

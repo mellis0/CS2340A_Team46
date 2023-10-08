@@ -3,6 +3,7 @@ package com.example.cs2340a_team46.viewmodels;
 import android.os.CountDownTimer;
 
 import com.example.cs2340a_team46.R;
+import com.example.cs2340a_team46.model.ScoreModel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,9 +14,21 @@ public class GameViewModel extends ViewModel {
     private static String difficulty;
     private static String playerName;
     private static int character;
-    private static MutableLiveData<Integer> score = new MutableLiveData<>();;
+//    private static MutableLiveData<Integer> score = new MutableLiveData<>();;
+    private static ScoreModel scoreModel = new ScoreModel();;
+    private static LiveData<Integer> score = scoreModel.getScore();
     private static final int countdownDuration = 100000;
     private static final int countdownInterval = 1000;
+    private static CountDownTimer countDownTimer = new CountDownTimer(countdownDuration, countdownInterval) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            GameViewModel.scoreModel.setScore(score.getValue() - 1);
+        }
+        @Override
+        public void onFinish() {
+
+        }
+    };
 
 // need to implement player singleton model first. Once implemented, we might not need the static vars above
 //    private static Player player = null;
@@ -75,22 +88,15 @@ public class GameViewModel extends ViewModel {
     public static int getCharacter() {
         return character;
     }
-    public static MutableLiveData<Integer> getPlayerScore() {
+    public static LiveData<Integer> getPlayerScore() {
         return score;
     }
 
     public static void startScoreCountdown() {
-        CountDownTimer countDownTimer = new CountDownTimer(countdownDuration, countdownInterval) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                GameViewModel.score.setValue(GameViewModel.score.getValue()-1);
-            }
-            @Override
-            public void onFinish() {
-            }
-        };
-        GameViewModel.score.setValue(100);
+        GameViewModel.scoreModel.setScore(100);
         countDownTimer.start();
-        return;
+    }
+    public static void endScoreCountdown() {
+        countDownTimer.cancel();
     }
 }
