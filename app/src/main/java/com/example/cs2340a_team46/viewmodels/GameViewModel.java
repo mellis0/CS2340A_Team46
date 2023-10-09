@@ -4,14 +4,6 @@ import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.models.Player;
 
 public class GameViewModel {
-    // private static int playerHealth;
-    // private static String difficulty;
-    // private static String playerName;
-    // private static int character;
-
-// need to implement player singleton model first. Once implemented, we might not need the static vars above
-//    private static Player player = null;
-    // com.example.cs2340a_team46.viewmodels.GameViewModel.getPlayerName(); example of accessing methods from a class in another directory
 
     private static Player player = Player.getInstance();
     public static void setPlayerHealth(int difficultyVal) {

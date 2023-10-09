@@ -7,7 +7,7 @@ public class Player {
     private String playerName;
     private int character;
 
-    // getter and setter for heatlh
+    // getter and setter for health
     public void setPlayerHealth(int playerHealth) {
         this.playerHealth = playerHealth;
     }
