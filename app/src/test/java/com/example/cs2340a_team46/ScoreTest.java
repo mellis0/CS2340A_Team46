@@ -1,9 +1,7 @@
 package com.example.cs2340a_team46;
 
-import com.example.cs2340a_team46.model.ScoreModel;
-import com.example.cs2340a_team46.viewmodels.GameViewModel;
+import com.example.cs2340a_team46.models.ScoreModel;
 
-import androidx.lifecycle.MutableLiveData;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
