@@ -57,6 +57,7 @@ public class ConfigActivity extends AppCompatActivity {
             } else {
 
                 Intent game = new Intent(ConfigActivity.this, GameActivityOne.class);
+
                 GameViewModel.setPlayerName(enteredName);
                 GameViewModel.setDifficulty(enteredDifficulty);
                 GameViewModel.setPlayerHealth(enteredDifficulty);
