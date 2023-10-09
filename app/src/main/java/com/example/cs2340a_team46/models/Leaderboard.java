@@ -27,6 +27,7 @@ import java.util.List;
             Collections.sort(this.entries, Collections.reverseOrder());
         }
 
+        // used to reset leaderboard each time the app starts
         public void reset() {
             entries.clear();
         }
