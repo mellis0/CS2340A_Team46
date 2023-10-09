@@ -28,7 +28,7 @@ public class GameViewModel extends ViewModel {
         public void onFinish() {
 
         }
-    }
+    };
 
     private static Player player = Player.getInstance();
     public static void setPlayerHealth(int difficultyVal) {
