@@ -54,7 +54,7 @@ public class GameViewModel {
             player.setCharacter(R.drawable.angel);
             // GameViewModel.character = R.drawable.angel;
         } else if (characterRadioButton == 2) {
-            player.setCharacter(R.drawable.knight)
+            player.setCharacter(R.drawable.knight);
             // GameViewModel.character = R.drawable.knight;
         } else if (characterRadioButton == 3) {
             player.setCharacter(R.drawable.lizard);
