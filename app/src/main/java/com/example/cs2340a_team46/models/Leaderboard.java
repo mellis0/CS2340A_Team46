@@ -27,6 +27,10 @@ import java.util.List;
             Collections.sort(this.entries, Collections.reverseOrder());
         }
 
+        public void reset() {
+            entries.clear();
+        }
+
         public List<LeaderboardEntry> getEntries() {
             return entries;
         }
