@@ -1,9 +1,34 @@
 package com.example.cs2340a_team46.viewmodels;
 
+import android.os.CountDownTimer;
+
+import com.example.cs2340a_team46.R;
+import com.example.cs2340a_team46.model.ScoreModel;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
+
 import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.models.Player;
 
-public class GameViewModel {
+public class GameViewModel extends ViewModel {
+
+    private static ScoreModel scoreModel = new ScoreModel();;
+    private static LiveData<Integer> score = scoreModel.getScore();
+    private static final int countdownDuration = 100000;
+    private static final int countdownInterval = 1000;
+    private static CountDownTimer countDownTimer = new CountDownTimer(countdownDuration, countdownInterval) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            GameViewModel.scoreModel.setScore(score.getValue() - 1);
+        }
+        @Override
+        public void onFinish() {
+
+        }
+    }
 
     private static Player player = Player.getInstance();
     public static void setPlayerHealth(int difficultyVal) {
@@ -70,5 +95,16 @@ public class GameViewModel {
 
     public static int getCharacter() {
         return player.getCharacter();
+    }
+    public static LiveData<Integer> getPlayerScore() {
+        return score;
+    }
+
+    public static void startScoreCountdown() {
+        GameViewModel.scoreModel.setScore(100);
+        countDownTimer.start();
+    }
+    public static void endScoreCountdown() {
+        countDownTimer.cancel();
     }
 }
