@@ -3,14 +3,12 @@ package com.example.cs2340a_team46.viewmodels;
 import android.os.CountDownTimer;
 
 import com.example.cs2340a_team46.R;
-import com.example.cs2340a_team46.model.ScoreModel;
+import com.example.cs2340a_team46.models.ScoreModel;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 
-import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.models.Player;
 
 public class GameViewModel extends ViewModel {
