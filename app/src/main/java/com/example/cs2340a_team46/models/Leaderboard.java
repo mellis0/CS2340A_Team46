@@ -7,7 +7,7 @@ import java.util.List;
 public class Leaderboard {
     private volatile static Leaderboard instance;
     private List<LeaderboardEntry> leaderboardData;
-    private int maxAttemptsToShow = 5;
+    private int size = 0;
 
     private Leaderboard() {
         leaderboardData = new ArrayList<>();
@@ -35,6 +35,17 @@ public class Leaderboard {
 
     public List<LeaderboardEntry> getLeaderboardData() {
         return leaderboardData;
+    }
+
+    public int getLeaderboardSize() {
+        return size;
+    }
+    public void incrementLeaderboardSize() {
+        size++;
+    }
+
+    public void setLeaderboardSize(int newSize) {
+        size = newSize;
     }
 
     // Add a method to reset the leaderboard entries

@@ -22,6 +22,8 @@ public class LeaderboardViewModel extends ViewModel {
         return leaderboard.getLeaderboardData();
     }
 
+    //public List<LeaderboardEntry> leaderboardData = leaderboard.getLeaderboardData();
+
     public int getCurrentScore() {
         return scoreModel.getCurrentScore();
     }
@@ -37,12 +39,14 @@ public class LeaderboardViewModel extends ViewModel {
 
     public static void addEntry(LeaderboardEntry entry) {
         leaderboard.getLeaderboardData().add(entry);
+        leaderboard.incrementLeaderboardSize();
         // Sort the leaderboard in descending order based on scores
         Collections.sort(leaderboard.getLeaderboardData(), Collections.reverseOrder());
         // makes sure only five attempts show
         if (leaderboard.getLeaderboardData().size() > 5) {
             leaderboard.getLeaderboardData().subList(5,
                     leaderboard.getLeaderboardData().size()).clear();
+
         }
     }
 

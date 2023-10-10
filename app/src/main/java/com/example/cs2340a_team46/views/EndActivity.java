@@ -19,9 +19,11 @@ import com.example.cs2340a_team46.models.ScoreModel;
 import com.example.cs2340a_team46.viewmodels.LeaderboardViewModel;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
 
 public class EndActivity extends AppCompatActivity {
 
@@ -47,16 +49,7 @@ public class EndActivity extends AppCompatActivity {
         int playerScore = ScoreModel.getCurrentScore();
         Date dateTime = new Date();
 
-        //creating an observer to get latest score value
 
-        final Observer<Integer> scoreObserver = new Observer<Integer>() {
-            int score;
-            @Override
-            public void onChanged(@Nullable final Integer currentScore) {
-                score = currentScore;
-            }
-
-        };
 
         LeaderboardEntry latestAttempt = new LeaderboardEntry(playerName, playerScore, dateTime);
 
@@ -75,7 +68,26 @@ public class EndActivity extends AppCompatActivity {
         entryFive = findViewById(R.id.leaderboardEntry5);
         recentAttempt = findViewById(R.id.recentattempt);
 
-        if (leaderboardData.size() >= 5) {
+
+        if (leaderboardData.size() == 1) {
+            entryOne.setText(formatLeaderboardEntry(leaderboardData.get(0)));
+            recentAttempt.setText("Most recent attempt: " + formatLeaderboardEntry(latestAttempt));
+        } else if (leaderboardData.size() == 2) {
+            entryOne.setText(formatLeaderboardEntry(leaderboardData.get(0)));
+            entryTwo.setText(formatLeaderboardEntry(leaderboardData.get(1)));
+            recentAttempt.setText("Most recent attempt: " + formatLeaderboardEntry(latestAttempt));
+        } else if (leaderboardData.size() == 3) {
+            entryOne.setText(formatLeaderboardEntry(leaderboardData.get(0)));
+            entryTwo.setText(formatLeaderboardEntry(leaderboardData.get(1)));
+            entryThree.setText(formatLeaderboardEntry(leaderboardData.get(2)));
+            recentAttempt.setText("Most recent attempt: " + formatLeaderboardEntry(latestAttempt));
+        } else if (leaderboardData.size() == 4) {
+            entryOne.setText(formatLeaderboardEntry(leaderboardData.get(0)));
+            entryTwo.setText(formatLeaderboardEntry(leaderboardData.get(1)));
+            entryThree.setText(formatLeaderboardEntry(leaderboardData.get(2)));
+            entryFour.setText(formatLeaderboardEntry(leaderboardData.get(3)));
+            recentAttempt.setText("Most recent attempt: " + formatLeaderboardEntry(latestAttempt));
+        } else {
             entryOne.setText(formatLeaderboardEntry(leaderboardData.get(0)));
             entryTwo.setText(formatLeaderboardEntry(leaderboardData.get(1)));
             entryThree.setText(formatLeaderboardEntry(leaderboardData.get(2)));
@@ -83,6 +95,7 @@ public class EndActivity extends AppCompatActivity {
             entryFive.setText(formatLeaderboardEntry(leaderboardData.get(4)));
             recentAttempt.setText("Most recent attempt: " + formatLeaderboardEntry(latestAttempt));
         }
+
 
 
         Button exitBtn = findViewById(R.id.exitButton);
@@ -102,13 +115,24 @@ public class EndActivity extends AppCompatActivity {
 
     // Helper method to format leaderboard entry for display
     private String formatLeaderboardEntry(LeaderboardEntry entry) {
-        return entry.getPlayerName() + " - " + ScoreModel.getCurrentScore() + " - " + formatDate(entry.getDateTime());
+        return entry.getPlayerName() + " - " + ScoreModel.getCurrentScore() + " - " +
+                formatDate(entry.getDateTime());
     }
 
     // Helper method to format date for display
-    private String formatDate(Date date) {
-        // Implement date formatting as per your requirements
-        // Example: SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(date);
-        return "yyyy-MM-dd HH:mm:ss";
+//    private String formatDate(Date date) {
+//        // Implement date formatting as per your requirements
+//        // Example: SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(date);
+//        return "yyyy-MM-dd HH:mm:ss";
+//    }
+    public String formatDate(Date date) {
+        // Define the desired date and time format
+        String pattern = "MM/dd/yyyy HH:mm:ss";
+
+        // Create a SimpleDateFormat object with the pattern and the desired locale
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.US);
+
+        // Format the date and time and return it as a string
+        return simpleDateFormat.format(date);
     }
 }
