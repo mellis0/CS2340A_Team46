@@ -41,9 +41,10 @@ public class EndActivity extends AppCompatActivity {
 
         leaderboardViewModel = new ViewModelProvider(this).get(LeaderboardViewModel.class);
 
+
         // retrieve latest player attempt
         String playerName = GameViewModel.getPlayerName();
-        int playerScore = ScoreModel.getScore();
+        int playerScore = ScoreModel.getCurrentScore();
         Date dateTime = new Date();
 
         //creating an observer to get latest score value
@@ -101,7 +102,7 @@ public class EndActivity extends AppCompatActivity {
 
     // Helper method to format leaderboard entry for display
     private String formatLeaderboardEntry(LeaderboardEntry entry) {
-        return entry.getPlayerName() + " - " + entry.getScore() + " - " + formatDate(entry.getdateTime());
+        return entry.getPlayerName() + " - " + ScoreModel.getCurrentScore() + " - " + formatDate(entry.getDateTime());
     }
 
     // Helper method to format date for display

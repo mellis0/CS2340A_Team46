@@ -37,6 +37,11 @@ public class Leaderboard {
         return leaderboardData;
     }
 
+    // Add a method to reset the leaderboard entries
+    public void reset() {
+        leaderboardData.clear();
+    }
+
 //    moved to ViewModel
 //    public boolean isAttemptQualifiesForLeaderboard(LeaderboardEntry entry) {
 //        // Check if the attempt qualifies for the leaderboard

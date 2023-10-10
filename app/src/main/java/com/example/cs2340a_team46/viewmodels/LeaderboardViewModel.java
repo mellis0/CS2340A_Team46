@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class LeaderboardViewModel extends ViewModel {
+
+    private ScoreModel scoreModel;
     private static Leaderboard leaderboard = Leaderboard.getInstance();
 
     public LeaderboardViewModel() {
@@ -18,6 +20,10 @@ public class LeaderboardViewModel extends ViewModel {
 
     public List<LeaderboardEntry> getLeaderboardData() {
         return leaderboard.getLeaderboardData();
+    }
+
+    public int getCurrentScore() {
+        return scoreModel.getCurrentScore();
     }
 
     public boolean isAttemptQualifiedForLeaderboard(LeaderboardEntry entry) {
@@ -29,11 +35,11 @@ public class LeaderboardViewModel extends ViewModel {
     }
 
 
-    public void addEntry(LeaderboardEntry entry) {
+    public static void addEntry(LeaderboardEntry entry) {
         leaderboard.getLeaderboardData().add(entry);
         // Sort the leaderboard in descending order based on scores
         Collections.sort(leaderboard.getLeaderboardData(), Collections.reverseOrder());
-        // Truncate the list to show a maximum of maxAttemptsToShow attempts
+        // makes sure only five attempts show
         if (leaderboard.getLeaderboardData().size() > 5) {
             leaderboard.getLeaderboardData().subList(5,
                     leaderboard.getLeaderboardData().size()).clear();
