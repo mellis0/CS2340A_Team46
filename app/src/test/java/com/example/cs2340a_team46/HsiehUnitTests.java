@@ -26,7 +26,7 @@ public class HsiehUnitTests {
     @Test
     public void testAddAttemptToLeaderboard() {
         // Create a sample attempt
-        LeaderboardEntry attempt = new LeaderboardEntry("Player1", 1000, new Date());
+        LeaderboardEntry attempt = new LeaderboardEntry("Player1", 10, new Date());
 
         // Add the attempt to the leaderboard
         LeaderboardViewModel.addEntry(attempt);
