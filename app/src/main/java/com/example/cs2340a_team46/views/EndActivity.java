@@ -21,6 +21,7 @@ import com.example.cs2340a_team46.viewmodels.LeaderboardViewModel;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class EndActivity extends AppCompatActivity {
 
@@ -71,8 +72,13 @@ public class EndActivity extends AppCompatActivity {
         entryFour = findViewById(R.id.leaderboardEntry4);
         entryFive = findViewById(R.id.leaderboardEntry5);
 
-        entryOne.setText(leaderboardData.get(0));
-
+        if (leaderboardData.size() >= 5) {
+            entryOne.setText(formatLeaderboardEntry(leaderboardData.get(0)));
+            entryTwo.setText(formatLeaderboardEntry(leaderboardData.get(1)));
+            entryThree.setText(formatLeaderboardEntry(leaderboardData.get(2)));
+            entryFour.setText(formatLeaderboardEntry(leaderboardData.get(3)));
+            entryFive.setText(formatLeaderboardEntry(leaderboardData.get(4)));
+        }
 
 
         Button exitBtn = findViewById(R.id.exitButton);
@@ -88,5 +94,17 @@ public class EndActivity extends AppCompatActivity {
             startActivity(main);
             finish();
         });
+    }
+
+    // Helper method to format leaderboard entry for display
+    private String formatLeaderboardEntry(LeaderboardEntry entry) {
+        return entry.getPlayerName() + " - " + entry.getScore() + " - " + formatDate(entry.getdateTime());
+    }
+
+    // Helper method to format date for display
+    private String formatDate(Date date) {
+        // Implement date formatting as per your requirements
+        // Example: SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(date);
+        return "yyyy-MM-dd HH:mm:ss";
     }
 }

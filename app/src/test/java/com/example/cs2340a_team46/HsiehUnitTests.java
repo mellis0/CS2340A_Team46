@@ -26,7 +26,7 @@ public class HsiehUnitTests {
         LeaderboardEntry attempt = new LeaderboardEntry("Player1", 1000, new Date());
 
         // Add the attempt to the leaderboard
-        leaderboard.addEntry(attempt);
+        LeaderboardViewModel.addEntry(attempt);
 
         // Check if the leaderboard contains the added attempt
         assertTrue(leaderboard.getLeaderboardData().contains(attempt));
@@ -40,9 +40,9 @@ public class HsiehUnitTests {
         LeaderboardEntry attempt3 = new LeaderboardEntry("Player3", 800, new Date());
 
         // Add the attempts to the leaderboard
-        leaderboard.addEntry(attempt1);
-        leaderboard.addEntry(attempt2);
-        leaderboard.addEntry(attempt3);
+        LeaderboardViewModel.addEntry(attempt1);
+        LeaderboardViewModel.addEntry(attempt2);
+        LeaderboardViewModel.addEntry(attempt3);
 
         // Check if the leaderboard is in descending order based on scores
         assertEquals(attempt2, leaderboard.getLeaderboardData().get(0)); // Highest score
