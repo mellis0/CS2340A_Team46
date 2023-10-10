@@ -31,6 +31,7 @@ public class EndActivity extends AppCompatActivity {
     private TextView entryThree;
     private TextView entryFour;
     private TextView entryFive;
+    private TextView recentAttempt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,7 @@ public class EndActivity extends AppCompatActivity {
         entryThree = findViewById(R.id.leaderboardEntry3);
         entryFour = findViewById(R.id.leaderboardEntry4);
         entryFive = findViewById(R.id.leaderboardEntry5);
+        recentAttempt = findViewById(R.id.recentattempt);
 
         if (leaderboardData.size() >= 5) {
             entryOne.setText(formatLeaderboardEntry(leaderboardData.get(0)));
@@ -78,6 +80,7 @@ public class EndActivity extends AppCompatActivity {
             entryThree.setText(formatLeaderboardEntry(leaderboardData.get(2)));
             entryFour.setText(formatLeaderboardEntry(leaderboardData.get(3)));
             entryFive.setText(formatLeaderboardEntry(leaderboardData.get(4)));
+            recentAttempt.setText("Most recent attempt: " + formatLeaderboardEntry(latestAttempt));
         }
 
 
