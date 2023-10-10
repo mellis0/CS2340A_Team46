@@ -18,9 +18,9 @@ public class MainActivity extends AppCompatActivity {
         Button startBtn = findViewById(R.id.startButton);
         Button exitBtn = findViewById(R.id.exitButton);
 
-        // Reset the leaderboard when the app starts
-        Leaderboard leaderboard = Leaderboard.getInstance();
-        leaderboard.reset();
+//        // Reset the leaderboard when the app starts
+//        Leaderboard leaderboard = Leaderboard.getInstance();
+//        leaderboard.reset();
 
 
         startBtn.setOnClickListener(v -> {

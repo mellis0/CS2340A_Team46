@@ -28,6 +28,9 @@ public class LeaderboardViewModel extends ViewModel {
         return scoreModel.getCurrentScore();
     }
 
+    public void incrementLeaderboardSize() { Leaderboard.incrementLeaderboardSize(); }
+    public int getSize(){return Leaderboard.getLeaderboardSize();}
+
     public boolean isAttemptQualifiedForLeaderboard(LeaderboardEntry entry) {
         // Check if the attempt qualifies for the leaderboard
         return leaderboard.getLeaderboardData().isEmpty()

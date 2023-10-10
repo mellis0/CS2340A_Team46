@@ -7,7 +7,7 @@ import java.util.List;
 public class Leaderboard {
     private volatile static Leaderboard instance;
     private List<LeaderboardEntry> leaderboardData;
-    private int size = 0;
+    private static int size = 0;
 
     private Leaderboard() {
         leaderboardData = new ArrayList<>();
@@ -37,10 +37,10 @@ public class Leaderboard {
         return leaderboardData;
     }
 
-    public int getLeaderboardSize() {
+    public static int getLeaderboardSize() {
         return size;
     }
-    public void incrementLeaderboardSize() {
+    public static void incrementLeaderboardSize() {
         size++;
     }
 

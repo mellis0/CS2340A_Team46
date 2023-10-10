@@ -115,16 +115,11 @@ public class EndActivity extends AppCompatActivity {
 
     // Helper method to format leaderboard entry for display
     private String formatLeaderboardEntry(LeaderboardEntry entry) {
-        return entry.getPlayerName() + " - " + ScoreModel.getCurrentScore() + " - " +
+        return entry.getPlayerName() + " - Score: " + entry.getScore() + " - " +
                 formatDate(entry.getDateTime());
     }
 
-    // Helper method to format date for display
-//    private String formatDate(Date date) {
-//        // Implement date formatting as per your requirements
-//        // Example: SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(date);
-//        return "yyyy-MM-dd HH:mm:ss";
-//    }
+
     public String formatDate(Date date) {
         // Define the desired date and time format
         String pattern = "MM/dd/yyyy HH:mm:ss";
