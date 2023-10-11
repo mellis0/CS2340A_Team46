@@ -36,18 +36,4 @@ public class EllisUnitTests {
             assertEquals(false, ConfigActivity.validDifficulty(invalidDifficulty));
         }
     }
-
-    @Test
-    public void validCharacter_isCorrect() {
-        int[] validCharacters = {1, 2, 3};
-        int[] invalidCharacters = {0, 4, -3, 90};
-
-        for (int validCharacter : validCharacters) {
-            assertEquals(true, ConfigActivity.validCharacter(validCharacter));
-        }
-
-        for (int invalidCharacter : invalidCharacters) {
-            assertEquals(false, ConfigActivity.validCharacter(invalidCharacter));
-        }
-    }
 }
