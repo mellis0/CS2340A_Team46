@@ -1,10 +1,13 @@
 package com.example.cs2340a_team46.viewmodels;
-import androidx.lifecycle.Observer;
+
 import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team46.models.Leaderboard;
 import com.example.cs2340a_team46.models.LeaderboardEntry;
 import com.example.cs2340a_team46.models.ScoreModel;
+
+// Comment unused import to appease checkstyle
+// import androidx.lifecycle.Observer;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,15 +31,19 @@ public class LeaderboardViewModel extends ViewModel {
         return scoreModel.getCurrentScore();
     }
 
-    public void incrementLeaderboardSize() { Leaderboard.incrementLeaderboardSize(); }
-    public int getSize(){return Leaderboard.getLeaderboardSize();}
+    public void incrementLeaderboardSize() {
+        Leaderboard.incrementLeaderboardSize();
+    }
+    public int getSize() {
+        return Leaderboard.getLeaderboardSize();
+    }
 
     public boolean isAttemptQualifiedForLeaderboard(LeaderboardEntry entry) {
         // Check if the attempt qualifies for the leaderboard
         return leaderboard.getLeaderboardData().isEmpty()
                 || leaderboard.getLeaderboardData().size() < 5
-                || entry.compareTo(leaderboard.getLeaderboardData().get
-                (leaderboard.getLeaderboardData().size() - 1)) > 0;
+                || entry.compareTo(leaderboard.getLeaderboardData().get(
+                leaderboard.getLeaderboardData().size() - 1)) > 0;
     }
 
 

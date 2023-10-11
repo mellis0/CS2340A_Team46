@@ -13,11 +13,12 @@ import com.example.cs2340a_team46.models.Player;
 
 public class GameViewModel extends ViewModel {
 
-    private static ScoreModel scoreModel = new ScoreModel();;
+    private static ScoreModel scoreModel = new ScoreModel();
     private static LiveData<Integer> score = scoreModel.getScore();
-    private static final int countdownDuration = 100000;
-    private static final int countdownInterval = 1000;
-    private static CountDownTimer countDownTimer = new CountDownTimer(countdownDuration, countdownInterval) {
+    private static final int COUNTDOWN_DURATION = 100000;
+    private static final int COUNTDOWN_INTERVAL = 1000;
+    private static CountDownTimer countDownTimer = new
+            CountDownTimer(COUNTDOWN_DURATION, COUNTDOWN_INTERVAL) {
         @Override
         public void onTick(long millisUntilFinished) {
             GameViewModel.scoreModel.setScore(score.getValue() - 1);

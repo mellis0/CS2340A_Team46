@@ -1,7 +1,7 @@
 package com.example.cs2340a_team46.models;
 
 public class Player {
-    private volatile static Player instance;
+    private static volatile Player instance;
     private int playerHealth;
     private String difficulty;
     private String playerName;
