@@ -6,77 +6,48 @@ import org.junit.Test;
 
 import com.example.cs2340a_team46.views.ConfigActivity;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
-public class EllisUnitTests {
-    @Test
-    public void validateInput_isCorrect() {
-        String[] validNames = {"  jo nah", "  _   ", "robert"};
-        int[] validDifficulties = {1, 2, 3};
-        int[] validCharacters = {1, 2, 3};
 
+public class EllisUnitTests {
+
+    @Test
+    public void validName_isCorrect() {
+        String[] validNames = {"  jo nah", "  _   ", "robert"};
         String[] invalidNames = {"    ", "         ", ""};
+
+        for (String validName : validNames) {
+            assertEquals(true, ConfigActivity.validName(validName));
+        }
+
+        for (String invalidName : invalidNames) {
+            assertEquals(false, ConfigActivity.validName(invalidName));
+        }
+    }
+
+    @Test
+    public void validDifficulty_isCorrect() {
+        int[] validDifficulties = {1, 2, 3};
         int[] invalidDifficulties = {0, 4, -3, 90};
+
+        for (int validDifficulty : validDifficulties) {
+            assertEquals(true, ConfigActivity.validDifficulty(validDifficulty));
+        }
+
+        for (int invalidDifficulty : invalidDifficulties) {
+            assertEquals(false, ConfigActivity.validDifficulty(invalidDifficulty));
+        }
+    }
+
+    @Test
+    public void validCharacter_isCorrect() {
+        int[] validCharacters = {1, 2, 3};
         int[] invalidCharacters = {0, 4, -3, 90};
 
+        for (int validCharacter : validCharacters) {
+            assertEquals(true, ConfigActivity.validCharacter(validCharacter));
+        }
 
-        assertEquals(null, ConfigActivity.validateInput(
-                validNames[0],
-                validDifficulties[0],
-                validCharacters[0]
-        ));
-
-        assertEquals(null, ConfigActivity.validateInput(
-                validNames[1],
-                validDifficulties[0],
-                validCharacters[2]
-        ));
-
-        assertEquals(null, ConfigActivity.validateInput(
-                validNames[2],
-                validDifficulties[2],
-                validCharacters[1]
-        ));
-
-        // failure expected
-
-        assertEquals("Please enter a name", ConfigActivity.validateInput(
-                invalidNames[0],
-                validDifficulties[2],
-                validCharacters[2]
-        ));
-
-        assertEquals("Please enter a name", ConfigActivity.validateInput(
-                invalidNames[0],
-                invalidDifficulties[2],
-                invalidCharacters[3]
-        ));
-
-        assertEquals("Please select difficulty", ConfigActivity.validateInput(
-                validNames[0],
-                invalidDifficulties[0],
-                validCharacters[2]
-        ));
-
-        assertEquals("Please select difficulty", ConfigActivity.validateInput(
-                validNames[2],
-                invalidDifficulties[2],
-                invalidCharacters[3]
-        ));
-
-        assertEquals("Please select a character", ConfigActivity.validateInput(
-                validNames[0],
-                validDifficulties[0],
-                invalidCharacters[0]
-        ));
-
-        assertEquals("Please select a character", ConfigActivity.validateInput(
-                validNames[2],
-                validDifficulties[1],
-                invalidCharacters[3]
-        ));
+        for (int invalidCharacter : invalidCharacters) {
+            assertEquals(false, ConfigActivity.validCharacter(invalidCharacter));
+        }
     }
 }
