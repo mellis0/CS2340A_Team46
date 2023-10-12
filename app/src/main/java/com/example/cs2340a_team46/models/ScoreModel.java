@@ -1,8 +1,8 @@
 package com.example.cs2340a_team46.models;
 
-import android.os.CountDownTimer;
-
-import com.example.cs2340a_team46.R;
+// unused imports commented out to appease checkstyle
+//import android.os.CountDownTimer;
+//import com.example.cs2340a_team46.R;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.LiveData;
@@ -20,7 +20,9 @@ public class ScoreModel {
 
 
     public void setScore(int newScore) {
-        if (newScore < 0) return;
+        if (newScore < 0) {
+            return;
+        }
         score.setValue(newScore);
     }
 }

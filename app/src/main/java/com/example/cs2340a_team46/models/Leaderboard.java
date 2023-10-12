@@ -1,11 +1,14 @@
 package com.example.cs2340a_team46.models;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+// Unused import, commented to appease checkstyle
+//import java.util.Collections;
+
+
 public class Leaderboard {
-    private volatile static Leaderboard instance;
+    private static volatile Leaderboard instance;
     private List<LeaderboardEntry> leaderboardData;
     private static int size = 0;
 
@@ -19,17 +22,6 @@ public class Leaderboard {
         }
         return instance;
     }
-
-//    moved to viewModel
-//    public void addEntry(LeaderboardEntry entry) {
-//        leaderboardData.add(entry);
-//        // Sort the leaderboard in descending order based on scores
-//        Collections.sort(leaderboardData, Collections.reverseOrder());
-//        // Truncate the list to show a maximum of maxAttemptsToShow attempts
-//        if (leaderboardData.size() > maxAttemptsToShow) {
-//            leaderboardData.subList(maxAttemptsToShow, leaderboardData.size()).clear();
-//        }
-//    }
 
 
 
@@ -52,11 +44,4 @@ public class Leaderboard {
     public void reset() {
         leaderboardData.clear();
     }
-
-//    moved to ViewModel
-//    public boolean isAttemptQualifiesForLeaderboard(LeaderboardEntry entry) {
-//        // Check if the attempt qualifies for the leaderboard
-//        return leaderboardData.isEmpty() || leaderboardData.size() < maxAttemptsToShow
-//                || entry.compareTo(leaderboardData.get(leaderboardData.size() - 1)) > 0;
-//    }
 }

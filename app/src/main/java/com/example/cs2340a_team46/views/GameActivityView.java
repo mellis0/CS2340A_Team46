@@ -1,13 +1,15 @@
 package com.example.cs2340a_team46.views;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.widget.ImageView;
 import android.widget.TextView;
+
+// Unused imports, commented to appease checkstyle
+//import androidx.lifecycle.LiveData;
+//import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
@@ -25,7 +27,7 @@ public class GameActivityView extends AppCompatActivity {
         String difficulty = gameViewModel.getDifficulty();
         int character = gameViewModel.getCharacter();
         int hp = gameViewModel.getPlayerHealth();
-//        LiveData<Integer> score = gameViewModel.getPlayerScore();
+        // LiveData<Integer> score = gameViewModel.getPlayerScore();
 
         //Name
         TextView nameText = findViewById(R.id.name);

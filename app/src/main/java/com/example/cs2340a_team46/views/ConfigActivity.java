@@ -51,7 +51,8 @@ public class ConfigActivity extends AppCompatActivity {
         Button startGameBtn = findViewById(R.id.startGameButton);
         startGameBtn.setOnClickListener(v -> {
             String enteredName = nameEditText.getText().toString().trim();
-            int enteredDifficulty = difficulty; // copy these vals so that they are not modified by a race condition
+            // copy these vals so that they are not modified by a race condition
+            int enteredDifficulty = difficulty;
             int enteredCharacter = character;
             if (!validName(enteredName)) {
                 Toast.makeText(ConfigActivity.this,
