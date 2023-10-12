@@ -3,20 +3,22 @@ package com.example.cs2340a_team46.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.models.LeaderboardEntry;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
-import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.ScoreModel;
 import com.example.cs2340a_team46.viewmodels.LeaderboardViewModel;
+
+// Unused imports, commented to appease checkstyle
+//import android.widget.EditText;
+//import androidx.annotation.Nullable;
+//import androidx.lifecycle.Observer;
+//import com.example.cs2340a_team46.models.Player;
 
 
 import java.text.SimpleDateFormat;
@@ -115,8 +117,8 @@ public class EndActivity extends AppCompatActivity {
 
     // Helper method to format leaderboard entry for display
     private String formatLeaderboardEntry(LeaderboardEntry entry) {
-        return entry.getPlayerName() + " - Score: " + entry.getScore() + " - " +
-                formatDate(entry.getDateTime());
+        return entry.getPlayerName() + " - Score: " + entry.getScore() + " - "
+                + formatDate(entry.getDateTime());
     }
 
 

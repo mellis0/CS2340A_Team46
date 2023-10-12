@@ -21,11 +21,14 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry> {
 
     // Getter methods for playerName, score, and dateTime
 
-    public String getPlayerName() {return playerName; }
-    public int getScore() {return score; }
-    public Date getDateTime() {return dateTime; }
-
-
-
+    public String getPlayerName() {
+        return playerName;
+    }
+    public int getScore() {
+        return score;
+    }
+    public Date getDateTime() {
+        return dateTime;
+    }
 }
 
