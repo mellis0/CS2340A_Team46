@@ -21,13 +21,13 @@
 
     <ImageView
         android:id="@+id/avatar"
-        android:layout_width="193dp"
-        android:layout_height="186dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.187"
+        app:layout_constraintVertical_bias="0.383"
         app:srcCompat="@drawable/none"
         tools:ignore="MissingConstraints,VisualLintBounds" />
 
@@ -36,28 +36,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Current Name"
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.433"
-        android:textSize="50sp"
-        android:textColor="@android:color/white"
-        />
+        app:layout_constraintVertical_bias="0.039" />
 
     <TextView
         android:id="@+id/difficulty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textSize="25dp"
         android:textColor="@android:color/white"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.013"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.671"
+        app:layout_constraintVertical_bias="0.108"
         tools:ignore="MissingConstraints,VisualLintBounds" />
 
     <TextView
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:text="score"
         android:textColor="@android:color/white"
-        android:textSize="50sp"
+        android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.908"
@@ -80,11 +80,12 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textColor="@android:color/white"
-        android:textSize="25dp"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.214"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.568"
+        app:layout_constraintVertical_bias="0.108"
         tools:ignore="MissingConstraints,VisualLintBounds" />
 </androidx.constraintlayout.widget.ConstraintLayout>
