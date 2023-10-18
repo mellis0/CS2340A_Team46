@@ -1,11 +1,26 @@
 package com.example.cs2340a_team46.models;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+
+import com.example.cs2340a_team46.R;
+
 public class Player {
     private static volatile Player instance;
     private int playerHealth;
-    private String difficulty;
+    private int difficulty;
     private String playerName;
     private int character;
+    private double charX;
+    private double charY;
+    private Context context;
+
+
+
 
     // getter and setter for health
     public void setPlayerHealth(int playerHealth) {
@@ -16,10 +31,10 @@ public class Player {
     }
 
     // getter and setter for difficulty
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
     }
-    public String getDifficulty() {
+    public int getDifficulty() {
         return difficulty;
     }
 
@@ -39,7 +54,19 @@ public class Player {
         return character;
     }
 
-    private Player() { }
+
+    public void setCharX(double aCharX) {
+        charX = aCharX;
+    }
+    public void setCharY(double aCharY) {
+        charY = aCharY;
+    }
+    public double getCharX() {
+        return charX;
+    }
+    public double getCharY() {
+        return charY;
+    }
 
     // made thread safe
     public static Player getInstance() {

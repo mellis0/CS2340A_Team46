@@ -2,6 +2,7 @@ package com.example.cs2340a_team46.views;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import android.widget.EditText;
 
 import com.example.cs2340a_team46.R;
+import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
 
 public class ConfigActivity extends AppCompatActivity {
@@ -21,6 +23,7 @@ public class ConfigActivity extends AppCompatActivity {
     private EditText nameEditText;
     private int difficulty;
     private int character;
+    Player player = Player.getInstance();
 
     public static boolean validName(String enteredName) {
         // this input will always be already trimmed, this is just for testing
@@ -43,7 +46,7 @@ public class ConfigActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+
         setContentView(R.layout.config_screen);
 
         nameEditText = findViewById(R.id.editText);
@@ -68,16 +71,17 @@ public class ConfigActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             } else {
 
-                Intent game = new Intent(ConfigActivity.this, GameActivityOne.class);
+                Intent game = new Intent(ConfigActivity.this, GameActivity.class);
 
-                GameViewModel.setPlayerName(enteredName);
-                GameViewModel.setDifficulty(enteredDifficulty);
-                GameViewModel.setPlayerHealth(enteredDifficulty);
-                GameViewModel.setCharacter(enteredCharacter);
+                player.setPlayerName(enteredName);
+                player.setDifficulty(enteredDifficulty);
+                player.setPlayerHealth(enteredDifficulty);
+                player.setCharacter(enteredCharacter);
                 GameViewModel.startScoreCountdown();
 
                 startActivity(game);
-                finish();
+//                finish();
+
             }
 
         });

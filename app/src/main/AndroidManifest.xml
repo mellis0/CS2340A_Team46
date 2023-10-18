@@ -36,6 +36,18 @@
         <activity
             android:name=".views.EndActivity"
             android:exported="false" />
+        <activity
+            android:name=".views.Game"
+            android:exported="false" />
+        <activity
+            android:name=".views.GameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".models.Joystick"
+            android:exported="false" />
+        <activity
+            android:name=".models.Player"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -47,13 +47,13 @@ public class GameViewModel extends ViewModel {
 
     public static void setDifficulty(int difficultyVal) {
         if (difficultyVal == 1) {
-            player.setDifficulty("Easy");
+            player.setDifficulty(1);
             // GameViewModel.difficulty = "Easy";
         } else if (difficultyVal == 2) {
-            player.setDifficulty("Normal");
+            player.setDifficulty(2);
             // GameViewModel.difficulty = "Normal";
         } else if (difficultyVal == 3) {
-            player.setDifficulty("Hard");
+            player.setDifficulty(3);
             // GameViewModel.difficulty = "Hard";
         } else {
             throw new IllegalArgumentException("Difficulty must be 1, 2, or 3");
@@ -84,7 +84,7 @@ public class GameViewModel extends ViewModel {
         return player.getPlayerHealth();
     }
 
-    public static String getDifficulty() {
+    public static int getDifficulty() {
         return player.getDifficulty();
     }
 
