@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.example.cs2340a_team46.R;
 
@@ -18,6 +19,8 @@ public class Player {
     private double charX;
     private double charY;
     private Context context;
+
+    private double speed = 0.01;
 
 
 
@@ -66,6 +69,16 @@ public class Player {
     }
     public double getCharY() {
         return charY;
+    }
+
+
+    public void updateLoc(double x, double y, double distance) {
+        Log.d("xValue", "is " + x);
+        Log.d("yValue", "is " + y);
+        double xSpeed = x-275;
+        double ySpeed = y-1200;
+        charX += xSpeed;
+        charY += ySpeed;
     }
 
     // made thread safe

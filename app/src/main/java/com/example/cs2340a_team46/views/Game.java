@@ -1,5 +1,7 @@
 package com.example.cs2340a_team46.views;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.graphics.Paint;
@@ -13,6 +15,7 @@ import java.util.Timer;
 import android.os.Handler;
 import android.view.View;
 
+import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Player;
 
@@ -26,6 +29,8 @@ public class Game extends View implements SurfaceHolder.Callback {
     private Handler handler = new Handler();
     private Joystick joystick;
     private Player player;
+    float x;
+    float y;
 
     public Game(Context context) {
         super(context);
@@ -36,7 +41,15 @@ public class Game extends View implements SurfaceHolder.Callback {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //updateJoystick
         joystick.drawJoystick(canvas);
+        Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.lizard);
+
+        // Draw the image on the canvas at a specific position
+        player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), joystick.getDistance());
+        x = (float)(player.getCharX());
+        y = (float)(player.getCharY());
+        canvas.drawBitmap(bitmap, x, y, null);
 
     }
 
@@ -48,12 +61,14 @@ public class Game extends View implements SurfaceHolder.Callback {
             if (joystick.isPressed()) {
                 joystick.setInner(event.getX(), event.getY());
                 joystick.updateDistance();
+//                player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), joystick.getDistance());
                 postInvalidate();
             }
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             if (joystick.getPressed()) {
                 joystick.setInner(event.getX(), event.getY());
                 joystick.updateDistance();
+//                player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), joystick.getDistance());
                 postInvalidate();
             }
         } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_POINTER_UP) {

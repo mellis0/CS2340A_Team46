@@ -76,5 +76,11 @@ public class Joystick {
     public void setPressed(boolean aIsPressed) {
         isPressed = aIsPressed;
     }
+    public float getInnerX() {
+        return innerX;
+    }
+    public float getInnerY() {
+        return innerY;
+    }
 
 }
