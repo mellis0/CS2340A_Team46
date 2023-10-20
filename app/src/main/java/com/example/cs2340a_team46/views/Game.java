@@ -60,7 +60,7 @@ public class Game extends View {
         //
         Paint tP = new Paint();
         tP.setColor(Color.WHITE);
-        tP.setTextSize(50);
+        tP.setTextSize(70);
         String name = GameViewModel.getPlayerName();
         int h = GameViewModel.getPlayerHealth();
         String health = Integer.toString(h);
@@ -68,10 +68,14 @@ public class Game extends View {
         String difficulty = Integer.toString(d);
         LiveData<Integer> sc = GameViewModel.getPlayerScore();
         String score = Integer.toString(sc.getValue());
-        canvas.drawText(name, 40, 50, tP);
-        canvas.drawText(health, 40, 80, tP);
-        canvas.drawText(difficulty, 40, 110, tP);
-        canvas.drawText(score, 40, 140, tP);
+        canvas.drawText("NAME: ", 50, 50, tP);
+        canvas.drawText(name, 100, 150, tP);
+        canvas.drawText("HEALTH: ", 50, 250, tP);
+        canvas.drawText(health, 100, 350, tP);
+        canvas.drawText("DIFFICULTY: ", 50, 450, tP);
+        canvas.drawText(difficulty, 100, 550, tP);
+        canvas.drawText("SCORE: ", 50, 650, tP);
+        canvas.drawText(score, 100, 750, tP);
         //
         //
         //
