@@ -60,7 +60,7 @@ public class Game extends View {
         //
         Paint tP = new Paint();
         tP.setColor(Color.WHITE);
-        tP.setTextSize(70);
+        tP.setTextSize(50);
         String name = GameViewModel.getPlayerName();
         int h = GameViewModel.getPlayerHealth();
         String health = Integer.toString(h);
