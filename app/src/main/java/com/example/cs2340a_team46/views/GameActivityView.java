@@ -24,7 +24,7 @@ public class GameActivityView extends AppCompatActivity {
 
         gameViewModel = new ViewModelProvider(this).get(GameViewModel.class);
         String name = gameViewModel.getPlayerName();
-        String difficulty = gameViewModel.getDifficulty();
+        int difficulty = gameViewModel.getDifficulty();
         int character = gameViewModel.getCharacter();
         int hp = gameViewModel.getPlayerHealth();
         // LiveData<Integer> score = gameViewModel.getPlayerScore();
