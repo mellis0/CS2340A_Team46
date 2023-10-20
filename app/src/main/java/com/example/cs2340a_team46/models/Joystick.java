@@ -6,12 +6,14 @@ import android.graphics.Paint;
 
 public class Joystick {
 
-    private float outerX;
-    private float outerY;
+    private final float outerX;
+    private final float outerY;
+    private final float DEFAULT_X = 275;
+    private final float DEFAULT_Y = 1200;
     private float innerX;
     private float innerY;
-    private float outerRadius;
-    private float innerRadius;
+    private final float outerRadius;
+    private final float innerRadius;
     private boolean isPressed;
     private double distance;
 
@@ -56,8 +58,8 @@ public class Joystick {
         }
     }
     public void updateDistance() {
-        double deltaX = innerX - 275;
-        double deltaY = innerY - 1200;
+        double deltaX = innerX - DEFAULT_X;
+        double deltaY = innerY - DEFAULT_Y;
         distance = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
     }
     public double getDistance() {

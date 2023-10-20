@@ -20,7 +20,10 @@ public class Player {
     private double charY=500;
     private Context context;
 
-    private double speed = 0.01;
+    //The higher, the slower the player moves
+    private final double SPEED = 5;
+    private final int JOYSTICK_X = 275;
+    private final int JOYSTICK_Y = 1200;
 
 
 
@@ -75,8 +78,8 @@ public class Player {
     public void updateLoc(double x, double y, double distance) {
         Log.d("xValue", "is " + x);
         Log.d("yValue", "is " + y);
-        double xSpeed = (x-275)/5;
-        double ySpeed = (y-1200)/5;
+        double xSpeed = (x-JOYSTICK_X)/SPEED;
+        double ySpeed = (y-JOYSTICK_Y)/SPEED;
         //check x case first
         if (!Tilemap.getIfCollide(charX+xSpeed, charY)){
             charX += xSpeed;
