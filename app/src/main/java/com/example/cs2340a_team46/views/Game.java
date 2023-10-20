@@ -1,14 +1,17 @@
 package com.example.cs2340a_team46.views;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.view.SurfaceHolder;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import com.example.cs2340a_team46.models.Tilemap;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 
 import java.util.Random;
 import java.util.Timer;
@@ -19,6 +22,7 @@ import android.view.View;
 import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Player;
+import com.example.cs2340a_team46.viewmodels.GameViewModel;
 
 
 public class Game extends View {
@@ -48,6 +52,27 @@ public class Game extends View {
         tilemap.drawTilemap(canvas);
         joystick.drawJoystick(canvas);
         Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.lizard);
+        //
+        //
+        // display player info
+        //
+       Paint tP = new Paint();
+        tP.setColor(Color.BLACK);
+        tP.setTextSize(24);
+        String name = GameViewModel.getPlayerName();
+        int h = GameViewModel.getPlayerHealth();
+        String health = Integer.toString(h);
+        int d = GameViewModel.getDifficulty();
+        String difficulty = Integer.toString(d);
+        LiveData<Integer> sc = GameViewModel.getPlayerScore();
+        String score = Integer.toString(sc.getValue());
+        canvas.drawText(name, 10, 30, tP);
+        canvas.drawText(health, 10, 40, tP);
+        canvas.drawText(difficulty, 10, 50, tP);
+        canvas.drawText(score, 10, 60, tP);
+        //
+        //
+        //
 
         // Draw the image on the canvas at a specific position
 
