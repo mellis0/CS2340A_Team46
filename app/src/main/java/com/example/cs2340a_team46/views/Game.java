@@ -52,13 +52,15 @@ public class Game extends View {
         tilemap.drawTilemap(canvas);
         joystick.drawJoystick(canvas);
         Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.lizard);
+
+
         //
         //
         // display player info
         //
-       Paint tP = new Paint();
-        tP.setColor(Color.BLACK);
-        tP.setTextSize(24);
+        Paint tP = new Paint();
+        tP.setColor(Color.WHITE);
+        tP.setTextSize(50);
         String name = GameViewModel.getPlayerName();
         int h = GameViewModel.getPlayerHealth();
         String health = Integer.toString(h);
@@ -66,13 +68,14 @@ public class Game extends View {
         String difficulty = Integer.toString(d);
         LiveData<Integer> sc = GameViewModel.getPlayerScore();
         String score = Integer.toString(sc.getValue());
-        canvas.drawText(name, 10, 30, tP);
-        canvas.drawText(health, 10, 40, tP);
-        canvas.drawText(difficulty, 10, 50, tP);
-        canvas.drawText(score, 10, 60, tP);
+        canvas.drawText(name, 40, 50, tP);
+        canvas.drawText(health, 40, 80, tP);
+        canvas.drawText(difficulty, 40, 110, tP);
+        canvas.drawText(score, 40, 140, tP);
         //
         //
         //
+
 
         // Draw the image on the canvas at a specific position
 
