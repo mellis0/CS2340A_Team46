@@ -16,8 +16,8 @@ public class Player {
     private int difficulty;
     private String playerName;
     private int character;
-    private double charX;
-    private double charY;
+    private double charX=500;
+    private double charY=500;
     private Context context;
 
     private double speed = 0.01;
@@ -75,10 +75,16 @@ public class Player {
     public void updateLoc(double x, double y, double distance) {
         Log.d("xValue", "is " + x);
         Log.d("yValue", "is " + y);
-        double xSpeed = x-275;
-        double ySpeed = y-1200;
-        charX += xSpeed;
-        charY += ySpeed;
+        double xSpeed = (x-275)/5;
+        double ySpeed = (y-1200)/5;
+        //check x case first
+        if (!Tilemap.getIfCollide(charX+xSpeed, charY)){
+            charX += xSpeed;
+        }
+        if (!Tilemap.getIfCollide(charX, charY+ySpeed)){
+            charY += ySpeed;
+        }
+
     }
 
     // made thread safe

@@ -29,13 +29,13 @@ public class Joystick {
     public void drawJoystick(Canvas canvas) {
         Paint p = new Paint();
         p.setColor(Color.BLUE);
-        p.setStyle(Paint.Style.STROKE);
-        p.setStrokeWidth(3);
+        p.setStyle(Paint.Style.FILL);
+//        p.setStrokeWidth(3);
 
         Paint blackPaint = new Paint();
         blackPaint.setColor(Color.BLACK);
         blackPaint.setStyle(Paint.Style.STROKE);
-        blackPaint.setStrokeWidth(3);
+        blackPaint.setStrokeWidth(5);
 
         canvas.drawCircle(outerX, outerY, outerRadius, blackPaint);
         canvas.drawCircle(innerX, innerY, innerRadius, p);

@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.graphics.Paint;
 import android.view.MotionEvent;
+import com.example.cs2340a_team46.models.Tilemap;
 
 import androidx.annotation.NonNull;
 
@@ -20,7 +21,7 @@ import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Player;
 
 
-public class Game extends View implements SurfaceHolder.Callback {
+public class Game extends View {
     private Paint redPaint = new Paint();
     private SurfaceHolder holder;
     //    private float x, y;
@@ -29,6 +30,7 @@ public class Game extends View implements SurfaceHolder.Callback {
     private Handler handler = new Handler();
     private Joystick joystick;
     private Player player;
+    private Tilemap tilemap;
     float x;
     float y;
 
@@ -36,20 +38,27 @@ public class Game extends View implements SurfaceHolder.Callback {
         super(context);
         joystick = new Joystick();
         player = Player.getInstance();
+        tilemap = new Tilemap(context);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //updateJoystick
+        tilemap.drawTilemap(canvas);
         joystick.drawJoystick(canvas);
         Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.lizard);
 
         // Draw the image on the canvas at a specific position
+
         player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), joystick.getDistance());
+        postInvalidate();
         x = (float)(player.getCharX());
         y = (float)(player.getCharY());
-        canvas.drawBitmap(bitmap, x, y, null);
+        //72 is offset since image draws 72 pixels too high
+        //56 to right gets to middle
+        // 90 down to get to center
+        canvas.drawBitmap(bitmap, x-56, y-162, null);
 
     }
 
@@ -84,33 +93,33 @@ public class Game extends View implements SurfaceHolder.Callback {
     }
 
 
-    @Override
-    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
-        this.surfaceCreated(surfaceHolder);
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                handler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-////                        update();
-////                        render();
-//                    }
-//                });
-//            }
-//        }, 0, 100);
-        
-    }
-
-    @Override
-    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-
-    }
+//    @Override
+//    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
+//        this.surfaceCreated(surfaceHolder);
+////        timer.schedule(new TimerTask() {
+////            @Override
+////            public void run() {
+////                handler.post(new Runnable() {
+////                    @Override
+////                    public void run() {
+//////                        update();
+//////                        render();
+////                    }
+////                });
+////            }
+////        }, 0, 100);
+//
+//    }
+//
+//    @Override
+//    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+//
+//    }
+//
+//    @Override
+//    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
+//
+//    }
 
 
 }
