@@ -1,5 +1,4 @@
 package com.example.cs2340a_team46.views;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +9,6 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import com.example.cs2340a_team46.models.Tilemap;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import java.util.Random;
@@ -46,7 +44,7 @@ public class Game extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //updateJoystick
         tilemap.drawTilemap(canvas);

@@ -1,14 +1,26 @@
 package com.example.cs2340a_team46;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+
+import androidx.lifecycle.LiveData;
 
 import org.junit.Test;
 
+import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
 import com.example.cs2340a_team46.views.ConfigActivity;
+import com.example.cs2340a_team46.views.Game;
 
 public class AndrewsUnitTests {
+
+
     @Test
     public void validCharacter_isCorrect() {
         // testing to see if the characters are valid or not
@@ -38,5 +50,37 @@ public class AndrewsUnitTests {
         assertEquals("Normal", player.getDifficulty());
         GameViewModel.setDifficulty(third);
         assertEquals("Hard", player.getDifficulty());
+    }
+
+
+    // sprint 3 unit tests
+
+    // checks setInner method and update distance method
+    // checks innerX and innerY vars when there is no change, condition is not met to change
+    public void check_setInnerJoystick_withoutChangeInInnerVars() {
+        float a = 278F;
+        float b = 1204F;
+        Joystick joy = new Joystick();
+        joy.setInner(a,b);
+        String a1 = Float.toString(a);
+        String a2 = Float.toString(joy.getInnerX());
+        assertEquals(a1, a2);
+        String b1 = Float.toString(b);
+        String b2 = Float.toString(joy.getInnerY());
+        assertEquals(b1, b2);
+        double c = 5.0;
+        String c1 = Double.toString(c);
+        String c2 = Double.toString(joy.getDistance());
+        assertEquals(c1, c2);
+    }
+
+
+    // checks if correct value is returned for isPressed method
+    public void checkCorrect_isPressed()  {
+        float a = 278F;
+        float b = 1204F;
+        Joystick joys = new Joystick();
+        joys.setInner(a,b);
+        assertEquals(true, joys.getPressed());
     }
 }
