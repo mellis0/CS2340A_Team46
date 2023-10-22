@@ -199,12 +199,8 @@ public class Tilemap extends View {
 //        return arr;
 //    }
     public static boolean getIfCollide(double coord1, double coord2) {
-        Log.d("Priorx", "Xvalue: "+coord1);
-        Log.d("Prioy", "YValue: "+coord2);
         int x = Math.abs((int)coord1/128);
         int y = Math.abs((int)coord2/128);
-        Log.d("x", "Xvalue: "+x);
-        Log.d("y", "YValue: "+y);
         if(tileMap[x][y] == 9 || tileMap[x][y] == 10 || tileMap[x][y] == 11 || tileMap[x][y] == 12
                 || tileMap[x][y] == 13 || tileMap[x][y] == 14 || tileMap[x][y] == 15) {
             return true;

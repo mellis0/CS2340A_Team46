@@ -83,7 +83,7 @@ public class Game extends View {
 
         // Draw the image on the canvas at a specific position
 
-        player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), joystick.getDistance());
+        player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), true);
         postInvalidate();
         x = (float)(player.getCharX());
         y = (float)(player.getCharY());

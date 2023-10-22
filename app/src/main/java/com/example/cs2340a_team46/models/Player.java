@@ -72,18 +72,22 @@ public class Player {
     }
 
 
-    public void updateLoc(double x, double y, double distance) {
-        Log.d("xValue", "is " + x);
-        Log.d("yValue", "is " + y);
+    public void updateLoc(double x, double y, boolean collideCheck) {
         double xSpeed = (x-275)/5;
         double ySpeed = (y-1200)/5;
         //check x case first
-        if (!Tilemap.getIfCollide(charX+xSpeed, charY)){
+        if (collideCheck){
+            if (!Tilemap.getIfCollide(charX+xSpeed, charY)){
+                charX += xSpeed;
+            }
+            if (!Tilemap.getIfCollide(charX, charY+ySpeed)){
+                charY += ySpeed;
+            }
+        } else {
             charX += xSpeed;
-        }
-        if (!Tilemap.getIfCollide(charX, charY+ySpeed)){
             charY += ySpeed;
         }
+
 
     }
 
