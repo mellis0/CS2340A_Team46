@@ -52,6 +52,19 @@ public class Player extends Observable {
         return difficulty;
     }
 
+    public String getDifficultyString() {
+        switch(this.difficulty) {
+            case 1:
+                return "Easy";
+            case 2:
+                return "Normal";
+            case 3:
+                return "Hard";
+            default:
+                throw new RuntimeException("Player.difficulty can only be 1, 2, or 3");
+        }
+    }
+
     // getter and setter for player name
     public void setPlayerName(String playerName) {
         this.playerName = playerName;

@@ -67,8 +67,7 @@ public class Game extends View implements Observer {
         String name = GameViewModel.getPlayerName();
         int h = GameViewModel.getPlayerHealth();
         String health = Integer.toString(h);
-        int d = GameViewModel.getDifficulty();
-        String difficulty = Integer.toString(d);
+        String difficulty = GameViewModel.getDifficultyString();
         LiveData<Integer> sc = GameViewModel.getPlayerScore();
         String score = Integer.toString(sc.getValue());
         canvas.drawText("NAME: ", 50, 50, tP);

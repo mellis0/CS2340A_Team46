@@ -88,6 +88,10 @@ public class GameViewModel extends ViewModel {
         return player.getDifficulty();
     }
 
+    public static String getDifficultyString() {
+        return player.getDifficultyString();
+    }
+
     public static String getPlayerName() {
         return player.getPlayerName();
     }
