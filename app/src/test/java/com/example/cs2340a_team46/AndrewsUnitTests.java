@@ -74,7 +74,6 @@ public class AndrewsUnitTests {
         assertEquals(c1, c2);
     }
 
-
     // checks if correct value is returned for isPressed method
     public void checkCorrect_isPressed()  {
         float a = 278F;
