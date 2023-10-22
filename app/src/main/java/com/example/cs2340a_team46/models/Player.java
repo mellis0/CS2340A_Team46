@@ -15,6 +15,7 @@ import com.example.cs2340a_team46.R;
 
 public class Player extends Observable {
     private static volatile Player instance;
+    private static final MovementBehavior defaultMovementBehavior = new NormalMovement();
     private int playerHealth;
     private int difficulty;
     private String playerName;
@@ -22,11 +23,18 @@ public class Player extends Observable {
     private double charX=500;
     private double charY=500;
     private Context context;
+    private MovementBehavior movementBehavior;
 
     private double speed = 0.01;
 
 
+    public void setMovementBehavior(MovementBehavior mb) {
+        this.movementBehavior = mb;
+    }
 
+    public MovementBehavior getMovementBehavior() {
+        return this.movementBehavior;
+    }
 
     // getter and setter for health
     public void setPlayerHealth(int playerHealth) {
@@ -75,21 +83,11 @@ public class Player extends Observable {
     }
 
 
-    public void updateLoc(double x, double y, boolean collideCheck) {
-        double xSpeed = (x-275)/5;
-        double ySpeed = (y-1200)/5;
-        //check x case first
-        if (collideCheck){
-            if (!Tilemap.getIfCollide(charX+xSpeed, charY)){
-                charX += xSpeed;
-            }
-            if (!Tilemap.getIfCollide(charX, charY+ySpeed)){
-                charY += ySpeed;
-            }
-        } else {
-            charX += xSpeed;
-            charY += ySpeed;
-        }
+    public void updateLoc(double joystick_x, double joystick_y, boolean collideCheck) {
+        double[] locationTupleOfDoubles = this.movementBehavior.move(charX, charY, joystick_x, joystick_y, collideCheck);
+
+        charX = locationTupleOfDoubles[0];
+        charY = locationTupleOfDoubles[1];
 
         ArrayList<Float> locationTuple = new ArrayList<Float>();
         locationTuple.add((float) charX);
@@ -104,6 +102,7 @@ public class Player extends Observable {
             synchronized (Player.class) {
                 if (instance == null) {
                     instance = new Player();
+                    instance.movementBehavior = defaultMovementBehavior;
                 }
             }
         }
