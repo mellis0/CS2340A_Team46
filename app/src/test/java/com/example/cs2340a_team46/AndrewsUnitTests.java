@@ -57,6 +57,7 @@ public class AndrewsUnitTests {
 
     // checks setInner method and update distance method
     // checks innerX and innerY vars when there is no change, condition is not met to change
+    @Test
     public void check_setInnerJoystick_withoutChangeInInnerVars() {
         float a = 278F;
         float b = 1204F;
@@ -75,6 +76,7 @@ public class AndrewsUnitTests {
     }
 
     // checks if correct value is returned for isPressed method
+    @Test
     public void checkCorrect_isPressed()  {
         float a = 278F;
         float b = 1204F;
