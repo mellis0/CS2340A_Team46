@@ -54,7 +54,7 @@ public class Game extends View implements Observer {
         //updateJoystick
         tilemap.drawTilemap(canvas);
         joystick.drawJoystick(canvas);
-        Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.lizard);
+        Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), GameViewModel.getCharacter());
 
 
         //
