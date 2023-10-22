@@ -82,5 +82,8 @@ public class Joystick {
     public float getInnerY() {
         return innerY;
     }
+    public float getOuterRadius() {
+        return outerRadius;
+    }
 
 }
