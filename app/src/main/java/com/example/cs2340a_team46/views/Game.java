@@ -13,6 +13,10 @@ import com.example.cs2340a_team46.models.Tilemap;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
 import java.util.Random;
 import java.util.Timer;
 
@@ -25,7 +29,7 @@ import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
 
 
-public class Game extends View {
+public class Game extends View implements Observer {
     private Paint redPaint = new Paint();
     private SurfaceHolder holder;
     //    private float x, y;
@@ -42,6 +46,7 @@ public class Game extends View {
         super(context);
         joystick = new Joystick();
         player = Player.getInstance();
+        player.addObserver(this);
         tilemap = new Tilemap(context);
     }
 
@@ -85,8 +90,12 @@ public class Game extends View {
 
         player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), true);
         postInvalidate();
-        x = (float)(player.getCharX());
-        y = (float)(player.getCharY());
+
+        // these two lines are now handled in update(), which follows the observer pattern.
+//        x = (float)(player.getCharX());
+//        y = (float)(player.getCharY());
+
+
         //72 is offset since image draws 72 pixels too high
         //56 to right gets to middle
         // 90 down to get to center
@@ -122,6 +131,14 @@ public class Game extends View {
         }
 
         return true;
+    }
+
+
+    @Override
+    public void update(Observable observable, Object o) {
+        ArrayList locationTuple = (ArrayList) o;
+        x = (float) locationTuple.get(0);
+        y = (float) locationTuple.get(1);
     }
 
 

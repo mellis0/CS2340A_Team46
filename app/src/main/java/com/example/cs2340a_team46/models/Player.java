@@ -1,6 +1,9 @@
 package com.example.cs2340a_team46.models;
 
 import android.content.Context;
+
+import java.util.ArrayList;
+import java.util.Observable;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -10,7 +13,7 @@ import android.util.Log;
 
 import com.example.cs2340a_team46.R;
 
-public class Player {
+public class Player extends Observable {
     private static volatile Player instance;
     private int playerHealth;
     private int difficulty;
@@ -88,7 +91,11 @@ public class Player {
             charY += ySpeed;
         }
 
-
+        ArrayList<Float> locationTuple = new ArrayList<Float>();
+        locationTuple.add((float) charX);
+        locationTuple.add((float) charY);
+        setChanged();
+        notifyObservers(locationTuple);
     }
 
     // made thread safe
