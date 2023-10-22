@@ -44,7 +44,7 @@ public class Game extends View {
     }
 
     @Override
-    public void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //updateJoystick
         tilemap.drawTilemap(canvas);
