@@ -21,7 +21,7 @@ public class LeaderboardViewModel extends ViewModel {
         leaderboard = Leaderboard.getInstance();
     }
 
-    public List<LeaderboardEntry> getLeaderboardData() {
+    public static List<LeaderboardEntry> getLeaderboardData() {
         return leaderboard.getLeaderboardData();
     }
 
@@ -38,7 +38,7 @@ public class LeaderboardViewModel extends ViewModel {
         return Leaderboard.getLeaderboardSize();
     }
 
-    public boolean isAttemptQualifiedForLeaderboard(LeaderboardEntry entry) {
+    public static boolean isAttemptQualifiedForLeaderboard(LeaderboardEntry entry) {
         // Check if the attempt qualifies for the leaderboard
         return leaderboard.getLeaderboardData().isEmpty()
                 || leaderboard.getLeaderboardData().size() < 5
@@ -58,6 +58,10 @@ public class LeaderboardViewModel extends ViewModel {
                     leaderboard.getLeaderboardData().size()).clear();
 
         }
+    }
+
+    public static void reset() {
+        Leaderboard.reset();
     }
 
 

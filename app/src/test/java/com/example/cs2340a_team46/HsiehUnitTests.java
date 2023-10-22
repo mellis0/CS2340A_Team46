@@ -51,4 +51,32 @@ public class HsiehUnitTests {
         assertEquals(attempt1, leaderboard.getLeaderboardData().get(1));
         assertEquals(attempt3, leaderboard.getLeaderboardData().get(2)); // Lowest score
     }
+
+    @Test
+    public void testAttemptQualification() {
+        LeaderboardEntry attempt1 = new LeaderboardEntry("Player1", 100, new Date());
+        assertTrue(LeaderboardViewModel.isAttemptQualifiedForLeaderboard(attempt1));
+        LeaderboardEntry attempt2 = new LeaderboardEntry("Player2", 90, new Date());
+        assertTrue(LeaderboardViewModel.isAttemptQualifiedForLeaderboard(attempt2));
+        LeaderboardEntry attempt3 = new LeaderboardEntry("Player3", 110, new Date());
+        assertTrue(LeaderboardViewModel.isAttemptQualifiedForLeaderboard(attempt3));
+    }
+
+    @Test
+    public void testAddAndGetLeaderboardData() {
+        LeaderboardViewModel.reset();
+        LeaderboardEntry attempt1 = new LeaderboardEntry("Player1", 100, new Date());
+        LeaderboardViewModel.addEntry(attempt1);
+        LeaderboardEntry attempt2 = new LeaderboardEntry("Player2", 90, new Date());
+        LeaderboardViewModel.addEntry(attempt2);
+        LeaderboardEntry attempt3 = new LeaderboardEntry("Player3", 110, new Date());
+        LeaderboardViewModel.addEntry(attempt3);
+
+        // Check if ViewModel adds and returns leaderboard data correctly
+        assertEquals(3, LeaderboardViewModel.getLeaderboardData().size());
+        assertEquals("Player3", LeaderboardViewModel.getLeaderboardData().get(0).getPlayerName());
+        assertEquals("Player1", LeaderboardViewModel.getLeaderboardData().get(1).getPlayerName());
+        assertEquals("Player2", LeaderboardViewModel.getLeaderboardData().get(2).getPlayerName());
+    }
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Leaderboard {
     private static volatile Leaderboard instance;
-    private List<LeaderboardEntry> leaderboardData;
+    private static List<LeaderboardEntry> leaderboardData;
     private static int size = 0;
 
     private Leaderboard() {
@@ -40,8 +40,8 @@ public class Leaderboard {
         size = newSize;
     }
 
-    // Add a method to reset the leaderboard entries
-    public void reset() {
+    // method to reset the leaderboard entries
+    public static void reset() {
         leaderboardData.clear();
     }
 }
