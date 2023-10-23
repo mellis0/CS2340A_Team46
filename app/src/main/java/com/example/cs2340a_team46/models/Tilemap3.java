@@ -4,12 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.view.View;
 import android.util.Log;
+import android.view.View;
 
 import com.example.cs2340a_team46.R;
 
-public class Tilemap extends View {
+public class Tilemap3 extends View {
     private Bitmap bricks;
     private Bitmap dirt;
     private Bitmap floor_1;
@@ -70,18 +70,18 @@ public class Tilemap extends View {
     private static int[][] tileMap;
     private static int[][] tileMapLayer2;
 
-    public Tilemap(Context context){
+    public Tilemap3(Context context){
         super(context);
         bricks = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.bricks);
         dirt = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.dirt);
-        floor_1 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_1);
-        floor_2 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_2);
-        floor_3 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_3);
-        floor_4 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_4);
-        floor_5 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_5);
-        floor_6 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_6);
-        floor_7 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_7);
-        floor_8 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_8);
+        floor_1 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_3);
+        floor_2 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_4);
+        floor_3 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_5);
+        floor_4 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_6);
+        floor_5 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_7);
+        floor_6 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_8);
+        floor_7 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_1);
+        floor_8 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.floor_2);
         wall_hole_1 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.wall_hole_1);
         wall_hole_2 = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.wall_hole_2);
         wall_left = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.wall_left);
@@ -166,8 +166,6 @@ public class Tilemap extends View {
                     canvas.drawBitmap(wall_edge_bottom_left, r * 128, c * 128, null);
                 } else if (tileMap[r][c] == 24) {
                     canvas.drawBitmap(wall_edge_bottom_right, r * 128, c * 128, null);
-                } else if (tileMap[r][c] == 25) {
-                    canvas.drawBitmap(flask, r * 128, c * 128, null);
                 }
             }
         }
@@ -222,7 +220,5 @@ public class Tilemap extends View {
         int y = Math.abs((int)coord2/128);
         return tileMapLayer2[x][y] == 25;
     }
-
-
 
 }
