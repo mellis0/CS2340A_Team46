@@ -1,7 +1,9 @@
 package com.example.cs2340a_team46;
 
+import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.ScoreModel;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
+import com.example.cs2340a_team46.views.ConfigActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,5 +49,21 @@ public class HsuUnitTest {
 
         playerHealth = gameViewModel.getPlayerHealth();
         assertEquals(50, playerHealth);
+    }
+
+    @Test
+    public void hardDifficultyToHealth() {
+        int difficulty = 3;
+        Player test = Player.getInstance();
+        //Test Normal Difficulty
+        GameViewModel.setPlayerHealth(difficulty);
+        assertEquals(50, test.getPlayerHealth());
+    }
+
+    @Test
+    public void nameIsCorrect() {
+        Player player = Player.getInstance();
+        GameViewModel.setPlayerName("Gio");
+        assertEquals("Gio", player.getPlayerName());
     }
 }

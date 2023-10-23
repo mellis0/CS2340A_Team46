@@ -1,5 +1,7 @@
 package com.example.cs2340a_team46.views;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -24,6 +26,8 @@ import android.view.View;
 import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Player;
+import com.example.cs2340a_team46.models.Tilemap2;
+import com.example.cs2340a_team46.models.Tilemap3;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
 
 
@@ -37,22 +41,41 @@ public class Game extends View implements Observer {
     private Joystick joystick;
     private Player player;
     private Tilemap tilemap;
+    private Tilemap2 tilemap2;
+    private Tilemap3 tilemap3;
+    private int level;
     float x;
     float y;
+    private Activity parentActivity;
+    boolean gameEnds;
 
-    public Game(Context context) {
+    public Game(Context context, Activity activity) {
         super(context);
+        this.parentActivity = activity;
         joystick = new Joystick();
         player = Player.getInstance();
         player.addObserver(this);
         tilemap = new Tilemap(context);
+        tilemap2 = new Tilemap2(context);
+        tilemap3 = new Tilemap3(context);
+        level = 1;
+        gameEnds = false;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (gameEnds) {
+            return;
+        }
         super.onDraw(canvas);
         //updateJoystick
-        tilemap.drawTilemap(canvas);
+        if (level == 1) {
+            tilemap.drawTilemap(canvas);
+        } else if (level == 2) {
+            tilemap2.drawTilemap(canvas);
+        } else {
+            tilemap3.drawTilemap(canvas);
+        }
         joystick.drawJoystick(canvas);
         Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), GameViewModel.getCharacter());
 
@@ -86,6 +109,24 @@ public class Game extends View implements Observer {
         // Draw the image on the canvas at a specific position
 
         player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), true);
+        if (player.getCharX() > 2000 && player.getCharY() > 1300) {
+            if (level < 3) {
+                level += 1;
+                player.setCharX(500);
+                player.setCharY(500);
+            } else {
+                player.setCharX(500);
+                player.setCharY(500);
+                gameEnds = true;
+                Intent intent = new Intent(parentActivity, EndActivity.class);
+                parentActivity.startActivity(intent);
+                parentActivity.finish();
+            }
+
+        }
+        canvas.drawText(String.valueOf(level), 50, 850, tP);
+//        canvas.drawText(String.valueOf(player.getCharX()), 50, 850, tP);
+//        canvas.drawText(String.valueOf(player.getCharY()), 50, 1050, tP);
         postInvalidate();
 
         // these two lines are now handled in update(), which follows the observer pattern.
