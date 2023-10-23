@@ -37,6 +37,7 @@ public class Tilemap3 extends View {
     private Bitmap wall_edge_bottom_left;
     private Bitmap wall_edge_bottom_right;
     private Bitmap knight;
+    private Bitmap flask;
     private Log log;
     private static int[][] tilemapFlip = {
             {1,1,1,7,1,2,1,1,1,6,1,4,1,1,6,1,1,1,1,1},
@@ -63,7 +64,7 @@ public class Tilemap3 extends View {
             {0,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0},
             {0,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0},
             {0,17,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0},
-            {0,23,20,21,22,20,21,22,20,21,22,20,21,22,20,21,22,20,24,0},
+            {0,23,20,21,22,20,21,22,20,21,22,20,21,22,20,25,22,20,24,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
     };
     private static int[][] tileMap;
@@ -98,6 +99,7 @@ public class Tilemap3 extends View {
         wall_edge_bottom_left = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.wall_edge_bottom_left);
         wall_edge_bottom_right = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.wall_edge_bottom_right);
         knight = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.knight);
+        flask = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.big_yellow_flask);
         tileMap = new int[20][12];
         for(int i = 0; i < tilemapFlip.length; i++) {
             for (int j = 0; j < tilemapFlip[0].length; j++) {
@@ -189,6 +191,8 @@ public class Tilemap3 extends View {
                     canvas.drawBitmap(wall_edge_bottom_left, r * 128, c * 128, null);
                 } else if (tileMapLayer2[r][c] == 24) {
                     canvas.drawBitmap(wall_edge_bottom_right, r * 128, c * 128, null);
+                } else if (tileMapLayer2[r][c] == 25) {
+                    canvas.drawBitmap(flask, r * 128, c * 128, null);
                 }
             }
         }
@@ -211,6 +215,10 @@ public class Tilemap3 extends View {
         return false;
     }
 
-
+    public static boolean getIfFlask(double coord1, double coord2) {
+        int x = Math.abs((int)coord1/128);
+        int y = Math.abs((int)coord2/128);
+        return tileMapLayer2[x][y] == 25;
+    }
 
 }

@@ -109,7 +109,9 @@ public class Game extends View implements Observer {
         // Draw the image on the canvas at a specific position
 
         player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), true);
-        if (player.getCharX() > 2000 && player.getCharY() > 1300) {
+        if (level == 1 && tilemap.getIfFlask(player.getCharX(), player.getCharY()) ||
+                level == 2 && tilemap2.getIfFlask(player.getCharX(), player.getCharY()) ||
+                level == 3 && tilemap3.getIfFlask(player.getCharX(), player.getCharY())) {
             if (level < 3) {
                 level += 1;
                 player.setCharX(500);
@@ -124,7 +126,7 @@ public class Game extends View implements Observer {
             }
 
         }
-        canvas.drawText(String.valueOf(level), 50, 850, tP);
+//        canvas.drawText(String.valueOf(level), 50, 850, tP);
 //        canvas.drawText(String.valueOf(player.getCharX()), 50, 850, tP);
 //        canvas.drawText(String.valueOf(player.getCharY()), 50, 1050, tP);
         postInvalidate();
