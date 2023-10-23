@@ -73,10 +73,10 @@ public class ConfigActivity extends AppCompatActivity {
 
                 Intent game = new Intent(ConfigActivity.this, GameActivity.class);
 
-                player.setPlayerName(enteredName);
-                player.setDifficulty(enteredDifficulty);
-                player.setPlayerHealth(enteredDifficulty);
-                player.setCharacter(enteredCharacter);
+                GameViewModel.setPlayerName(enteredName);
+                GameViewModel.setDifficulty(enteredDifficulty);
+                GameViewModel.setPlayerHealth(enteredDifficulty);
+                GameViewModel.setCharacter(enteredCharacter);
                 GameViewModel.startScoreCountdown();
 
                 startActivity(game);
