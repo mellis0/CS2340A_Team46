@@ -23,7 +23,6 @@ import java.util.Timer;
 import android.os.Handler;
 import android.view.View;
 
-import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Tilemap2;
