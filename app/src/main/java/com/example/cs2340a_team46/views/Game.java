@@ -51,7 +51,7 @@ public class Game extends View implements Observer {
     public Game(Context context, Activity activity) {
         super(context);
         this.parentActivity = activity;
-        joystick = new Joystick();
+        joystick = Joystick.getInstance();
         player = Player.getInstance();
         player.addObserver(this);
         tilemap = new Tilemap(context);
@@ -107,7 +107,7 @@ public class Game extends View implements Observer {
 
         // Draw the image on the canvas at a specific position
 
-        player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), true);
+        player.updateLoc(joystick.getInnerLoc(), true);
         if (level == 1 && tilemap.getIfFlask(player.getCharX(), player.getCharY()) ||
                 level == 2 && tilemap2.getIfFlask(player.getCharX(), player.getCharY()) ||
                 level == 3 && tilemap3.getIfFlask(player.getCharX(), player.getCharY())) {
