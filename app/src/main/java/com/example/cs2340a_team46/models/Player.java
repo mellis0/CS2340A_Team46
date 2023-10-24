@@ -20,8 +20,7 @@ public class Player extends Observable {
     private int difficulty;
     private String playerName;
     private int character;
-    private double charX=500;
-    private double charY=500;
+    private Location location;
     private Context context;
     private MovementBehavior movementBehavior;
 
@@ -82,31 +81,36 @@ public class Player extends Observable {
     }
 
 
-    public void setCharX(double aCharX) {
-        charX = aCharX;
+    public void setX(double x) {
+        this.location.setX(x);
     }
-    public void setCharY(double aCharY) {
-        charY = aCharY;
+    public void setY(double y) {
+        this.location.setY(y);
     }
-    public double getCharX() {
-        return charX;
+    public void setLocation(double x, double y) {
+        this.setX(x);
+        this.setY(y);
     }
-    public double getCharY() {
-        return charY;
+    public double getX() {
+        return this.location.getX();
+    }
+    public double getY() {
+        return this.location.getY();
+    }
+    public Location getLocation() {
+        return this.location;
+    }
+
+    public double[] getLocationArr() {
+        return this.location.getXY();
     }
 
 
-    public void updateLoc(double joystick_x, double joystick_y, boolean collideCheck) {
-        double[] locationTupleOfDoubles = this.movementBehavior.move(charX, charY, joystick_x, joystick_y, collideCheck);
+    public void updateLoc(Location joystickLoc, boolean collideCheck) {
+        this.movementBehavior.move(this.location, joystickLoc, collideCheck);
 
-        charX = locationTupleOfDoubles[0];
-        charY = locationTupleOfDoubles[1];
-
-        ArrayList<Float> locationTuple = new ArrayList<Float>();
-        locationTuple.add((float) charX);
-        locationTuple.add((float) charY);
         setChanged();
-        notifyObservers(locationTuple);
+        // notifyObservers(locationTuple);
     }
 
     // made thread safe
@@ -115,6 +119,7 @@ public class Player extends Observable {
             synchronized (Player.class) {
                 if (instance == null) {
                     instance = new Player();
+                    instance.location = new Location();
                     instance.movementBehavior = defaultMovementBehavior;
                 }
             }

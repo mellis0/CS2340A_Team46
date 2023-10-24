@@ -41,6 +41,14 @@ public class Location {
         this.y = y;
     }
 
+    public void changeX(double x) {
+        this.x += x;
+    }
+
+    public void changeY(double x) {
+        this.y += y;
+    }
+
     public double getX() {
         return x;
     }
@@ -56,5 +64,8 @@ public class Location {
     public Location(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+    public Location() {
+        this(0, 0);
     }
 }
