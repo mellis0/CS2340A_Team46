@@ -1,9 +1,8 @@
 package com.example.cs2340a_team46.models;
 
-import java.util.Objects;
-
 public class Location {
     private static final double RV = 100.0; // RV for roundingValue. this should be some power of 10
+    private static final double MOE = 1.0 / RV; // Margin of Error for comparisons
     private double x;
     private double y;
 
@@ -22,12 +21,18 @@ public class Location {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Location other = (Location) o;
-        return Math.abs(other.x -this.x) < 1 / RV && Math.abs(other.y - this.y) < 1 / RV;
+        return Math.abs(other.x - this.x) < MOE && Math.abs(other.y - this.y) < MOE;
     }
 
+    // TODO : set a limit here so you can't move the player off the map?
+    // this is kinda redundant cus we already check collisions, but it couldn't hurt
     public void setX(double x) {
         this.x = x;
     }
@@ -44,13 +49,12 @@ public class Location {
         return y;
     }
 
+    public double[] getXY() {
+        return new double[] {this.x, this.y};
+    }
+
     public Location(double x, double y) {
         this.x = x;
         this.y = y;
-    }
-
-    public Location(float x, double y) {
-        this.x = (float) x;
-        this.y = (float) y;
     }
 }
