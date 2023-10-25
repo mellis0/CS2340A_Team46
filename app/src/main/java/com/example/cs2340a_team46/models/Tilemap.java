@@ -11,10 +11,10 @@ import com.example.cs2340a_team46.R;
 
 public abstract class Tilemap extends View {
     protected Bitmap[] tiles;
-    protected static int[][] TILEMAP_FLIP;
-    protected static int[][] TILE_MAP_LAYER_2_FLIP;
-    protected static int[][] tileMap;
-    protected static int[][] tileMapLayer2;
+    protected int[][] tileMapFlip;
+    protected int[][] tileMapLayer2Flip;
+    protected int[][] tileMap;
+    protected int[][] tileMapLayer2;
     protected Log log;
 
     protected static final int[] DRAWABLES = {
@@ -50,21 +50,21 @@ public abstract class Tilemap extends View {
     };
 
     public Tilemap(Context context) {
-        this(context, TILEMAP_FLIP, TILE_MAP_LAYER_2_FLIP);
+        super(context);
     }
 
-    public Tilemap(Context context, int[][] tileMapFlip, int[][] tileMapLayer2Flip) {
-        super(context);
+    protected void loadVars() {
         this.tiles = new Bitmap[DRAWABLES.length];
         for (int i = 0; i < DRAWABLES.length; i++) {
             this.tiles[i] = BitmapFactory.decodeResource(getContext().getResources(), DRAWABLES[i]);
         }
 
         // flip the 2d array literal from above b/c the screen is indexed from the top left
-        tileMap = flip(tileMapFlip);
+        this.tileMap = flip(this.tileMapFlip);
 
-        tileMapLayer2 = flip(tileMapLayer2Flip);
+        this.tileMapLayer2 = flip(this.tileMapLayer2Flip);
     }
+
     public void drawTilemap(Canvas canvas) {
         for (int r = 0; r < tileMap.length; r++) {
             for (int c = 0; c < tileMap[0].length; c++) {
@@ -79,7 +79,7 @@ public abstract class Tilemap extends View {
     }
 
 
-    public static boolean getIfCollide(Location loc) {
+    public boolean getIfCollide(Location loc) {
         double coord1 = loc.getX();
         double coord2 = loc.getY();
         int x = Math.abs((int) coord1 / 128);
@@ -95,7 +95,7 @@ public abstract class Tilemap extends View {
         return false;
     }
 
-    public static boolean getIfFlask(Location loc) {
+    public boolean getIfFlask(Location loc) {
         double coord1 = loc.getX();
         double coord2 = loc.getY();
         int x = Math.abs((int) coord1 / 128);

@@ -106,8 +106,8 @@ public class Player extends Observable {
     }
 
 
-    public void updateLoc(Location joystickLoc, boolean collideCheck) {
-        this.movementBehavior.move(this.location, joystickLoc, collideCheck);
+    public void updateLoc(Tilemap tilemap, Location joystickLoc, boolean collideCheck) {
+        this.movementBehavior.move(tilemap, this.location, joystickLoc, collideCheck);
 
         setChanged();
         notifyObservers();

@@ -40,9 +40,7 @@ public class Game extends View implements Observer {
     private Handler handler = new Handler();
     private Joystick joystick;
     private Player player;
-    private Tilemap1 tilemap1;
-    private Tilemap2 tilemap2;
-    private Tilemap3 tilemap3;
+    private Tilemap[] tilemaps;
     private int level;
     float x;
     float y;
@@ -55,9 +53,7 @@ public class Game extends View implements Observer {
         joystick = Joystick.getInstance();
         player = Player.getInstance();
         player.addObserver(this);
-        tilemap1 = new Tilemap1(context);
-        tilemap2 = new Tilemap2(context);
-        tilemap3 = new Tilemap3(context);
+        tilemaps = new Tilemap[] {new Tilemap1(context), new Tilemap2(context), new Tilemap3(context)};
         level = 1;
         gameEnds = false;
     }
@@ -69,13 +65,7 @@ public class Game extends View implements Observer {
         }
         super.onDraw(canvas);
         //updateJoystick
-        if (level == 1) {
-            tilemap1.drawTilemap(canvas);
-        } else if (level == 2) {
-            tilemap2.drawTilemap(canvas);
-        } else {
-            tilemap3.drawTilemap(canvas);
-        }
+        tilemaps[Math.min(level - 1, 2)].drawTilemap(canvas);
         joystick.drawJoystick(canvas);
         Bitmap characterSprite = BitmapFactory.decodeResource(getContext().getResources(), GameViewModel.getCharacter());
 
@@ -108,16 +98,14 @@ public class Game extends View implements Observer {
 
         // Draw the image on the canvas at a specific position
 
-        player.updateLoc(joystick.getInnerLoc(), true);
+        player.updateLoc(tilemaps[Math.min(level - 1, 2)], joystick.getInnerLoc(), true);
 
-        if (level == 1 && tilemap1.getIfFlask(player.getLocation()) ||
-                level == 2 && tilemap2.getIfFlask(player.getLocation()) ||
-                level == 3 && tilemap3.getIfFlask(player.getLocation())) {
+        if (tilemaps[Math.min(level - 1, 2)].getIfFlask(player.getLocation())) {
             if (level < 3) {
                 level += 1;
                 player.setX(500);
                 player.setY(500);
-            } else {
+            } else if (level == 3) {
                 player.setX(500);
                 player.setY(500);
                 gameEnds = true;

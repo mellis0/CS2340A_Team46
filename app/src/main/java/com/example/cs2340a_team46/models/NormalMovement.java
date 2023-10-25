@@ -5,15 +5,15 @@ import java.sql.Array;
 public class NormalMovement implements MovementBehavior {
 
     @Override
-    public void move(Location entityLoc, Location joystickLoc, boolean collideCheck) {
+    public void move(Tilemap tilemap, Location entityLoc, Location joystickLoc, boolean collideCheck) {
         double xSpeed = (joystickLoc.getX()-275)/5;
         double ySpeed = (joystickLoc.getY()-1200)/5;
         //check x case first
         if (collideCheck){
-            if (!Tilemap.getIfCollide(new Location(entityLoc.getX()+xSpeed, entityLoc.getY()))){
+            if (!tilemap.getIfCollide(new Location(entityLoc.getX()+xSpeed, entityLoc.getY()))){
                 entityLoc.changeX(xSpeed);
             }
-            if (!Tilemap.getIfCollide(new Location(entityLoc.getX(), entityLoc.getY()+ySpeed))){
+            if (!tilemap.getIfCollide(new Location(entityLoc.getX(), entityLoc.getY()+ySpeed))){
                 entityLoc.changeY(ySpeed);
             }
         } else {
