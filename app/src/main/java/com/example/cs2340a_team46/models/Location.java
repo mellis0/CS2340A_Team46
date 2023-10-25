@@ -45,7 +45,7 @@ public class Location {
         this.x += x;
     }
 
-    public void changeY(double x) {
+    public void changeY(double y) {
         this.y += y;
     }
 

@@ -110,7 +110,7 @@ public class Player extends Observable {
         this.movementBehavior.move(this.location, joystickLoc, collideCheck);
 
         setChanged();
-        // notifyObservers(locationTuple);
+        notifyObservers();
     }
 
     // made thread safe
@@ -119,7 +119,7 @@ public class Player extends Observable {
             synchronized (Player.class) {
                 if (instance == null) {
                     instance = new Player();
-                    instance.location = new Location();
+                    instance.location = new Location(500.0, 500.0); // spawn location
                     instance.movementBehavior = defaultMovementBehavior;
                 }
             }

@@ -25,6 +25,7 @@ import android.view.View;
 
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Player;
+import com.example.cs2340a_team46.models.Tilemap1;
 import com.example.cs2340a_team46.models.Tilemap2;
 import com.example.cs2340a_team46.models.Tilemap3;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
@@ -39,7 +40,7 @@ public class Game extends View implements Observer {
     private Handler handler = new Handler();
     private Joystick joystick;
     private Player player;
-    private Tilemap tilemap;
+    private Tilemap1 tilemap1;
     private Tilemap2 tilemap2;
     private Tilemap3 tilemap3;
     private int level;
@@ -54,7 +55,7 @@ public class Game extends View implements Observer {
         joystick = Joystick.getInstance();
         player = Player.getInstance();
         player.addObserver(this);
-        tilemap = new Tilemap(context);
+        tilemap1 = new Tilemap1(context);
         tilemap2 = new Tilemap2(context);
         tilemap3 = new Tilemap3(context);
         level = 1;
@@ -69,14 +70,14 @@ public class Game extends View implements Observer {
         super.onDraw(canvas);
         //updateJoystick
         if (level == 1) {
-            tilemap.drawTilemap(canvas);
+            tilemap1.drawTilemap(canvas);
         } else if (level == 2) {
             tilemap2.drawTilemap(canvas);
         } else {
             tilemap3.drawTilemap(canvas);
         }
         joystick.drawJoystick(canvas);
-        Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), GameViewModel.getCharacter());
+        Bitmap characterSprite = BitmapFactory.decodeResource(getContext().getResources(), GameViewModel.getCharacter());
 
 
         //
@@ -108,16 +109,17 @@ public class Game extends View implements Observer {
         // Draw the image on the canvas at a specific position
 
         player.updateLoc(joystick.getInnerLoc(), true);
-        if (level == 1 && tilemap.getIfFlask(player.getCharX(), player.getCharY()) ||
-                level == 2 && tilemap2.getIfFlask(player.getCharX(), player.getCharY()) ||
-                level == 3 && tilemap3.getIfFlask(player.getCharX(), player.getCharY())) {
+
+        if (level == 1 && tilemap1.getIfFlask(player.getLocation()) ||
+                level == 2 && tilemap2.getIfFlask(player.getLocation()) ||
+                level == 3 && tilemap3.getIfFlask(player.getLocation())) {
             if (level < 3) {
                 level += 1;
-                player.setCharX(500);
-                player.setCharY(500);
+                player.setX(500);
+                player.setY(500);
             } else {
-                player.setCharX(500);
-                player.setCharY(500);
+                player.setX(500);
+                player.setY(500);
                 gameEnds = true;
                 Intent intent = new Intent(parentActivity, EndActivity.class);
                 parentActivity.startActivity(intent);
@@ -138,7 +140,7 @@ public class Game extends View implements Observer {
         //72 is offset since image draws 72 pixels too high
         //56 to right gets to middle
         // 90 down to get to center
-        canvas.drawBitmap(bitmap, x-56, y-162, null);
+        canvas.drawBitmap(characterSprite, x - 56, y - 162, null);
 
     }
 
@@ -163,7 +165,7 @@ public class Game extends View implements Observer {
         } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_POINTER_UP) {
             if (joystick.getPressed()) {
                 joystick.setPressed(false);
-                joystick.setInner(275, 1200);
+                joystick.setInner(Joystick.OUTER_X, Joystick.OUTER_Y);
                 joystick.updateDistance();
                 postInvalidate();
             }
@@ -175,40 +177,8 @@ public class Game extends View implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        ArrayList locationTuple = (ArrayList) o;
-        x = (float) locationTuple.get(0);
-        y = (float) locationTuple.get(1);
+        x = (float) player.getX();
+        y = (float) player.getY();
     }
-
-
-//    @Override
-//    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
-//        this.surfaceCreated(surfaceHolder);
-////        timer.schedule(new TimerTask() {
-////            @Override
-////            public void run() {
-////                handler.post(new Runnable() {
-////                    @Override
-////                    public void run() {
-//////                        update();
-//////                        render();
-////                    }
-////                });
-////            }
-////        }, 0, 100);
-//
-//    }
-//
-//    @Override
-//    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-//
-//    }
-//
-//    @Override
-//    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-//
-//    }
-
-
 }
 

@@ -2,7 +2,7 @@ package com.example.cs2340a_team46.models;
 
 import android.content.Context;
 
-public class Tilemap2 extends Tilemap {
+public class Tilemap1 extends Tilemap {
 
     protected static final int[][] TILEMAP_FLIP = {
             {1,  1,  1,  7,  1,  2,  1,  1,  1,  6,  1,  4,  1,  1,  6,  1,  1,  1,  1, 1},
@@ -33,7 +33,7 @@ public class Tilemap2 extends Tilemap {
             {0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0}
     };
 
-    public Tilemap2(Context context) {
+    public Tilemap1(Context context) {
         super(context, TILEMAP_FLIP, TILE_MAP_LAYER_2_FLIP);
     }
 

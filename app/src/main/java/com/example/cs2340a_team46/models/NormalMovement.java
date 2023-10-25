@@ -10,10 +10,10 @@ public class NormalMovement implements MovementBehavior {
         double ySpeed = (joystickLoc.getY()-1200)/5;
         //check x case first
         if (collideCheck){
-            if (!Tilemap.getIfCollide(entityLoc.getX()+xSpeed, entityLoc.getY())){
+            if (!Tilemap.getIfCollide(new Location(entityLoc.getX()+xSpeed, entityLoc.getY()))){
                 entityLoc.changeX(xSpeed);
             }
-            if (!Tilemap.getIfCollide(entityLoc.getX(), entityLoc.getY()+ySpeed)){
+            if (!Tilemap.getIfCollide(new Location(entityLoc.getX(), entityLoc.getY()+ySpeed))){
                 entityLoc.changeY(ySpeed);
             }
         } else {

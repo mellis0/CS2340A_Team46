@@ -6,8 +6,8 @@ import android.graphics.Paint;
 
 public class Joystick {
 
-    private static final float OUTER_X = 275;
-    private static final float OUTER_Y = 1200;
+    public static final float OUTER_X = 275;
+    public static final float OUTER_Y = 1200;
     private static final float OUTER_RADIUS = 70;
     private static final float INNER_RADIUS = 40;
     private static final float INNER_X = 275;

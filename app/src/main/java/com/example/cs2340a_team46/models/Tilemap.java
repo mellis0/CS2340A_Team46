@@ -9,13 +9,15 @@ import android.util.Log;
 
 import com.example.cs2340a_team46.R;
 
-public class Tilemap extends View {
-    private Bitmap[] tiles;
-    private static int[][] tileMap;
-    private static int[][] tileMapLayer2;
-    private Log log;
+public abstract class Tilemap extends View {
+    protected Bitmap[] tiles;
+    protected static int[][] TILEMAP_FLIP;
+    protected static int[][] TILE_MAP_LAYER_2_FLIP;
+    protected static int[][] tileMap;
+    protected static int[][] tileMapLayer2;
+    protected Log log;
 
-    private static final int[] DRAWABLES = {
+    protected static final int[] DRAWABLES = {
         R.drawable.empty,
         R.drawable.floor_1,
         R.drawable.floor_2,
@@ -41,42 +43,17 @@ public class Tilemap extends View {
         R.drawable.wall_top_right,
         R.drawable.wall_edge_bottom_left,
         R.drawable.wall_edge_bottom_right,
+        R.drawable.big_yellow_flask,
         R.drawable.bricks,
         R.drawable.dirt,
-        R.drawable.knight,
-        R.drawable.big_yellow_flask
-    };
-
-    private static final int[][] TILEMAP_FLIP = {
-            {1,  1,  1,  7,  1,  2,  1,  1,  1,  6,  1,  4,  1,  1,  6,  1,  1,  1,  1, 1},
-            {1, 14, 11, 12, 13, 11, 12, 13, 11, 12, 13, 11, 12, 13, 11, 12, 13, 11, 15, 1},
-            {1,  1,  1,  7,  1,  2,  1,  1,  1,  6,  1,  4,  1,  1,  6,  1,  1,  1,  5, 1},
-            {1,  1,  1,  1,  6,  1,  1,  1,  7,  1,  1,  1,  1,  1,  5,  1,  5,  1,  1, 1},
-            {1,  1,  1,  8,  1,  1,  2,  1,  1,  2,  1,  1,  1,  1,  2,  1,  1,  1,  5, 1},
-            {5,  3,  1,  3,  1,  1,  1,  1,  1,  1,  1,  4,  1,  1,  1,  1,  1,  1,  1, 1},
-            {1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  7,  1,  1,  1,  1,  1,  1,  7,  1, 1},
-            {1,  5,  1,  1,  6,  1,  4,  1,  1,  6,  1,  1,  4,  1,  1,  8,  1,  4,  1, 1},
-            {1,  1,  1,  1,  3,  1,  1,  1,  1,  6,  1,  1,  6,  1,  1,  1,  1,  8,  1, 1},
-            {1,  1,  1,  1,  1,  3,  1,  1,  1,  1,  1,  3,  1,  1,  3,  7,  1,  6,  1, 1},
-            {1,  3,  1,  7,  1,  1,  8,  1,  1,  5,  1,  1,  1,  1,  1,  1,  1,  1,  1, 1},
-            {1, 13, 11, 12, 13, 11, 12, 13, 11, 12, 13, 11, 12, 13, 11, 12, 13, 11, 12, 1}
-    };
-    private static final int[][] TILE_MAP_LAYER_2_FLIP = {
-            {0, 22, 20, 21, 22, 20, 21, 22, 20, 21, 22, 20, 21, 22, 20, 21, 22, 20, 21, 0},
-            {0, 17,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 16, 0},
-            {0, 17,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 16, 0},
-            {0, 17,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 16, 0},
-            {0, 17,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 16, 0},
-            {0, 17,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 16, 0},
-            {0, 17,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 16, 0},
-            {0, 17,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 16, 0},
-            {0, 17,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 16, 0},
-            {0, 17,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 16, 0},
-            {0, 23, 20, 21, 22, 20, 21, 22, 20, 21, 22, 20, 21, 22, 20, 25, 22, 20, 24, 0},
-            {0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0}
+        R.drawable.knight
     };
 
     public Tilemap(Context context) {
+        this(context, TILEMAP_FLIP, TILE_MAP_LAYER_2_FLIP);
+    }
+
+    public Tilemap(Context context, int[][] tileMapFlip, int[][] tileMapLayer2Flip) {
         super(context);
         this.tiles = new Bitmap[DRAWABLES.length];
         for (int i = 0; i < DRAWABLES.length; i++) {
@@ -84,9 +61,9 @@ public class Tilemap extends View {
         }
 
         // flip the 2d array literal from above b/c the screen is indexed from the top left
-        tileMap = flip(TILEMAP_FLIP);
+        tileMap = flip(tileMapFlip);
 
-        tileMapLayer2 = flip(TILE_MAP_LAYER_2_FLIP);
+        tileMapLayer2 = flip(tileMapLayer2Flip);
     }
     public void drawTilemap(Canvas canvas) {
         for (int r = 0; r < tileMap.length; r++) {
@@ -126,7 +103,7 @@ public class Tilemap extends View {
         return tileMapLayer2[x][y] == 25;
     }
 
-    private static int[][] flip(int[][] mat) {
+    protected static int[][] flip(int[][] mat) {
         int[][] out = new int[mat[0].length][mat.length];
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[0].length; j++) {
