@@ -1,8 +1,12 @@
 package com.example.cs2340a_team46.viewmodels;
 
+import android.graphics.Canvas;
 import android.os.CountDownTimer;
+import android.view.MotionEvent;
 
 import com.example.cs2340a_team46.R;
+import com.example.cs2340a_team46.models.Joystick;
+import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.ScoreModel;
 
 import androidx.lifecycle.LiveData;
@@ -10,8 +14,12 @@ import androidx.lifecycle.ViewModel;
 
 
 import com.example.cs2340a_team46.models.Player;
+import com.example.cs2340a_team46.models.Tilemap;
+import com.example.cs2340a_team46.views.Game;
 
 public class GameViewModel extends ViewModel {
+
+    private static final int MAX_LEVEL = 2; // levels 0, 1, & 2 exist
 
     private static ScoreModel scoreModel = new ScoreModel();
     private static LiveData<Integer> score = scoreModel.getScore();
@@ -29,7 +37,69 @@ public class GameViewModel extends ViewModel {
         }
     };
 
+    public static boolean handleUserInput(MotionEvent event) {
+        boolean postInvalidate = false;
+        int action = event.getAction();
+        if (joystick.isPressed() && (action == MotionEvent.ACTION_DOWN
+                || action == MotionEvent.ACTION_POINTER_DOWN)) {
+            joystick.setInner(event.getX(), event.getY());
+            joystick.updateDistance();
+            postInvalidate = true;
+        } else if (joystick.getPressed()) {
+            if (action == MotionEvent.ACTION_MOVE) {
+                joystick.setInner(event.getX(), event.getY());
+                joystick.updateDistance();
+                postInvalidate = true;
+            } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
+                joystick.setPressed(false);
+                joystick.setInner(Joystick.OUTER_X, Joystick.OUTER_Y);
+                joystick.updateDistance();
+                postInvalidate = true;
+            }
+        }
+
+        return postInvalidate;
+    }
+
+    private static int level = 0;
+    public static int getLevel() {
+        return level;
+    }
+    public static void incrementLevel() {
+        level = Math.min(level + 1, MAX_LEVEL);
+    }
+
+    public static boolean nextLevelIfEndConditionSatisfied(Tilemap tm) {
+        boolean out = false;
+        if (tm.getIfFlask(player.getLocation())) {
+            if (level >= MAX_LEVEL) {
+                out = true;
+            }
+            incrementLevel(); // this won't increment past MAX_LEVEL
+            player.setX(500);
+            player.setY(500);
+        }
+        return out;
+    }
+
+    private static Joystick joystick = Joystick.getInstance();
+    public static void drawJoystick(Canvas canvas) {
+        joystick.drawJoystick(canvas);
+    }
+
     private static Player player = Player.getInstance();
+    public static void observePlayer(Game game) {
+        player.addObserver(game);
+    }
+
+    public static Location getPlayerLocation() {
+        return player.getLocation();
+    }
+
+
+    public static void updatePlayerLoc(Tilemap tm) {
+        player.updateLoc(tm, joystick.getInnerLoc(), true);
+    }
     public static void setPlayerHealth(int difficultyVal) {
         if (difficultyVal == 1) {
             player.setPlayerHealth(150);
