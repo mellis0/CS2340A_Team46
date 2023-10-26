@@ -23,7 +23,7 @@ public class ConfigActivity extends AppCompatActivity {
     private EditText nameEditText;
     private int difficulty;
     private int character;
-    Player player = Player.getInstance();
+    private Player player = Player.getInstance();
 
     public static boolean validName(String enteredName) {
         // this input will always be already trimmed, this is just for testing
@@ -80,8 +80,6 @@ public class ConfigActivity extends AppCompatActivity {
                 GameViewModel.startScoreCountdown();
 
                 startActivity(game);
-//                finish();
-
             }
 
         });

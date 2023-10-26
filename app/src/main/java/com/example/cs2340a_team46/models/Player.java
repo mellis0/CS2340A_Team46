@@ -2,20 +2,11 @@ package com.example.cs2340a_team46.models;
 
 import android.content.Context;
 
-import java.util.ArrayList;
 import java.util.Observable;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
-
-import com.example.cs2340a_team46.R;
 
 public class Player extends Observable {
     private static volatile Player instance;
-    private static final MovementBehavior defaultMovementBehavior = new NormalMovement();
+    private static final MovementBehavior DEFAULT_MOVEMENT_BEHAVIOR = new NormalMovement();
     private int playerHealth;
     private int difficulty;
     private String playerName;
@@ -52,15 +43,15 @@ public class Player extends Observable {
     }
 
     public String getDifficultyString() {
-        switch(this.difficulty) {
-            case 1:
-                return "Easy";
-            case 2:
-                return "Normal";
-            case 3:
-                return "Hard";
-            default:
-                throw new RuntimeException("Player.difficulty can only be 1, 2, or 3");
+        switch (this.difficulty) {
+        case 1:
+            return "Easy";
+        case 2:
+            return "Normal";
+        case 3:
+            return "Hard";
+        default:
+            throw new RuntimeException("Player.difficulty can only be 1, 2, or 3");
         }
     }
 
@@ -120,7 +111,7 @@ public class Player extends Observable {
                 if (instance == null) {
                     instance = new Player();
                     instance.location = new Location(500.0, 500.0); // spawn location
-                    instance.movementBehavior = defaultMovementBehavior;
+                    instance.movementBehavior = DEFAULT_MOVEMENT_BEHAVIOR;
                 }
             }
         }

@@ -38,7 +38,6 @@ public class Joystick {
         Paint p = new Paint();
         p.setColor(Color.BLUE);
         p.setStyle(Paint.Style.FILL);
-//        p.setStrokeWidth(3);
 
         Paint blackPaint = new Paint();
         blackPaint.setColor(Color.BLACK);
@@ -46,10 +45,10 @@ public class Joystick {
         blackPaint.setStrokeWidth(5);
 
         canvas.drawCircle(OUTER_X, OUTER_Y, OUTER_RADIUS, blackPaint);
-        canvas.drawCircle((float) this.innerLoc.getX(), (float) this.innerLoc.getY(), INNER_RADIUS, p);
-        if (getDistance() < OUTER_RADIUS) {
-
-        }
+        canvas.drawCircle((float) this.innerLoc.getX(),
+                (float) this.innerLoc.getY(), INNER_RADIUS, p);
+        // is this function used for something?
+        // if (getDistance() < OUTER_RADIUS) {}
     }
 
     public void setInner(double x, double y) {
@@ -58,9 +57,9 @@ public class Joystick {
         updateDistance();
         if (distance > OUTER_RADIUS) {
             //Far distance is 'distance', close distance is 'radius'
-            float ratioDist = (float)(OUTER_RADIUS/distance);
-            this.innerLoc.setX((1-ratioDist) * OUTER_X+(ratioDist * this.innerLoc.getX()));
-            this.innerLoc.setY((1-ratioDist) * OUTER_Y+(ratioDist * this.innerLoc.getY()));
+            float ratioDist = (float) (OUTER_RADIUS / distance);
+            this.innerLoc.setX((1 - ratioDist) * OUTER_X + (ratioDist * this.innerLoc.getX()));
+            this.innerLoc.setY((1 - ratioDist) * OUTER_Y + (ratioDist * this.innerLoc.getY()));
         }
     }
     public void updateDistance() {
