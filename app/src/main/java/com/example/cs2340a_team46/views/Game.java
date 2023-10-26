@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.view.SurfaceHolder;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
@@ -18,10 +17,6 @@ import androidx.lifecycle.LiveData;
 import java.util.Observable;
 import java.util.Observer;
 
-import java.util.Random;
-import java.util.Timer;
-
-import android.os.Handler;
 import android.view.View;
 
 import com.example.cs2340a_team46.models.Tilemap1;
@@ -31,22 +26,18 @@ import com.example.cs2340a_team46.viewmodels.GameViewModel;
 
 
 public class Game extends View implements Observer {
-    private Paint redPaint = new Paint();
-    private SurfaceHolder holder;
-    private Random rand = new Random();
-    private Timer timer = new Timer();
-    private Handler handler = new Handler();
     private Tilemap[] tileMaps;
-    float x;
-    float y;
+    private float x;
+    private float y;
     private Activity parentActivity;
-    boolean gameEnds;
+    private boolean gameEnds;
 
     public Game(Context context, Activity activity) {
         super(context);
         this.parentActivity = activity;
         GameViewModel.observePlayer(this);
-        tileMaps = new Tilemap[] {new Tilemap1(context), new Tilemap2(context), new Tilemap3(context)};
+        tileMaps = new Tilemap[]
+            {new Tilemap1(context), new Tilemap2(context), new Tilemap3(context)};
         gameEnds = false;
     }
 
@@ -59,7 +50,8 @@ public class Game extends View implements Observer {
         //updateJoystick
         tileMaps[GameViewModel.getLevel()].drawTilemap(canvas);
         GameViewModel.drawJoystick(canvas);
-        Bitmap characterSprite = BitmapFactory.decodeResource(getContext().getResources(), GameViewModel.getCharacter());
+        Bitmap characterSprite = BitmapFactory
+                .decodeResource(getContext().getResources(), GameViewModel.getCharacter());
 
 
         //
@@ -104,14 +96,7 @@ public class Game extends View implements Observer {
             parentActivity.finish();
 
         }
-//        canvas.drawText(String.valueOf(level), 50, 850, tP);
-//        canvas.drawText(String.valueOf(player.getCharX()), 50, 850, tP);
-//        canvas.drawText(String.valueOf(player.getCharY()), 50, 1050, tP);
         postInvalidate();
-
-        // these two lines are now handled in update(), which follows the observer pattern.
-//        x = (float)(player.getCharX());
-//        y = (float)(player.getCharY());
 
 
         //72 is offset since image draws 72 pixels too high
