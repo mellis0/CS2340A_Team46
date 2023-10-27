@@ -5,7 +5,6 @@ public class Player extends Agent {
     private static final MovementBehavior DEFAULT_MOVEMENT_BEHAVIOR = new NormalMovement();
     private int difficulty;
     private String playerName;
-    private int character;
 
     // getter and setter for difficulty
     public void setDifficulty(int difficulty) {
@@ -36,12 +35,12 @@ public class Player extends Agent {
         return playerName;
     }
 
-    // getter and setter for character
-    public void setCharacter(int character) {
-        this.character = character;
+    // getter and setter for sprite
+    public void setSprite(int sprite) {
+        this.sprite = sprite;
     }
-    public int getCharacter() {
-        return character;
+    public int getSprite() {
+        return sprite;
     }
 
     // made thread safe

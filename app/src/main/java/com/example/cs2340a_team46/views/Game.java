@@ -50,8 +50,8 @@ public class Game extends View implements Observer {
         //updateJoystick
         tileMaps[GameViewModel.getLevel()].drawTilemap(canvas);
         GameViewModel.drawJoystick(canvas);
-        Bitmap characterSprite = BitmapFactory
-                .decodeResource(getContext().getResources(), GameViewModel.getCharacter());
+        Bitmap playerSprite = BitmapFactory
+                .decodeResource(getContext().getResources(), GameViewModel.getPlayerSprite());
 
 
         //
@@ -102,7 +102,7 @@ public class Game extends View implements Observer {
         //72 is offset since image draws 72 pixels too high
         //56 to right gets to middle
         // 90 down to get to center
-        canvas.drawBitmap(characterSprite, x - 56, y - 162, null);
+        canvas.drawBitmap(playerSprite, x - 56, y - 162, null);
 
     }
 

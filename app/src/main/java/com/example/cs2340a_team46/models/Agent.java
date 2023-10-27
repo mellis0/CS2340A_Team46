@@ -6,6 +6,7 @@ public abstract class Agent extends Observable {
     protected MovementBehavior movementBehavior;
     protected int health;
     protected Location location;
+    protected int sprite;
 
 
     public void setMovementBehavior(MovementBehavior mb) {

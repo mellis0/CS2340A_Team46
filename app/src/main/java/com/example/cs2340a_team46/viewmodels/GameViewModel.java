@@ -135,16 +135,13 @@ public class GameViewModel extends ViewModel {
         // GameViewModel.playerName = name;
     }
 
-    public static void setCharacter(int characterRadioButton) {
+    public static void setPlayerSprite(int characterRadioButton) {
         if (characterRadioButton == 1) {
-            player.setCharacter(R.drawable.angel);
-            // GameViewModel.character = R.drawable.angel;
+            player.setSprite(R.drawable.angel);
         } else if (characterRadioButton == 2) {
-            player.setCharacter(R.drawable.knight);
-            // GameViewModel.character = R.drawable.knight;
+            player.setSprite(R.drawable.knight);
         } else if (characterRadioButton == 3) {
-            player.setCharacter(R.drawable.lizard);
-            // GameViewModel.character = R.drawable.lizard;
+            player.setSprite(R.drawable.lizard);
         } else {
             throw new IllegalArgumentException("characterRadioButton must be 1, 2, or 3");
         }
@@ -166,8 +163,8 @@ public class GameViewModel extends ViewModel {
         return player.getPlayerName();
     }
 
-    public static int getCharacter() {
-        return player.getCharacter();
+    public static int getPlayerSprite() {
+        return player.getSprite();
     }
     public static LiveData<Integer> getPlayerScore() {
         return score;
