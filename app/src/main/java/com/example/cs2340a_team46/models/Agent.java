@@ -18,11 +18,15 @@ public abstract class Agent extends Observable {
     }
 
     // getter and setter for health
-    public void setHealth(int playerHealth) {
-        this.health = playerHealth;
+    public void setHealth(int health) {
+        this.health = health;
     }
     public int getHealth() {
         return health;
+    }
+
+    public int getSprite() {
+        return sprite;
     }
 
     public void setX(double x) {
@@ -32,8 +36,12 @@ public abstract class Agent extends Observable {
         this.location.setY(y);
     }
     public void setLocation(double x, double y) {
-        this.setX(x);
-        this.setY(y);
+        if (this.location == null) {
+            this.location = new Location(x, y);
+        } else {
+            this.setX(x);
+            this.setY(y);
+        }
     }
     public double getX() {
         return this.location.getX();

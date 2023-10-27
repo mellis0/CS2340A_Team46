@@ -2,9 +2,13 @@ package com.example.cs2340a_team46.viewmodels;
 
 import android.graphics.Canvas;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.cs2340a_team46.R;
+import com.example.cs2340a_team46.models.BasicEnemyFactory;
+import com.example.cs2340a_team46.models.Enemy;
+import com.example.cs2340a_team46.models.EnemyFactory;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.ScoreModel;
@@ -17,6 +21,11 @@ import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.views.Game;
 
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
+
 public class GameViewModel extends ViewModel {
 
     private static final int MAX_LEVEL = 2; // levels 0, 1, & 2 exist
@@ -25,6 +34,22 @@ public class GameViewModel extends ViewModel {
     private static LiveData<Integer> score = scoreModel.getScore();
     private static final int COUNTDOWN_DURATION = 100000;
     private static final int COUNTDOWN_INTERVAL = 1000;
+    private static int level = 0;
+    private static ArrayList<Enemy> currLevelEnemies;
+    private static final BasicEnemyFactory BASIC_ENEMY_FACTORY = new BasicEnemyFactory();
+
+    // length of this array should equal MAX_LEVEL + 1
+    private static final Map<EnemyFactory, Integer>[] ENEMY_COUNTS = new HashMap[] {
+            new HashMap<EnemyFactory, Integer>(){{
+                put(BASIC_ENEMY_FACTORY, 1);
+            }},
+            new HashMap<EnemyFactory, Integer>(){{
+                put(BASIC_ENEMY_FACTORY, 1);
+            }},
+            new HashMap<EnemyFactory, Integer>(){{
+                put(BASIC_ENEMY_FACTORY, 1);
+            }}
+    };
     private static CountDownTimer countDownTimer = new
             CountDownTimer(COUNTDOWN_DURATION, COUNTDOWN_INTERVAL) {
         @Override
@@ -61,12 +86,34 @@ public class GameViewModel extends ViewModel {
         return postInvalidate;
     }
 
-    private static int level = 0;
+    private static void initializeCurrLevelEnemies() {
+        currLevelEnemies = new ArrayList<Enemy>();
+        for (Map.Entry<EnemyFactory, Integer> entry : ENEMY_COUNTS[level].entrySet()) {
+            for (int i = 0; i < entry.getValue(); i++) {
+                currLevelEnemies.add(entry.getKey().generateEnemy());
+            }
+        }
+        // initialize enemy location to be not on top of the player
+        for (Enemy enemy : currLevelEnemies) {
+            enemy.setLocation(1000, 500);
+        }
+    }
+
+    public static Enemy[] getCurrLevelEnemies() {
+        if (currLevelEnemies == null) {
+            initializeCurrLevelEnemies();
+        }
+        Enemy[] out = new Enemy[currLevelEnemies.size()];
+        out = currLevelEnemies.toArray(out);
+        return out;
+    }
+
     public static int getLevel() {
         return level;
     }
     public static void incrementLevel() {
         level = Math.min(level + 1, MAX_LEVEL);
+        initializeCurrLevelEnemies();
     }
 
     public static boolean nextLevelIfEndConditionSatisfied(Tilemap tm) {

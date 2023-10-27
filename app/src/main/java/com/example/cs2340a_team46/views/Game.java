@@ -2,6 +2,7 @@ package com.example.cs2340a_team46.views;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
+import com.example.cs2340a_team46.models.Enemy;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Tilemap;
 
@@ -27,8 +29,8 @@ import com.example.cs2340a_team46.viewmodels.GameViewModel;
 
 public class Game extends View implements Observer {
     private Tilemap[] tileMaps;
-    private float x;
-    private float y;
+    private float playerX;
+    private float playerY;
     private Activity parentActivity;
     private boolean gameEnds;
 
@@ -41,17 +43,21 @@ public class Game extends View implements Observer {
         gameEnds = false;
     }
 
+    private static Bitmap getBitmapFromSprite(Resources resources, int sprite) {
+        return BitmapFactory.decodeResource(resources, sprite);
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         if (gameEnds) {
             return;
         }
+
         super.onDraw(canvas);
         //updateJoystick
         tileMaps[GameViewModel.getLevel()].drawTilemap(canvas);
         GameViewModel.drawJoystick(canvas);
-        Bitmap playerSprite = BitmapFactory
-                .decodeResource(getContext().getResources(), GameViewModel.getPlayerSprite());
+
 
 
         //
@@ -99,10 +105,17 @@ public class Game extends View implements Observer {
         postInvalidate();
 
 
+        Bitmap playerSprite = getBitmapFromSprite(getContext().getResources(),
+                GameViewModel.getPlayerSprite());
         //72 is offset since image draws 72 pixels too high
         //56 to right gets to middle
         // 90 down to get to center
-        canvas.drawBitmap(playerSprite, x - 56, y - 162, null);
+        canvas.drawBitmap(playerSprite, playerX - 56, playerY - 162, null);
+
+        for (Enemy enemy : GameViewModel.getCurrLevelEnemies()) {
+            Bitmap b = getBitmapFromSprite(getContext().getResources(), enemy.getSprite());
+            canvas.drawBitmap(b, (float) (enemy.getX() - 56), (float) (enemy.getY() - 162), null);
+        }
 
     }
 
@@ -121,8 +134,8 @@ public class Game extends View implements Observer {
     @Override
     public void update(Observable observable, Object o) {
         Location playerLoc = GameViewModel.getPlayerLocation();
-        x = (float) playerLoc.getX();
-        y = (float) playerLoc.getY();
+        playerX = (float) playerLoc.getX();
+        playerY = (float) playerLoc.getY();
     }
 }
 
