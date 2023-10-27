@@ -1,38 +1,11 @@
 package com.example.cs2340a_team46.models;
 
-import android.content.Context;
-
-import java.util.Observable;
-
-public class Player extends Observable {
+public class Player extends Agent {
     private static volatile Player instance;
     private static final MovementBehavior DEFAULT_MOVEMENT_BEHAVIOR = new NormalMovement();
-    private int playerHealth;
     private int difficulty;
     private String playerName;
     private int character;
-    private Location location;
-    private Context context;
-    private MovementBehavior movementBehavior;
-
-    private double speed = 0.01;
-
-
-    public void setMovementBehavior(MovementBehavior mb) {
-        this.movementBehavior = mb;
-    }
-
-    public MovementBehavior getMovementBehavior() {
-        return this.movementBehavior;
-    }
-
-    // getter and setter for health
-    public void setPlayerHealth(int playerHealth) {
-        this.playerHealth = playerHealth;
-    }
-    public int getPlayerHealth() {
-        return playerHealth;
-    }
 
     // getter and setter for difficulty
     public void setDifficulty(int difficulty) {
@@ -69,39 +42,6 @@ public class Player extends Observable {
     }
     public int getCharacter() {
         return character;
-    }
-
-
-    public void setX(double x) {
-        this.location.setX(x);
-    }
-    public void setY(double y) {
-        this.location.setY(y);
-    }
-    public void setLocation(double x, double y) {
-        this.setX(x);
-        this.setY(y);
-    }
-    public double getX() {
-        return this.location.getX();
-    }
-    public double getY() {
-        return this.location.getY();
-    }
-    public Location getLocation() {
-        return this.location;
-    }
-
-    public double[] getLocationArr() {
-        return this.location.getXY();
-    }
-
-
-    public void updateLoc(Tilemap tilemap, Location joystickLoc, boolean collideCheck) {
-        this.movementBehavior.move(tilemap, this.location, joystickLoc, collideCheck);
-
-        setChanged();
-        notifyObservers();
     }
 
     // made thread safe

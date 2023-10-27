@@ -102,13 +102,13 @@ public class GameViewModel extends ViewModel {
     }
     public static void setPlayerHealth(int difficultyVal) {
         if (difficultyVal == 1) {
-            player.setPlayerHealth(150);
+            player.setHealth(150);
             // GameViewModel.playerHealth = 150;
         } else if (difficultyVal == 2) {
-            player.setPlayerHealth(100);
+            player.setHealth(100);
             // GameViewModel.playerHealth = 100;
         } else if (difficultyVal == 3) {
-            player.setPlayerHealth(50);
+            player.setHealth(50);
             // GameViewModel.playerHealth = 50;
         } else {
             throw new IllegalArgumentException("Difficulty must be 1, 2, or 3");
@@ -151,7 +151,7 @@ public class GameViewModel extends ViewModel {
     }
 
     public static int getPlayerHealth() {
-        return player.getPlayerHealth();
+        return player.getHealth();
     }
 
     public static int getDifficulty() {
