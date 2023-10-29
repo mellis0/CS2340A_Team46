@@ -2,7 +2,6 @@ package com.example.cs2340a_team46.viewmodels;
 
 import android.graphics.Canvas;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.cs2340a_team46.R;
@@ -25,7 +24,6 @@ import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.views.Game;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,15 +46,15 @@ public class GameViewModel extends ViewModel {
 
     // length of this array should equal MAX_LEVEL + 1
     private static final Map<EnemyFactory, Integer>[] ENEMY_COUNTS = new HashMap[] {
-            new HashMap<EnemyFactory, Integer>(){{
-                put(BASIC_ENEMY_FACTORY, 1);
+        new HashMap<EnemyFactory, Integer>() { {
+                put(BASIC_ENEMY_FACTORY, 2);
                 put(SMALL_ENEMY_FACTORY, 1);
             }},
-            new HashMap<EnemyFactory, Integer>(){{
+        new HashMap<EnemyFactory, Integer>() { {
                 put(BASIC_ENEMY_FACTORY, 1);
                 put(FAST_ENEMY_FACTORY, 1);
             }},
-            new HashMap<EnemyFactory, Integer>(){{
+        new HashMap<EnemyFactory, Integer>() { {
                 put(BASIC_ENEMY_FACTORY, 1);
                 put(BIG_ENEMY_FACTORY, 1);
             }}
@@ -104,7 +102,9 @@ public class GameViewModel extends ViewModel {
                 currLevelEnemies.add(entry.getKey().generateEnemy());
             }
         }
-        // initialize enemy location to be not on top of the player
+        // initialize random enemy location to be not on top of the player
+        // eventually, we should probably make sure the enemies aren't spawned on top of each other
+        // @giovanni, could you do this after you implement collisions?
         for (Enemy enemy : currLevelEnemies) {
             double randX = 800 + Math.random() * 400;
             double randY = 400 + Math.random() * 200;
@@ -162,6 +162,9 @@ public class GameViewModel extends ViewModel {
     }
 
     public static void updateEnemyLocations(Tilemap tm) {
+        if (currLevelEnemies == null) {
+            initializeCurrLevelEnemies();
+        }
         for (Enemy enemy : currLevelEnemies) {
             // @Ryan, I would reccomend moving updateLoc from the Agent class and putting it
             // in Enemy and Player. This way, the method signature can differ between enemies and
@@ -175,13 +178,10 @@ public class GameViewModel extends ViewModel {
     public static void setPlayerHealth(int difficultyVal) {
         if (difficultyVal == 1) {
             player.setHealth(150);
-            // GameViewModel.playerHealth = 150;
         } else if (difficultyVal == 2) {
             player.setHealth(100);
-            // GameViewModel.playerHealth = 100;
         } else if (difficultyVal == 3) {
             player.setHealth(50);
-            // GameViewModel.playerHealth = 50;
         } else {
             throw new IllegalArgumentException("Difficulty must be 1, 2, or 3");
         }
@@ -190,13 +190,10 @@ public class GameViewModel extends ViewModel {
     public static void setDifficulty(int difficultyVal) {
         if (difficultyVal == 1) {
             player.setDifficulty(1);
-            // GameViewModel.difficulty = "Easy";
         } else if (difficultyVal == 2) {
             player.setDifficulty(2);
-            // GameViewModel.difficulty = "Normal";
         } else if (difficultyVal == 3) {
             player.setDifficulty(3);
-            // GameViewModel.difficulty = "Hard";
         } else {
             throw new IllegalArgumentException("Difficulty must be 1, 2, or 3");
         }
@@ -204,7 +201,6 @@ public class GameViewModel extends ViewModel {
 
     public static void setPlayerName(String name) {
         player.setPlayerName(name);
-        // GameViewModel.playerName = name;
     }
 
     public static void setPlayerSprite(int characterRadioButton) {

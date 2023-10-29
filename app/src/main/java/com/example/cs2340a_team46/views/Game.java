@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.cs2340a_team46.models.Enemy;
@@ -123,11 +122,11 @@ public class Game extends View implements Observer {
         //56 to right gets to middle
         // 90 down to get to center
 
-//        Log.d("width", Integer.toString(playerSprite.getScaledWidth(canvas) / 2));
-//        Log.d("height", Integer.toString(playerSprite.getScaledHeight(canvas) / 2));
+        //Log.d("width", Integer.toString(playerSprite.getScaledWidth(canvas) / 2));
+        //Log.d("height", Integer.toString(playerSprite.getScaledHeight(canvas) / 2));
 
         // @Ryan, these values don't line up with the ones you had, but they're close
-        // we need a way to programatically find these values cus we're gonna have sprites with
+        // we need a way to programmatically find these values cus we're gonna have sprites with
         // different sizes.
         // see the code above for drawing enemies, too.
         canvas.drawBitmap(playerSprite,
