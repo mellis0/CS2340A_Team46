@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import com.example.cs2340a_team46.models.Enemy;
@@ -88,7 +89,6 @@ public class Game extends View implements Observer {
 
         // Draw the image on the canvas at a specific position
 
-        GameViewModel.updatePlayerLoc(tileMaps[GameViewModel.getLevel()]);
 
         // this method increments the level if an end condition (ie the flask) is reached
         // It returns true iff the player has just completed the end condition for the final level
@@ -104,18 +104,35 @@ public class Game extends View implements Observer {
         }
         postInvalidate();
 
+        Enemy[] enemies = GameViewModel.getCurrLevelEnemies();
+
+        GameViewModel.updateEnemyLocations(tileMaps[GameViewModel.getLevel()]);
+
+        for (Enemy enemy : enemies) {
+            Bitmap b = getBitmapFromSprite(getContext().getResources(), enemy.getSprite());
+            canvas.drawBitmap(b, (float) (enemy.getX() - b.getScaledWidth(canvas) / 2.0),
+                    (float) (enemy.getY() - b.getScaledHeight(canvas) / 2.0), null);
+        }
+
+
+        GameViewModel.updatePlayerLocation(tileMaps[GameViewModel.getLevel()]);
 
         Bitmap playerSprite = getBitmapFromSprite(getContext().getResources(),
                 GameViewModel.getPlayerSprite());
         //72 is offset since image draws 72 pixels too high
         //56 to right gets to middle
         // 90 down to get to center
-        canvas.drawBitmap(playerSprite, playerX - 56, playerY - 162, null);
 
-        for (Enemy enemy : GameViewModel.getCurrLevelEnemies()) {
-            Bitmap b = getBitmapFromSprite(getContext().getResources(), enemy.getSprite());
-            canvas.drawBitmap(b, (float) (enemy.getX() - 56), (float) (enemy.getY() - 162), null);
-        }
+//        Log.d("width", Integer.toString(playerSprite.getScaledWidth(canvas) / 2));
+//        Log.d("height", Integer.toString(playerSprite.getScaledHeight(canvas) / 2));
+
+        // @Ryan, these values don't line up with the ones you had, but they're close
+        // we need a way to programatically find these values cus we're gonna have sprites with
+        // different sizes.
+        // see the code above for drawing enemies, too.
+        canvas.drawBitmap(playerSprite,
+                playerX - (float) (playerSprite.getScaledWidth(canvas) / 2.0),
+                playerY - (float) (playerSprite.getScaledHeight(canvas) / 2.0), null);
 
     }
 

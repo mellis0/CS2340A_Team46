@@ -144,8 +144,20 @@ public class GameViewModel extends ViewModel {
     }
 
 
-    public static void updatePlayerLoc(Tilemap tm) {
+    public static void updatePlayerLocation(Tilemap tm) {
         player.updateLoc(tm, joystick.getInnerLoc(), true);
+    }
+
+    public static void updateEnemyLocations(Tilemap tm) {
+        for (Enemy enemy : currLevelEnemies) {
+            // @Ryan, I would reccomend moving updateLoc from the Agent class and putting it
+            // in Enemy and Player. This way, the method signature can differ between enemies and
+            // players, because enemies might need different info to move than the player.
+
+            // up to you tho, there's probably a way to implement it with the
+            // current method signature
+            enemy.updateLoc(tm, joystick.getInnerLoc(), true);
+        }
     }
     public static void setPlayerHealth(int difficultyVal) {
         if (difficultyVal == 1) {
