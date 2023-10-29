@@ -7,8 +7,10 @@ import android.view.MotionEvent;
 
 import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.models.BasicEnemyFactory;
+import com.example.cs2340a_team46.models.BigEnemyFactory;
 import com.example.cs2340a_team46.models.Enemy;
 import com.example.cs2340a_team46.models.EnemyFactory;
+import com.example.cs2340a_team46.models.FastEnemyFactory;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.ScoreModel;
@@ -18,6 +20,7 @@ import androidx.lifecycle.ViewModel;
 
 
 import com.example.cs2340a_team46.models.Player;
+import com.example.cs2340a_team46.models.SmallEnemyFactory;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.views.Game;
 
@@ -36,18 +39,26 @@ public class GameViewModel extends ViewModel {
     private static final int COUNTDOWN_INTERVAL = 1000;
     private static int level = 0;
     private static ArrayList<Enemy> currLevelEnemies;
-    private static final BasicEnemyFactory BASIC_ENEMY_FACTORY = new BasicEnemyFactory();
+    private static final EnemyFactory BASIC_ENEMY_FACTORY = new BasicEnemyFactory();
+    private static final EnemyFactory BIG_ENEMY_FACTORY = new BigEnemyFactory();
+    private static final EnemyFactory FAST_ENEMY_FACTORY = new FastEnemyFactory();
+    private static final EnemyFactory SMALL_ENEMY_FACTORY = new SmallEnemyFactory();
+
+
 
     // length of this array should equal MAX_LEVEL + 1
     private static final Map<EnemyFactory, Integer>[] ENEMY_COUNTS = new HashMap[] {
             new HashMap<EnemyFactory, Integer>(){{
                 put(BASIC_ENEMY_FACTORY, 1);
+                put(SMALL_ENEMY_FACTORY, 1);
             }},
             new HashMap<EnemyFactory, Integer>(){{
                 put(BASIC_ENEMY_FACTORY, 1);
+                put(FAST_ENEMY_FACTORY, 1);
             }},
             new HashMap<EnemyFactory, Integer>(){{
                 put(BASIC_ENEMY_FACTORY, 1);
+                put(BIG_ENEMY_FACTORY, 1);
             }}
     };
     private static CountDownTimer countDownTimer = new
@@ -95,7 +106,9 @@ public class GameViewModel extends ViewModel {
         }
         // initialize enemy location to be not on top of the player
         for (Enemy enemy : currLevelEnemies) {
-            enemy.setLocation(1000, 500);
+            double randX = 800 + Math.random() * 400;
+            double randY = 400 + Math.random() * 200;
+            enemy.setLocation(randX, randY);
         }
     }
 
