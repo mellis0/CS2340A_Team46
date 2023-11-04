@@ -7,6 +7,6 @@ public class BigEnemy extends Enemy {
     public BigEnemy() {
         super();
         this.sprite = R.drawable.ogre;
-        this.movementBehavior = new NormalMovement(); // TODO: change this @Ryan
+        this.movementBehavior = new EnemyRandomMovement(); // TODO: change this @Ryan
     }
 }
