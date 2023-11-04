@@ -5,11 +5,11 @@ import android.os.CountDownTimer;
 import android.view.MotionEvent;
 
 import com.example.cs2340a_team46.R;
-import com.example.cs2340a_team46.models.BasicEnemyFactory;
-import com.example.cs2340a_team46.models.BigEnemyFactory;
-import com.example.cs2340a_team46.models.Enemy;
-import com.example.cs2340a_team46.models.EnemyFactory;
-import com.example.cs2340a_team46.models.FastEnemyFactory;
+import com.example.cs2340a_team46.models.Enemies.BasicEnemyFactory;
+import com.example.cs2340a_team46.models.Enemies.BigEnemyFactory;
+import com.example.cs2340a_team46.models.Enemies.Enemy;
+import com.example.cs2340a_team46.models.Enemies.EnemyFactory;
+import com.example.cs2340a_team46.models.Enemies.FastEnemyFactory;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.ScoreModel;
@@ -19,7 +19,7 @@ import androidx.lifecycle.ViewModel;
 
 
 import com.example.cs2340a_team46.models.Player;
-import com.example.cs2340a_team46.models.SmallEnemyFactory;
+import com.example.cs2340a_team46.models.Enemies.SmallEnemyFactory;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.views.Game;
 
@@ -41,6 +41,18 @@ public class GameViewModel extends ViewModel {
     private static final EnemyFactory BIG_ENEMY_FACTORY = new BigEnemyFactory();
     private static final EnemyFactory FAST_ENEMY_FACTORY = new FastEnemyFactory();
     private static final EnemyFactory SMALL_ENEMY_FACTORY = new SmallEnemyFactory();
+
+    //There's probably a better spot for this. just don't know where
+    private static double curPlayerX;
+    private static double curPlayerY;
+    private static double postPlayerX;
+    private static double postPlayerY;
+
+    private static boolean left = false;
+    private static boolean right = false;
+    private static boolean up = false;
+    private static boolean down = false;
+    private static boolean standStill = false;
 
 
 
@@ -158,7 +170,11 @@ public class GameViewModel extends ViewModel {
 
 
     public static void updatePlayerLocation(Tilemap tm) {
+        curPlayerX = player.getX();
+        curPlayerY = player.getY();
         player.updateLoc(tm, joystick.getInnerLoc(), true);
+        postPlayerX = player.getX();
+        postPlayerY = player.getY();
     }
 
     public static void updateEnemyLocations(Tilemap tm) {
@@ -172,7 +188,29 @@ public class GameViewModel extends ViewModel {
 
             // up to you tho, there's probably a way to implement it with the
             // current method signature
-            enemy.updateLoc(tm, joystick.getInnerLoc(), true);
+
+            if (postPlayerX == curPlayerX && postPlayerY == curPlayerY) {
+                standStill = true;
+            }
+            if (postPlayerX > curPlayerX) {
+                right = true;
+                left = false;
+                standStill = false;
+            } else if (postPlayerX < curPlayerX){
+                left = true;
+                right = false;
+                standStill = false;
+            }
+            if (postPlayerY > curPlayerY) {
+                down = true;
+                up = false;
+                standStill = false;
+            } else if (postPlayerY < curPlayerY){
+                up = true;
+                down = false;
+                standStill = false;
+            }
+            enemy.updateLoc(tm, left, right, up, down, standStill, true);
         }
     }
     public static void setPlayerHealth(int difficultyVal) {
