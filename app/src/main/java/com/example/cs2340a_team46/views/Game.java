@@ -2,63 +2,49 @@ package com.example.cs2340a_team46.views;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.view.SurfaceHolder;
 import android.graphics.Paint;
 import android.view.MotionEvent;
+
+import com.example.cs2340a_team46.models.Enemies.Enemy;
+import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Tilemap;
 
 import androidx.lifecycle.LiveData;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import java.util.Random;
-import java.util.Timer;
-
-import android.os.Handler;
 import android.view.View;
 
-import com.example.cs2340a_team46.models.Joystick;
-import com.example.cs2340a_team46.models.Player;
+import com.example.cs2340a_team46.models.Tilemap1;
 import com.example.cs2340a_team46.models.Tilemap2;
 import com.example.cs2340a_team46.models.Tilemap3;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
 
 
 public class Game extends View implements Observer {
-    private Paint redPaint = new Paint();
-    private SurfaceHolder holder;
-    //    private float x, y;
-    private Random rand = new Random();
-    private Timer timer = new Timer();
-    private Handler handler = new Handler();
-    private Joystick joystick;
-    private Player player;
-    private Tilemap tilemap;
-    private Tilemap2 tilemap2;
-    private Tilemap3 tilemap3;
-    private int level;
-    float x;
-    float y;
+    private Tilemap[] tileMaps;
+    private float playerX;
+    private float playerY;
     private Activity parentActivity;
-    boolean gameEnds;
+    private boolean gameEnds;
 
     public Game(Context context, Activity activity) {
         super(context);
         this.parentActivity = activity;
-        joystick = new Joystick();
-        player = Player.getInstance();
-        player.addObserver(this);
-        tilemap = new Tilemap(context);
-        tilemap2 = new Tilemap2(context);
-        tilemap3 = new Tilemap3(context);
-        level = 1;
+        GameViewModel.observePlayer(this);
+        tileMaps = new Tilemap[]
+            {new Tilemap1(context), new Tilemap2(context), new Tilemap3(context)};
         gameEnds = false;
+    }
+
+    private static Bitmap getBitmapFromSprite(Resources resources, int sprite) {
+        return BitmapFactory.decodeResource(resources, sprite);
     }
 
     @Override
@@ -66,17 +52,12 @@ public class Game extends View implements Observer {
         if (gameEnds) {
             return;
         }
+
         super.onDraw(canvas);
         //updateJoystick
-        if (level == 1) {
-            tilemap.drawTilemap(canvas);
-        } else if (level == 2) {
-            tilemap2.drawTilemap(canvas);
-        } else {
-            tilemap3.drawTilemap(canvas);
-        }
-        joystick.drawJoystick(canvas);
-        Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(), GameViewModel.getCharacter());
+        tileMaps[GameViewModel.getLevel()].drawTilemap(canvas);
+        GameViewModel.drawJoystick(canvas);
+
 
 
         //
@@ -107,108 +88,70 @@ public class Game extends View implements Observer {
 
         // Draw the image on the canvas at a specific position
 
-        player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), true);
-        if (level == 1 && tilemap.getIfFlask(player.getCharX(), player.getCharY()) ||
-                level == 2 && tilemap2.getIfFlask(player.getCharX(), player.getCharY()) ||
-                level == 3 && tilemap3.getIfFlask(player.getCharX(), player.getCharY())) {
-            if (level < 3) {
-                level += 1;
-                player.setCharX(500);
-                player.setCharY(500);
-            } else {
-                player.setCharX(500);
-                player.setCharY(500);
-                gameEnds = true;
-                Intent intent = new Intent(parentActivity, EndActivity.class);
-                parentActivity.startActivity(intent);
-                parentActivity.finish();
-            }
+
+        // this method increments the level if an end condition (ie the flask) is reached
+        // It returns true iff the player has just completed the end condition for the final level
+        boolean finishedFinalLevel = GameViewModel
+                .nextLevelIfEndConditionSatisfied(tileMaps[GameViewModel.getLevel()]);
+
+        if (finishedFinalLevel) {
+            gameEnds = true;
+            Intent intent = new Intent(parentActivity, EndActivity.class);
+            parentActivity.startActivity(intent);
+            parentActivity.finish();
 
         }
-//        canvas.drawText(String.valueOf(level), 50, 850, tP);
-//        canvas.drawText(String.valueOf(player.getCharX()), 50, 850, tP);
-//        canvas.drawText(String.valueOf(player.getCharY()), 50, 1050, tP);
         postInvalidate();
 
-        // these two lines are now handled in update(), which follows the observer pattern.
-//        x = (float)(player.getCharX());
-//        y = (float)(player.getCharY());
+        Enemy[] enemies = GameViewModel.getCurrLevelEnemies();
+
+        GameViewModel.updateEnemyLocations(tileMaps[GameViewModel.getLevel()]);
+
+        for (Enemy enemy : enemies) {
+            Bitmap b = getBitmapFromSprite(getContext().getResources(), enemy.getSprite());
+            canvas.drawBitmap(b, (float) (enemy.getX() - b.getScaledWidth(canvas) / 2.0),
+                    (float) (enemy.getY() - b.getScaledHeight(canvas) / 2.0), null);
+        }
 
 
+        GameViewModel.updatePlayerLocation(tileMaps[GameViewModel.getLevel()]);
+
+        Bitmap playerSprite = getBitmapFromSprite(getContext().getResources(),
+                GameViewModel.getPlayerSprite());
         //72 is offset since image draws 72 pixels too high
         //56 to right gets to middle
         // 90 down to get to center
-        canvas.drawBitmap(bitmap, x-56, y-162, null);
+
+        //Log.d("width", Integer.toString(playerSprite.getScaledWidth(canvas) / 2));
+        //Log.d("height", Integer.toString(playerSprite.getScaledHeight(canvas) / 2));
+
+        // @Ryan, these values don't line up with the ones you had, but they're close
+        // we need a way to programmatically find these values cus we're gonna have sprites with
+        // different sizes.
+        // see the code above for drawing enemies, too.
+        canvas.drawBitmap(playerSprite,
+                playerX - (float) (playerSprite.getScaledWidth(canvas) / 2.0),
+                playerY - (float) (playerSprite.getScaledHeight(canvas) / 2.0), null);
 
     }
 
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
-        if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_POINTER_DOWN) {
-            if (joystick.isPressed()) {
-                joystick.setInner(event.getX(), event.getY());
-                joystick.updateDistance();
-//                player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), joystick.getDistance());
-                postInvalidate();
-            }
-        } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            if (joystick.getPressed()) {
-                joystick.setInner(event.getX(), event.getY());
-                joystick.updateDistance();
-//                player.updateLoc(joystick.getInnerX(), joystick.getInnerY(), joystick.getDistance());
-                postInvalidate();
-            }
-        } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_POINTER_UP) {
-            if (joystick.getPressed()) {
-                joystick.setPressed(false);
-                joystick.setInner(275, 1200);
-                joystick.updateDistance();
-                postInvalidate();
-            }
+        if (GameViewModel.handleUserInput(event)) {
+            postInvalidate();
         }
-
         return true;
     }
 
 
+    // this function literally doesn't make sense in our current framework,
+    // but we need to implement it in the Observer pattern...
     @Override
     public void update(Observable observable, Object o) {
-        ArrayList locationTuple = (ArrayList) o;
-        x = (float) locationTuple.get(0);
-        y = (float) locationTuple.get(1);
+        Location playerLoc = GameViewModel.getPlayerLocation();
+        playerX = (float) playerLoc.getX();
+        playerY = (float) playerLoc.getY();
     }
-
-
-//    @Override
-//    public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
-//        this.surfaceCreated(surfaceHolder);
-////        timer.schedule(new TimerTask() {
-////            @Override
-////            public void run() {
-////                handler.post(new Runnable() {
-////                    @Override
-////                    public void run() {
-//////                        update();
-//////                        render();
-////                    }
-////                });
-////            }
-////        }, 0, 100);
-//
-//    }
-//
-//    @Override
-//    public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-//
-//    }
-//
-//    @Override
-//    public void surfaceDestroyed(@NonNull SurfaceHolder surfaceHolder) {
-//
-//    }
-
-
 }
 

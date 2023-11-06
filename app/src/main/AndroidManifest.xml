@@ -25,15 +25,6 @@
             android:name=".views.ConfigActivity"
             android:exported="false" />
         <activity
-            android:name=".views.GameActivityOne"
-            android:exported="false" />
-        <activity
-            android:name=".views.GameActivityTwo"
-            android:exported="false" />
-        <activity
-            android:name=".views.GameActivityThree"
-            android:exported="false" />
-        <activity
             android:name=".views.EndActivity"
             android:exported="false" />
         <activity
