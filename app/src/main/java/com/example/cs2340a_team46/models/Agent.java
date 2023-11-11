@@ -4,7 +4,7 @@ import java.util.Observable;
 
 public abstract class Agent extends Observable {
     protected MovementBehavior movementBehavior;
-    protected int health;
+    protected double health;
     protected Location location;
     protected int sprite;
 
@@ -18,10 +18,10 @@ public abstract class Agent extends Observable {
     }
 
     // getter and setter for health
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
 
