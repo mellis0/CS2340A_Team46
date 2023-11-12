@@ -68,7 +68,7 @@ public class EndActivity extends AppCompatActivity {
         if (playerScore == 0) {
             leaderboardTitle.setText("game over");
         }
-//        leaderboardTitle.setText(" "+playerScore);
+        // leaderboardTitle.setText(" "+playerScore);
 
         entryOne = findViewById(R.id.leaderboardEntry1);
         entryTwo = findViewById(R.id.leaderboardEntry2);
