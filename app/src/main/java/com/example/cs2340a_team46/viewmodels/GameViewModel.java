@@ -85,6 +85,10 @@ public class GameViewModel extends ViewModel {
     };
 
     public static void resetGame() {
+        // Level
+        level = 0;
+
+        // Enemies
         Enemy[] currLevelEnemies = getCurrLevelEnemies();
         for (Enemy enemy : currLevelEnemies) {
             enemy.resetLastDamageTime();
@@ -121,9 +125,6 @@ public class GameViewModel extends ViewModel {
     }
 
     private static void initializeCurrLevelEnemies() {
-        // Level
-        level = 0;
-        // Enemies
         currLevelEnemies = new ArrayList<Enemy>();
         for (Map.Entry<EnemyFactory, Integer> entry : ENEMY_COUNTS[level].entrySet()) {
             for (int i = 0; i < entry.getValue(); i++) {
@@ -163,7 +164,6 @@ public class GameViewModel extends ViewModel {
     public static boolean nextLevelIfEndConditionSatisfied(Tilemap tm) {
         boolean out = false;
         if (player.getHealth() <= 0) {
-            player.setPlayerName("Health: "+player.getHealth());
             scoreModel.setScore(0);
             out = true;
         } else if (tm.getIfFlask(player.getLocation())) {
