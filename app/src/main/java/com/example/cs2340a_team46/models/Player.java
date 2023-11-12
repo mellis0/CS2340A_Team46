@@ -26,6 +26,9 @@ public class Player extends Agent {
             throw new RuntimeException("Player.difficulty can only be 1, 2, or 3");
         }
     }
+    public int getDifficultyInt() {
+        return this.difficulty;
+    }
 
     // getter and setter for player name
     public void setPlayerName(String playerName) {

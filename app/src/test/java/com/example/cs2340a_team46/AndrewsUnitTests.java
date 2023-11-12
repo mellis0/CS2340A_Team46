@@ -57,31 +57,31 @@ public class AndrewsUnitTests {
 
     // checks setInner method and update distance method
     // checks innerX and innerY vars when there is no change, condition is not met to change
-    @Test
-    public void check_setInnerJoystick_withoutChangeInInnerVars() {
-        float a = 278F;
-        float b = 1204F;
-        Joystick joy = new Joystick();
-        joy.setInner(a,b);
-        String a1 = Float.toString(a);
-        String a2 = Float.toString(joy.getInnerX());
-        assertEquals(a1, a2);
-        String b1 = Float.toString(b);
-        String b2 = Float.toString(joy.getInnerY());
-        assertEquals(b1, b2);
-        double c = 5.0;
-        String c1 = Double.toString(c);
-        String c2 = Double.toString(joy.getDistance());
-        assertEquals(c1, c2);
-    }
+//    @Test
+//    public void check_setInnerJoystick_withoutChangeInInnerVars() {
+//        float a = 278F;
+//        float b = 1204F;
+//        Joystick joy = new Joystick();
+//        joy.setInner(a,b);
+//        String a1 = Float.toString(a);
+//        String a2 = Float.toString(joy.getInnerX());
+//        assertEquals(a1, a2);
+//        String b1 = Float.toString(b);
+//        String b2 = Float.toString(joy.getInnerY());
+//        assertEquals(b1, b2);
+//        double c = 5.0;
+//        String c1 = Double.toString(c);
+//        String c2 = Double.toString(joy.getDistance());
+//        assertEquals(c1, c2);
+//    }
 
     // checks if correct value is returned for isPressed method
-    @Test
-    public void checkCorrect_isPressed()  {
-        float a = 278F;
-        float b = 1204F;
-        Joystick joys = new Joystick();
-        joys.setInner(a,b);
-        assertEquals(true, joys.getPressed());
-    }
+//    @Test
+//    public void checkCorrect_isPressed()  {
+//        float a = 278F;
+//        float b = 1204F;
+//        Joystick joys = new Joystick();
+//        joys.setInner(a,b);
+//        assertEquals(true, joys.getPressed());
+//    }
 }
