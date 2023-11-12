@@ -196,7 +196,7 @@ public class GameViewModel extends ViewModel {
                 right = true;
                 left = false;
                 standStill = false;
-            } else if (postPlayerX < curPlayerX){
+            } else if (postPlayerX < curPlayerX) {
                 left = true;
                 right = false;
                 standStill = false;
@@ -205,7 +205,7 @@ public class GameViewModel extends ViewModel {
                 down = true;
                 up = false;
                 standStill = false;
-            } else if (postPlayerY < curPlayerY){
+            } else if (postPlayerY < curPlayerY) {
                 up = true;
                 down = false;
                 standStill = false;

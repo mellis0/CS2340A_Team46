@@ -13,7 +13,8 @@ public class EnemyDetectMovement implements MovementBehavior {
     }
     @Override
     public void moveEnemy(Tilemap tilemap, Location entityLoc,
-                          boolean playerLeft, boolean playerRight, boolean playerUp, boolean playerDown, boolean standStill, boolean collideCheck) {
+                          boolean playerLeft, boolean playerUp,
+                          boolean standStill, boolean collideCheck) {
         Player player = Player.getInstance();
         double playerX = player.getX();
         double playerY = player.getY();
@@ -28,7 +29,7 @@ public class EnemyDetectMovement implements MovementBehavior {
         double xSpeed = -unitVectorX * 5;
         double ySpeed = -unitVectorY * 5;
         if (standStill) {
-            int randomDir = (int)Math.floor(Math.random() * 4 + 1);
+            int randomDir = (int) Math.floor(Math.random() * 4 + 1);
             if (randomDir == 1) {
                 xSpeed = 10;
                 ySpeed = 0;

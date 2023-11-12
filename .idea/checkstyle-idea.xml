@@ -13,6 +13,7 @@
         <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="d528feee-01a7-4fed-b859-cc5b0e85d146" type="LOCAL_FILE" scope="All" description="CS2340">$PROJECT_DIR$/../CS2340_checkstyle.xml</ConfigurationLocation>
+        <ConfigurationLocation id="23f1d3d9-bc49-44dc-918b-963efc247632" type="LOCAL_FILE" scope="All" description="CS2340 Fixed">$USER_HOME$/Downloads/Cs2340.xml</ConfigurationLocation>
       </list>
     </option>
   </component>

@@ -1,12 +1,11 @@
 package com.example.cs2340a_team46.models.Enemies;
 
-import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.MovementBehavior;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Tilemap;
 
-public class EnemyBasicMovement implements MovementBehavior{
+public class EnemyBasicMovement implements MovementBehavior {
 
     @Override
     public void move(Tilemap tilemap,
@@ -15,7 +14,8 @@ public class EnemyBasicMovement implements MovementBehavior{
     }
     @Override
     public void moveEnemy(Tilemap tilemap, Location entityLoc,
-                     boolean playerLeft, boolean playerRight, boolean playerUp, boolean playerDown, boolean standStill, boolean collideCheck) {
+                     boolean playerLeft, boolean playerUp,
+                          boolean standStill, boolean collideCheck) {
         Player player = Player.getInstance();
         double playerX = player.getX();
         double playerY = player.getY();
