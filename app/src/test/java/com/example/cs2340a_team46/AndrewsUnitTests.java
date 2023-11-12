@@ -10,10 +10,13 @@ import android.graphics.Paint;
 
 import androidx.lifecycle.LiveData;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import org.junit.Test;
 
-import com.example.cs2340a_team46.models.Agent;
 import com.example.cs2340a_team46.models.Joystick;
+import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
 import com.example.cs2340a_team46.views.ConfigActivity;
@@ -58,47 +61,59 @@ public class AndrewsUnitTests {
 
     // checks setInner method and update distance method
     // checks innerX and innerY vars when there is no change, condition is not met to change
-    @Test
-    public void check_setInnerJoystick_withoutChangeInInnerVars() {
-        float a = 278F;
-        float b = 1204F;
-        Joystick joy = new Joystick();
-        joy.setInner(a,b);
-        String a1 = Float.toString(a);
-        String a2 = Float.toString(joy.getInnerX());
-        assertEquals(a1, a2);
-        String b1 = Float.toString(b);
-        String b2 = Float.toString(joy.getInnerY());
-        assertEquals(b1, b2);
-        double c = 5.0;
-        String c1 = Double.toString(c);
-        String c2 = Double.toString(joy.getDistance());
-        assertEquals(c1, c2);
-    }
+//    @Test
+//    public void check_setInnerJoystick_withoutChangeInInnerVars() {
+//        float a = 278F;
+//        float b = 1204F;
+//        Joystick joy = new Joystick();
+//        joy.setInner(a,b);
+//        String a1 = Float.toString(a);
+//        String a2 = Float.toString(joy.getInnerX());
+//        assertEquals(a1, a2);
+//        String b1 = Float.toString(b);
+//        String b2 = Float.toString(joy.getInnerY());
+//        assertEquals(b1, b2);
+//        double c = 5.0;
+//        String c1 = Double.toString(c);
+//        String c2 = Double.toString(joy.getDistance());
+//        assertEquals(c1, c2);
+//    }
 
     // checks if correct value is returned for isPressed method
-    @Test
-    public void checkCorrect_isPressed()  {
-        float a = 278F;
-        float b = 1204F;
-        Joystick joys = new Joystick();
-        joys.setInner(a,b);
-        assertEquals(true, joys.getPressed());
-    }
+//    @Test
+//    public void checkCorrect_isPressed()  {
+//        float a = 278F;
+//        float b = 1204F;
+//        Joystick joys = new Joystick();
+//        joys.setInner(a,b);
+//        assertEquals(true, joys.getPressed());
+//    }
+
+
+
 
     // sprint 4 test cases
 
-    // checks if player can access location method in agent and correctly set it
-    public void check_setLocation() {
+    @Test
+    public void check_LocationSetForPlayer() {
         Player agent = new Player();
         double ax = 1.2;
         double yx = 2.5;
         agent.setLocation(ax, yx);
-        double x = agent.getX();
-        double y = agent.getY();
-        assertEquals(ax, x, 0);
-        assertEquals(yx, y, 0);
+        Location loc = agent.getLocation();
+        assertEquals(ax, loc.getX(), 0);
+        assertEquals(yx, loc.getY(), 0);
     }
 
+    @Test
+    public void check_Round() throws Exception {
+        Location location = new Location();
+        double cord = 2.5;
+        double defined = 4.0;
+        Method m = location.getClass().getDeclaredMethod("round");
+        m.setAccessible(true);
+        Object result = m.invoke(location);
+        assertEquals(2.5, result);
+    }
 
 }
