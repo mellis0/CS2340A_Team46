@@ -14,7 +14,8 @@ public class EnemyHiderMovement implements MovementBehavior {
 
     @Override
     public void moveEnemy(Tilemap tilemap, Location entityLoc,
-                          boolean playerLeft, boolean playerRight, boolean playerUp, boolean playerDown, boolean standStill, boolean collideCheck) {
+                          boolean playerLeft, boolean playerRight, boolean playerUp,
+                          boolean playerDown, boolean standStill, boolean collideCheck) {
         Player player = Player.getInstance();
         double playerX = player.getX();
         double playerY = player.getY();
@@ -28,7 +29,8 @@ public class EnemyHiderMovement implements MovementBehavior {
         double unitVectorY = distanceY / magnitude;
         double xSpeed = -unitVectorX * 10;
         double ySpeed = -unitVectorY * 10;
-        if ((playerLeft && enemyX < playerX) || (playerRight && enemyX > playerX) || (playerUp && enemyY < playerY)
+        if ((playerLeft && enemyX < playerX) || (playerRight && enemyX > playerX)
+                || (playerUp && enemyY < playerY)
             || (playerDown && enemyY > playerY)) {
             xSpeed = 0;
             ySpeed = 0;

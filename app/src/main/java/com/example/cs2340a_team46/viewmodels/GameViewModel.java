@@ -54,6 +54,7 @@ public class GameViewModel extends ViewModel {
     private static boolean down = false;
     private static boolean standStill = false;
 
+    private static Player player = Player.getInstance();
 
 
     // length of this array should equal MAX_LEVEL + 1
@@ -83,6 +84,22 @@ public class GameViewModel extends ViewModel {
         }
     };
 
+    public static void resetGame() {
+        // Level
+        level = 0;
+
+        // Enemies
+        Enemy[] currLevelEnemies = getCurrLevelEnemies();
+        for (Enemy enemy : currLevelEnemies) {
+            enemy.resetLastDamageTime();
+        }
+        for (Enemy enemy : currLevelEnemies) {
+            double randX = 800 + Math.random() * 400;
+            double randY = 400 + Math.random() * 200;
+            enemy.setLocation(randX, randY);
+        }
+
+    }
     public static boolean handleUserInput(MotionEvent event) {
         boolean postInvalidate = false;
         int action = event.getAction();
@@ -136,6 +153,9 @@ public class GameViewModel extends ViewModel {
     public static int getLevel() {
         return level;
     }
+    public static void setLevel(int newLevel) {
+        level = newLevel;
+    }
     public static void incrementLevel() {
         level = Math.min(level + 1, MAX_LEVEL);
         initializeCurrLevelEnemies();
@@ -143,7 +163,10 @@ public class GameViewModel extends ViewModel {
 
     public static boolean nextLevelIfEndConditionSatisfied(Tilemap tm) {
         boolean out = false;
-        if (tm.getIfFlask(player.getLocation())) {
+        if (player.getHealth() <= 0) {
+            scoreModel.setScore(0);
+            out = true;
+        } else if (tm.getIfFlask(player.getLocation())) {
             if (level >= MAX_LEVEL) {
                 out = true;
             }
@@ -159,7 +182,6 @@ public class GameViewModel extends ViewModel {
         joystick.drawJoystick(canvas);
     }
 
-    private static Player player = Player.getInstance();
     public static void observePlayer(Game game) {
         player.addObserver(game);
     }
@@ -175,6 +197,9 @@ public class GameViewModel extends ViewModel {
         player.updateLoc(tm, joystick.getInnerLoc(), true);
         postPlayerX = player.getX();
         postPlayerY = player.getY();
+        for (Enemy enemy : currLevelEnemies) {
+            enemy.updatePlayerLoc(player, new Location(player.getX(), player.getY()));
+        }
     }
 
     public static void updateEnemyLocations(Tilemap tm) {
@@ -196,7 +221,7 @@ public class GameViewModel extends ViewModel {
                 right = true;
                 left = false;
                 standStill = false;
-            } else if (postPlayerX < curPlayerX){
+            } else if (postPlayerX < curPlayerX) {
                 left = true;
                 right = false;
                 standStill = false;
@@ -205,7 +230,7 @@ public class GameViewModel extends ViewModel {
                 down = true;
                 up = false;
                 standStill = false;
-            } else if (postPlayerY < curPlayerY){
+            } else if (postPlayerY < curPlayerY) {
                 up = true;
                 down = false;
                 standStill = false;
@@ -253,7 +278,7 @@ public class GameViewModel extends ViewModel {
         }
     }
 
-    public static int getPlayerHealth() {
+    public static double getPlayerHealth() {
         return player.getHealth();
     }
 

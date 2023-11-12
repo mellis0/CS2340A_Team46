@@ -23,7 +23,9 @@ public class NormalMovement implements MovementBehavior {
         // return entityLoc;
     }
 
-    public void moveEnemy(Tilemap tilemap, Location entityLoc, boolean playerLeft, boolean playerRight, boolean playerUp, boolean playerDown, boolean standStill, boolean collideCheck) {
+    public void moveEnemy(Tilemap tilemap, Location entityLoc, boolean playerLeft,
+                          boolean playerRight, boolean playerUp, boolean playerDown,
+                          boolean standStill, boolean collideCheck) {
         //nothing cuz this is player
     }
 }

@@ -79,6 +79,7 @@ public class AndrewsUnitTests {
 //        assertEquals(c1, c2);
 //    }
 
+
     // checks if correct value is returned for isPressed method
 //    @Test
 //    public void checkCorrect_isPressed()  {
@@ -117,3 +118,4 @@ public class AndrewsUnitTests {
     }
 
 }
+
