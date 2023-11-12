@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData;
 
 import org.junit.Test;
 
+import com.example.cs2340a_team46.models.Agent;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
@@ -84,4 +85,20 @@ public class AndrewsUnitTests {
         joys.setInner(a,b);
         assertEquals(true, joys.getPressed());
     }
+
+    // sprint 4 test cases
+
+    // checks if player can access location method in agent and correctly set it
+    public void check_setLocation() {
+        Player agent = new Player();
+        double ax = 1.2;
+        double yx = 2.5;
+        agent.setLocation(ax, yx);
+        double x = agent.getX();
+        double y = agent.getY();
+        assertEquals(ax, x, 0);
+        assertEquals(yx, y, 0);
+    }
+
+
 }
