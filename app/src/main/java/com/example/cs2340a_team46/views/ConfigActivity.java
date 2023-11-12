@@ -78,7 +78,13 @@ public class ConfigActivity extends AppCompatActivity {
                 GameViewModel.setPlayerHealth(enteredDifficulty);
                 GameViewModel.setPlayerSprite(enteredCharacter);
                 GameViewModel.startScoreCountdown();
-
+                GameViewModel.resetGame();
+                Toast.makeText(ConfigActivity.this,
+                        " " + GameViewModel.getPlayerHealth() + ", " + GameViewModel.getPlayerScore().getValue() + ", " + enteredName,
+                        Toast.LENGTH_SHORT).show();
+//                if (enteredName.equals("test")) {
+//                    startActivity(game);
+//                }
                 startActivity(game);
             }
 

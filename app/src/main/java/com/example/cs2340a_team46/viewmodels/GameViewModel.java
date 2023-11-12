@@ -54,6 +54,7 @@ public class GameViewModel extends ViewModel {
     private static boolean down = false;
     private static boolean standStill = false;
 
+    private static Player player = Player.getInstance();
 
 
     // length of this array should equal MAX_LEVEL + 1
@@ -83,6 +84,18 @@ public class GameViewModel extends ViewModel {
         }
     };
 
+    public static void resetGame() {
+        Enemy[] currLevelEnemies = getCurrLevelEnemies();
+        for (Enemy enemy : currLevelEnemies) {
+            enemy.resetLastDamageTime();
+        }
+        for (Enemy enemy : currLevelEnemies) {
+            double randX = 800 + Math.random() * 400;
+            double randY = 400 + Math.random() * 200;
+            enemy.setLocation(randX, randY);
+        }
+
+    }
     public static boolean handleUserInput(MotionEvent event) {
         boolean postInvalidate = false;
         int action = event.getAction();
@@ -108,6 +121,9 @@ public class GameViewModel extends ViewModel {
     }
 
     private static void initializeCurrLevelEnemies() {
+        // Level
+        level = 0;
+        // Enemies
         currLevelEnemies = new ArrayList<Enemy>();
         for (Map.Entry<EnemyFactory, Integer> entry : ENEMY_COUNTS[level].entrySet()) {
             for (int i = 0; i < entry.getValue(); i++) {
@@ -136,6 +152,9 @@ public class GameViewModel extends ViewModel {
     public static int getLevel() {
         return level;
     }
+    public static void setLevel(int newLevel) {
+        level = newLevel;
+    }
     public static void incrementLevel() {
         level = Math.min(level + 1, MAX_LEVEL);
         initializeCurrLevelEnemies();
@@ -143,7 +162,11 @@ public class GameViewModel extends ViewModel {
 
     public static boolean nextLevelIfEndConditionSatisfied(Tilemap tm) {
         boolean out = false;
-        if (tm.getIfFlask(player.getLocation())) {
+        if (player.getHealth() <= 0) {
+            player.setPlayerName("Health: "+player.getHealth());
+            scoreModel.setScore(0);
+            out = true;
+        } else if (tm.getIfFlask(player.getLocation())) {
             if (level >= MAX_LEVEL) {
                 out = true;
             }
@@ -159,7 +182,6 @@ public class GameViewModel extends ViewModel {
         joystick.drawJoystick(canvas);
     }
 
-    private static Player player = Player.getInstance();
     public static void observePlayer(Game game) {
         player.addObserver(game);
     }

@@ -39,6 +39,9 @@ public abstract class Enemy extends Agent {
         }
 
     }
+    public void resetLastDamageTime() {
+        lastDamageTime = System.currentTimeMillis();
+    }
     private boolean checkPlayerCollision() {
         double dx = (this.location.getX() - this.playerLocation.getX());
         double dy = (this.location.getY() - this.playerLocation.getY());
