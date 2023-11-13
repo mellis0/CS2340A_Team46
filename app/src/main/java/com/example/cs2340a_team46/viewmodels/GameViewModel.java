@@ -128,7 +128,7 @@ public class GameViewModel extends ViewModel {
         currLevelEnemies = new ArrayList<Enemy>();
         for (Map.Entry<EnemyFactory, Integer> entry : ENEMY_COUNTS[level].entrySet()) {
             for (int i = 0; i < entry.getValue(); i++) {
-                currLevelEnemies.add(entry.getKey().generateEnemy());
+                currLevelEnemies.add(entry.getKey().generateEnemy(player));
             }
         }
         // initialize random enemy location to be not on top of the player
@@ -197,9 +197,9 @@ public class GameViewModel extends ViewModel {
         player.updateLoc(tm, joystick.getInnerLoc(), true);
         postPlayerX = player.getX();
         postPlayerY = player.getY();
-        for (Enemy enemy : currLevelEnemies) {
-            enemy.updatePlayerLoc(player, new Location(player.getX(), player.getY()));
-        }
+//        for (Enemy enemy : currLevelEnemies) {
+//            enemy.updatePlayerLoc(player, new Location(player.getX(), player.getY()));
+//        }
     }
 
     public static void updateEnemyLocations(Tilemap tm) {
