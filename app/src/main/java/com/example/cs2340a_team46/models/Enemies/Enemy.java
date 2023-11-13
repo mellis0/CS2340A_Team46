@@ -5,23 +5,22 @@ import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Tilemap;
 
-public abstract class Enemy extends Agent {
+import java.util.Observable;
+import java.util.Observer;
+
+public abstract class Enemy extends Agent implements Observer {
     protected Location playerLocation;
-    protected long lastDamageTime = 0;
-    protected boolean isDamagingPlayer = false;
+    public long lastDamageTime = 0;
+    public boolean isDamagingPlayer = false;
     protected double cumDamage = 0;
     static final double DAMAGE_RATIO = 5;
-    public void updateLoc(Tilemap tilemap, boolean playerLeft, boolean playerRight,
-                          boolean playerUp, boolean playerDown, boolean standStill,
-                          boolean collideCheck) {
-        this.movementBehavior.moveEnemy(tilemap, this.location, playerLeft, playerRight, playerUp,
-                playerDown, standStill, collideCheck);
-
-        setChanged();
-        notifyObservers();
+    public Enemy(Player player) {
+        super();
+        player.addObserver(this);
     }
-    public void updatePlayerLoc(Player player, Location playerLocation) {
-        this.playerLocation = playerLocation;
+    public void update(Observable observable, Object o) {
+        Player player = ((Player) observable);
+        this.playerLocation = ((Agent) observable).getLocation();
         long currTime = System.currentTimeMillis();
         if (this.checkPlayerCollision()) {
             if (isDamagingPlayer) {
@@ -40,8 +39,38 @@ public abstract class Enemy extends Agent {
         } else {
             isDamagingPlayer = false;
         }
-
     }
+    public void updateLoc(Tilemap tilemap, boolean playerLeft, boolean playerRight,
+                          boolean playerUp, boolean playerDown, boolean standStill,
+                          boolean collideCheck) {
+        this.movementBehavior.moveEnemy(tilemap, this.location, playerLeft, playerRight, playerUp,
+                playerDown, standStill, collideCheck);
+
+        setChanged();
+        notifyObservers();
+    }
+//    public void updatePlayerLoc(Player player, Location playerLocation) {
+//        this.playerLocation = playerLocation;
+//        long currTime = System.currentTimeMillis();
+//        if (this.checkPlayerCollision()) {
+//            if (isDamagingPlayer) {
+//                double damage = DAMAGE_RATIO * player.getDifficultyInt()
+//                        * 0.001 * (currTime - lastDamageTime);
+//                double newHealth = Math.max(player.getHealth() - damage, 0);
+//                cumDamage += damage;
+//                player.setHealth(newHealth);
+//
+//                // player.setPlayerName(""+cumDamage);
+//                lastDamageTime = currTime;
+//            } else {
+//                lastDamageTime = currTime;
+//                isDamagingPlayer = true;
+//            }
+//        } else {
+//            isDamagingPlayer = false;
+//        }
+//
+//    }
     public void resetLastDamageTime() {
         lastDamageTime = System.currentTimeMillis();
     }

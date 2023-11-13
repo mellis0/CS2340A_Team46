@@ -10,8 +10,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
+import com.example.cs2340a_team46.models.Agent;
 import com.example.cs2340a_team46.models.Enemies.Enemy;
 import com.example.cs2340a_team46.models.Location;
+import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Tilemap;
 
 import androidx.lifecycle.LiveData;
@@ -149,7 +151,8 @@ public class Game extends View implements Observer {
     // but we need to implement it in the Observer pattern...
     @Override
     public void update(Observable observable, Object o) {
-        Location playerLoc = GameViewModel.getPlayerLocation();
+//        Location playerLoc = GameViewModel.getPlayerLocation();
+        Location playerLoc = ((Agent) observable).getLocation();
         playerX = (float) playerLoc.getX();
         playerY = (float) playerLoc.getY();
     }
