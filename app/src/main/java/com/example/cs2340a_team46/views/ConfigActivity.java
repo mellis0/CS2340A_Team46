@@ -78,7 +78,7 @@ public class ConfigActivity extends AppCompatActivity {
                 GameViewModel.setPlayerHealth(enteredDifficulty);
                 GameViewModel.setPlayerSprite(enteredCharacter);
                 GameViewModel.startScoreCountdown();
-
+                GameViewModel.resetGame();
                 startActivity(game);
             }
 

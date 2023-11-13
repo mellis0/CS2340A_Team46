@@ -20,6 +20,7 @@ import org.junit.Test;
 
 public class OtsukaUnitTests {
 
+
 //Deprecated Tests
 
 //    @Test
@@ -41,6 +42,7 @@ public class OtsukaUnitTests {
 //    }
 //
 //    //Sprint 3
+
 //    @Test
 //    public void checkJoystickStaysInOuterCircle() {
 //        Joystick joystick = new Joystick();
@@ -72,11 +74,13 @@ public class OtsukaUnitTests {
 //
 //    }
 
+
     @Test
     public void testBasicEnemyHasBasicEnemyMovement() {
         BasicEnemy enemy = new BasicEnemy();
         assertEquals(enemy.getMovementBehavior().getClass().getSimpleName(), EnemyBasicMovement.class.getSimpleName());
     }
+
 
     @Test
     public void testBigEnemyHasEnemyRandomMovement() {

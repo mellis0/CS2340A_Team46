@@ -30,6 +30,7 @@ import java.util.Locale;
 public class EndActivity extends AppCompatActivity {
 
     private LeaderboardViewModel leaderboardViewModel;
+    private TextView leaderboardTitle;
     private TextView entryOne;
     private TextView entryTwo;
     private TextView entryThree;
@@ -62,6 +63,12 @@ public class EndActivity extends AppCompatActivity {
 
         // display leaderboard
         List<LeaderboardEntry> leaderboardData = leaderboardViewModel.getLeaderboardData();
+
+        leaderboardTitle = findViewById(R.id.leaderboardTitle);
+        if (playerScore == 0) {
+            leaderboardTitle.setText("game over");
+        }
+        // leaderboardTitle.setText(" "+playerScore);
 
         entryOne = findViewById(R.id.leaderboardEntry1);
         entryTwo = findViewById(R.id.leaderboardEntry2);

@@ -13,6 +13,7 @@ public class EnemyDetectMovement implements MovementBehavior {
     }
     @Override
     public void moveEnemy(Tilemap tilemap, Location entityLoc,
+
                           boolean playerLeft, boolean playerUp,
                           boolean standStill, boolean collideCheck) {
         Player player = Player.getInstance();

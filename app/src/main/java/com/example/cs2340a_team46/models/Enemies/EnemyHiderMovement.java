@@ -29,6 +29,7 @@ public class EnemyHiderMovement implements MovementBehavior {
         double unitVectorY = distanceY / magnitude;
         double xSpeed = -unitVectorX * 10;
         double ySpeed = -unitVectorY * 10;
+
         if ((playerLeft && enemyX < playerX) || (!playerLeft && enemyX > playerX)
                 || (playerUp && enemyY < playerY)
             || (!playerUp && enemyY > playerY)) {

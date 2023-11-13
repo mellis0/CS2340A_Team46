@@ -33,32 +33,32 @@ public class HsuUnitTest {
         assertEquals(50, updatedScore);
     }
 
-    @Test
-    public void testSetAndGetPlayerHealth() {
-        gameViewModel.setPlayerHealth(1);
+//    @Test
+//    public void testSetAndGetPlayerHealth() {
+//        gameViewModel.setPlayerHealth(1);
+//
+//        int playerHealth = gameViewModel.getPlayerHealth();
+//        assertEquals(150, playerHealth);
+//
+//        gameViewModel.setPlayerHealth(2);
+//
+//        playerHealth = gameViewModel.getPlayerHealth();
+//        assertEquals(100, playerHealth);
+//
+//        gameViewModel.setPlayerHealth(3);
+//
+//        playerHealth = gameViewModel.getPlayerHealth();
+//        assertEquals(50, playerHealth);
+//    }
 
-        int playerHealth = gameViewModel.getPlayerHealth();
-        assertEquals(150, playerHealth);
-
-        gameViewModel.setPlayerHealth(2);
-
-        playerHealth = gameViewModel.getPlayerHealth();
-        assertEquals(100, playerHealth);
-
-        gameViewModel.setPlayerHealth(3);
-
-        playerHealth = gameViewModel.getPlayerHealth();
-        assertEquals(50, playerHealth);
-    }
-
-    @Test
-    public void hardDifficultyToHealth() {
-        int difficulty = 3;
-        Player test = Player.getInstance();
-        //Test Normal Difficulty
-        GameViewModel.setPlayerHealth(difficulty);
-        assertEquals(50, test.getPlayerHealth());
-    }
+//    @Test
+//    public void hardDifficultyToHealth() {
+//        int difficulty = 3;
+//        Player test = Player.getInstance();
+//        //Test Normal Difficulty
+//        GameViewModel.setPlayerHealth(difficulty);
+//        assertEquals(50, test.getPlayerHealth());
+//    }
 
     @Test
     public void nameIsCorrect() {

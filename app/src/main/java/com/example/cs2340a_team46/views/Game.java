@@ -68,8 +68,8 @@ public class Game extends View implements Observer {
         tP.setColor(Color.WHITE);
         tP.setTextSize(50);
         String name = GameViewModel.getPlayerName();
-        int h = GameViewModel.getPlayerHealth();
-        String health = Integer.toString(h);
+        double h = GameViewModel.getPlayerHealth();
+        String health = Integer.toString((int) h);
         String difficulty = GameViewModel.getDifficultyString();
         LiveData<Integer> sc = GameViewModel.getPlayerScore();
         String score = Integer.toString(sc.getValue());
