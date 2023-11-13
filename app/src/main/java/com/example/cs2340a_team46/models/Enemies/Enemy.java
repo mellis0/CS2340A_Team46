@@ -10,8 +10,8 @@ import java.util.Observer;
 
 public abstract class Enemy extends Agent implements Observer {
     protected Location playerLocation;
-    protected long lastDamageTime = 0;
-    protected boolean isDamagingPlayer = false;
+    public long lastDamageTime = 0;
+    public boolean isDamagingPlayer = false;
     protected double cumDamage = 0;
     static final double DAMAGE_RATIO = 5;
     public Enemy(Player player) {
