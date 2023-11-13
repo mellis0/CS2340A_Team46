@@ -74,6 +74,7 @@ public class HsuUnitTest {
         Enemy enemy = new BigEnemy(player);
         assertEquals(false, enemy.isDamagingPlayer);
     }
+    @Test
     public void checkLastDamageTime() {
         Player player = Player.getInstance();
         Enemy enemy = new BigEnemy(player);
