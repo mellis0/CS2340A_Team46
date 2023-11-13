@@ -7,6 +7,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.cs2340a_team46.models.Enemies.BasicEnemy;
+import com.example.cs2340a_team46.models.Enemies.BigEnemy;
+import com.example.cs2340a_team46.models.Enemies.EnemyBasicMovement;
+import com.example.cs2340a_team46.models.Enemies.EnemyRandomMovement;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.models.Joystick;
@@ -70,13 +73,14 @@ public class OtsukaUnitTests {
 //    }
 
     @Test
-    public void testBasicEnemyMovement() {
-        Player player = Player.getInstance();
+    public void testBasicEnemyHasBasicEnemyMovement() {
         BasicEnemy enemy = new BasicEnemy();
-        player.setX(1000);
-        player.setY(1000);
-        enemy.setX(500);
-        player.setY(1000);
+        assertEquals(enemy.getMovementBehavior().getClass().getSimpleName(), EnemyBasicMovement.class.getSimpleName());
+    }
 
+    @Test
+    public void testBigEnemyHasEnemyRandomMovement() {
+        BigEnemy enemy = new BigEnemy();
+        assertEquals(enemy.getMovementBehavior().getClass().getSimpleName(), EnemyRandomMovement.class.getSimpleName());
     }
 }
