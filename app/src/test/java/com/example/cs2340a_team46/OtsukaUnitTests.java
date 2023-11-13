@@ -6,6 +6,10 @@ import static org.junit.Assert.assertTrue;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.cs2340a_team46.models.Enemies.BasicEnemy;
+import com.example.cs2340a_team46.models.Enemies.BigEnemy;
+import com.example.cs2340a_team46.models.Enemies.EnemyBasicMovement;
+import com.example.cs2340a_team46.models.Enemies.EnemyRandomMovement;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.models.Joystick;
@@ -66,4 +70,18 @@ public class OtsukaUnitTests {
 //    }
 
 
+    @Test
+    public void testBasicEnemyHasBasicEnemyMovement() {
+        Player p = Player.getInstance();
+        BasicEnemy enemy = new BasicEnemy(p);
+        assertEquals(enemy.getMovementBehavior().getClass().getSimpleName(), EnemyBasicMovement.class.getSimpleName());
+    }
+
+
+    @Test
+    public void testBigEnemyHasEnemyRandomMovement() {
+        Player p = Player.getInstance();
+        BigEnemy enemy = new BigEnemy(p);
+        assertEquals(enemy.getMovementBehavior().getClass().getSimpleName(), EnemyRandomMovement.class.getSimpleName());
+    }
 }
