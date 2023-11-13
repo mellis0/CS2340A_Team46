@@ -10,9 +10,13 @@ import android.graphics.Paint;
 
 import androidx.lifecycle.LiveData;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import org.junit.Test;
 
 import com.example.cs2340a_team46.models.Joystick;
+import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
 import com.example.cs2340a_team46.views.ConfigActivity;
@@ -75,6 +79,7 @@ public class AndrewsUnitTests {
 //        assertEquals(c1, c2);
 //    }
 
+
     // checks if correct value is returned for isPressed method
 //    @Test
 //    public void checkCorrect_isPressed()  {
@@ -84,4 +89,33 @@ public class AndrewsUnitTests {
 //        joys.setInner(a,b);
 //        assertEquals(true, joys.getPressed());
 //    }
+
+
+
+
+    // sprint 4 test cases
+
+    @Test
+    public void check_LocationSetForPlayer() {
+        Player agent = new Player();
+        double ax = 1.2;
+        double yx = 2.5;
+        agent.setLocation(ax, yx);
+        Location loc = agent.getLocation();
+        assertEquals(ax, loc.getX(), 0);
+        assertEquals(yx, loc.getY(), 0);
+    }
+
+    @Test
+    public void check_Round() throws Exception {
+        Location location = new Location();
+        double cord = 2.5;
+        double defined = 4.0;
+        Method m = location.getClass().getDeclaredMethod("round");
+        m.setAccessible(true);
+        Object result = m.invoke(location);
+        assertEquals(2.5, result);
+    }
+
 }
+
