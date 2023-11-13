@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.example.cs2340a_team46.models.Leaderboard;
@@ -77,6 +78,32 @@ public class HsiehUnitTests {
         assertEquals("Player3", LeaderboardViewModel.getLeaderboardData().get(0).getPlayerName());
         assertEquals("Player1", LeaderboardViewModel.getLeaderboardData().get(1).getPlayerName());
         assertEquals("Player2", LeaderboardViewModel.getLeaderboardData().get(2).getPlayerName());
+    }
+
+    @Test
+    public void sizeIsZeroWhenClearLeaderboard() {
+        leaderboard.reset();
+        assertEquals(0, LeaderboardViewModel.getLeaderboardData().size());
+    }
+
+    @Test
+    public void EntriesDeletedAfterResetLeaderboard() {
+        LeaderboardEntry attempt1 = new LeaderboardEntry("Player1", 100, new Date());
+        LeaderboardViewModel.addEntry(attempt1);
+        LeaderboardEntry attempt2 = new LeaderboardEntry("Player2", 90, new Date());
+        LeaderboardViewModel.addEntry(attempt2);
+        LeaderboardEntry attempt3 = new LeaderboardEntry("Player3", 110, new Date());
+        LeaderboardViewModel.addEntry(attempt3);
+        leaderboard.reset();
+        LeaderboardEntry attempt5 = new LeaderboardEntry("Player5", 100, new Date());
+        LeaderboardViewModel.addEntry(attempt1);
+        LeaderboardEntry attempt6 = new LeaderboardEntry("Player6", 90, new Date());
+        LeaderboardViewModel.addEntry(attempt2);
+        LeaderboardEntry attempt7 = new LeaderboardEntry("Player7", 110, new Date());
+        LeaderboardViewModel.addEntry(attempt3);
+        assertNotEquals("Player3", LeaderboardViewModel.getLeaderboardData().get(1).getPlayerName());
+        assertNotEquals("Player1", LeaderboardViewModel.getLeaderboardData().get(2).getPlayerName());
+        assertNotEquals("Player2", LeaderboardViewModel.getLeaderboardData().get(0).getPlayerName());
     }
 
 }
