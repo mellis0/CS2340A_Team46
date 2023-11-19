@@ -1,10 +1,12 @@
 package com.example.cs2340a_team46.viewmodels;
 
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.os.CountDownTimer;
 import android.view.MotionEvent;
 
 import com.example.cs2340a_team46.R;
+import com.example.cs2340a_team46.models.Arrow;
 import com.example.cs2340a_team46.models.Enemies.BasicEnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.BigEnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.Enemy;
@@ -25,7 +27,9 @@ import com.example.cs2340a_team46.views.Game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class GameViewModel extends ViewModel {
 
@@ -53,6 +57,7 @@ public class GameViewModel extends ViewModel {
     private static boolean up = false;
     private static boolean down = false;
     private static boolean standStill = false;
+    private static ArrayList<Arrow> arrows = new ArrayList<Arrow>();
 
     private static Player player = Player.getInstance();
 
@@ -60,8 +65,8 @@ public class GameViewModel extends ViewModel {
     // length of this array should equal MAX_LEVEL + 1
     private static final Map<EnemyFactory, Integer>[] ENEMY_COUNTS = new HashMap[] {
         new HashMap<EnemyFactory, Integer>() { {
-                put(BASIC_ENEMY_FACTORY, 2);
-                put(SMALL_ENEMY_FACTORY, 1);
+//                put(BASIC_ENEMY_FACTORY, 2);
+//                put(SMALL_ENEMY_FACTORY, 1);
             }},
         new HashMap<EnemyFactory, Integer>() { {
                 put(BASIC_ENEMY_FACTORY, 1);
@@ -124,8 +129,15 @@ public class GameViewModel extends ViewModel {
         return postInvalidate;
     }
 
-    public static void playerAttack() {
+    public static void playerAttack(Resources resources) {
+        arrows.add(new Arrow(new Location(getPlayerLocation()), joystick.getLastHeading(), resources));
 
+    }
+
+    public static Arrow[] getArrows() {
+        Arrow[] out = new Arrow[arrows.size()];
+        out = arrows.toArray(out);
+        return out;
     }
 
     private static void initializeCurrLevelEnemies() {

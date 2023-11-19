@@ -8,10 +8,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
+import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.models.Agent;
+import com.example.cs2340a_team46.models.Arrow;
 import com.example.cs2340a_team46.models.Enemies.Enemy;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Player;
@@ -36,7 +39,7 @@ public class Game extends View implements Observer {
     private float playerY;
     private Activity parentActivity;
     private boolean gameEnds;
-    private boolean spaceKeyDown;
+    private boolean spaceKeyDown = false;
 
     public Game(Context context, Activity activity) {
         super(context);
@@ -56,6 +59,9 @@ public class Game extends View implements Observer {
         if (gameEnds) {
             return;
         }
+
+        //requestFocus();
+        setFocusable(true); // can't capture keyboard input without this
 
         super.onDraw(canvas);
         //updateJoystick
@@ -117,11 +123,19 @@ public class Game extends View implements Observer {
                     (float) (enemy.getY() - b.getScaledHeight(canvas) / 2.0), null);
         }
 
+        Arrow[] arrows = GameViewModel.getArrows();
+
+        for (Arrow arrow : arrows) {
+            canvas.drawBitmap(arrow.getBitmap(), arrow.getX(), arrow.getY(), null);
+        }
+
 
         GameViewModel.updatePlayerLocation(tileMaps[GameViewModel.getLevel()]);
 
         Bitmap playerSprite = getBitmapFromSprite(getContext().getResources(),
                 GameViewModel.getPlayerSprite());
+
+        Bitmap bowSprite = getBitmapFromSprite(getContext().getResources(), R.drawable.bow);
         //72 is offset since image draws 72 pixels too high
         //56 to right gets to middle
         // 90 down to get to center
@@ -133,15 +147,23 @@ public class Game extends View implements Observer {
         // we need a way to programmatically find these values cus we're gonna have sprites with
         // different sizes.
         // see the code above for drawing enemies, too.
-        canvas.drawBitmap(playerSprite,
-                playerX - (float) (playerSprite.getScaledWidth(canvas) / 2.0),
-                playerY - (float) (playerSprite.getScaledHeight(canvas) / 2.0), null);
 
+        float drawX = playerX - (float) (playerSprite.getScaledWidth(canvas) / 2.0);
+        float drawY = playerY - (float) (playerSprite.getScaledHeight(canvas) / 2.0);
+        canvas.drawBitmap(playerSprite, drawX, drawY, null);
+        canvas.drawBitmap(bowSprite, drawX, drawY, null);
     }
 
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+//        String msg = event.getAction();
+//        Log.println(Log.DEBUG, "Touch Event", msg);
+//        if (event.getActionMasked() == MotionEvent.ACTION_BUTTON_PRESS
+//            || event.getActionMasked() == MotionEvent.ACTION_BUTTON_RELEASE) {
+//            Log.println(Log.DEBUG, "Key Event", "yo");
+//            return false;
+//        }
         if (GameViewModel.handleUserInput(event)) {
             postInvalidate();
         }
@@ -152,7 +174,7 @@ public class Game extends View implements Observer {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_SPACE && !spaceKeyDown) {
             spaceKeyDown = true;
-            GameViewModel.playerAttack();
+            GameViewModel.playerAttack(getResources());
         }
         return true;
     }
