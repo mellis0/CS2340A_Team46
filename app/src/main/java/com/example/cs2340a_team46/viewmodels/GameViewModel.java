@@ -131,7 +131,6 @@ public class GameViewModel extends ViewModel {
 
     public static void playerAttack(Resources resources) {
         arrows.add(new Arrow(new Location(getPlayerLocation()), joystick.getLastHeading(), resources));
-
     }
 
     public static Arrow[] getArrows() {
@@ -187,6 +186,7 @@ public class GameViewModel extends ViewModel {
     public static void incrementLevel() {
         level = Math.min(level + 1, MAX_LEVEL);
         initializeCurrLevelEnemies();
+        arrows.clear();
     }
 
     public static boolean nextLevelIfEndConditionSatisfied(Tilemap tm) {

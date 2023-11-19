@@ -159,13 +159,6 @@ public class Game extends View implements Observer {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-//        String msg = event.getAction();
-//        Log.println(Log.DEBUG, "Touch Event", msg);
-//        if (event.getActionMasked() == MotionEvent.ACTION_BUTTON_PRESS
-//            || event.getActionMasked() == MotionEvent.ACTION_BUTTON_RELEASE) {
-//            Log.println(Log.DEBUG, "Key Event", "yo");
-//            return false;
-//        }
         if (GameViewModel.handleUserInput(event)) {
             postInvalidate();
         }

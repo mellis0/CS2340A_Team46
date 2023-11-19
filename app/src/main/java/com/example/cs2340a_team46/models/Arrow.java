@@ -20,7 +20,7 @@ public class Arrow {
     public Arrow(Location playerLocation, float heading, Resources resources) {
         float degreesHeading = (float) Math.toDegrees(heading);
         degreesHeading += 180;
-        degreesHeading = (degreesHeading + 90) % 360;
+        degreesHeading = (degreesHeading + 90) % 360; // correcting for a 90 degree rotation
         degreesHeading -= 180;
 
         this.heading = (float) Math.toRadians(degreesHeading);
@@ -29,7 +29,7 @@ public class Arrow {
         this.location = playerLocation;
         Bitmap upright = BitmapFactory.decodeResource(resources, R.drawable.arrow);
         Matrix m = new Matrix();
-        m.postRotate(degreesHeading); // heading is in radians by default
+        m.postRotate(degreesHeading);
         bitmap = Bitmap.createBitmap(upright, 0, 0, upright.getWidth(), upright.getHeight(), m, true);
 
         this.speed = 20;
