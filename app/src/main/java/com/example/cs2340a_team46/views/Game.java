@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import com.example.cs2340a_team46.models.Agent;
@@ -35,6 +36,7 @@ public class Game extends View implements Observer {
     private float playerY;
     private Activity parentActivity;
     private boolean gameEnds;
+    private boolean spaceKeyDown;
 
     public Game(Context context, Activity activity) {
         super(context);
@@ -142,6 +144,23 @@ public class Game extends View implements Observer {
     public boolean onTouchEvent(MotionEvent event) {
         if (GameViewModel.handleUserInput(event)) {
             postInvalidate();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_SPACE && !spaceKeyDown) {
+            spaceKeyDown = true;
+            GameViewModel.playerAttack();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_SPACE) {
+            spaceKeyDown = false;
         }
         return true;
     }

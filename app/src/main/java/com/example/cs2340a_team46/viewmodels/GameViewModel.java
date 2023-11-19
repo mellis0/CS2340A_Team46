@@ -124,6 +124,10 @@ public class GameViewModel extends ViewModel {
         return postInvalidate;
     }
 
+    public static void playerAttack() {
+
+    }
+
     private static void initializeCurrLevelEnemies() {
         currLevelEnemies = new ArrayList<Enemy>();
         for (Map.Entry<EnemyFactory, Integer> entry : ENEMY_COUNTS[level].entrySet()) {
