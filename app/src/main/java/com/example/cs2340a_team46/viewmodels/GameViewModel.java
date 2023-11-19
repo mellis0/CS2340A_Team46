@@ -65,8 +65,8 @@ public class GameViewModel extends ViewModel {
     // length of this array should equal MAX_LEVEL + 1
     private static final Map<EnemyFactory, Integer>[] ENEMY_COUNTS = new HashMap[] {
         new HashMap<EnemyFactory, Integer>() { {
-//                put(BASIC_ENEMY_FACTORY, 2);
-//                put(SMALL_ENEMY_FACTORY, 1);
+                put(BASIC_ENEMY_FACTORY, 2);
+                put(SMALL_ENEMY_FACTORY, 1);
             }},
         new HashMap<EnemyFactory, Integer>() { {
                 put(BASIC_ENEMY_FACTORY, 1);
@@ -138,6 +138,18 @@ public class GameViewModel extends ViewModel {
         Arrow[] out = new Arrow[arrows.size()];
         out = arrows.toArray(out);
         return out;
+    }
+
+    public static void updateArrowLocations() {
+        int i = 0;
+        while (i < arrows.size()) {
+            if (arrows.get(i).outOfScreen()) {
+                arrows.remove(i);
+            } else {
+                arrows.get(i).updateLocation();
+                i++;
+            }
+        }
     }
 
     private static void initializeCurrLevelEnemies() {
@@ -222,13 +234,16 @@ public class GameViewModel extends ViewModel {
         if (currLevelEnemies == null) {
             initializeCurrLevelEnemies();
         }
-        for (Enemy enemy : currLevelEnemies) {
+        int i = 0;
+        while (i < currLevelEnemies.size()) {
             // @Ryan, I would reccomend moving updateLoc from the Agent class and putting it
             // in Enemy and Player. This way, the method signature can differ between enemies and
             // players, because enemies might need different info to move than the player.
 
             // up to you tho, there's probably a way to implement it with the
             // current method signature
+
+            Enemy enemy = currLevelEnemies.get(i);
 
             if (postPlayerX == curPlayerX && postPlayerY == curPlayerY) {
                 standStill = true;
@@ -252,6 +267,20 @@ public class GameViewModel extends ViewModel {
                 standStill = false;
             }
             enemy.updateLoc(tm, left, right, up, down, standStill, true);
+
+            int j = 0;
+            while (j < arrows.size()) {
+                if (enemy.checkArrowCollision(arrows.get(j).getLocation())) {
+                    currLevelEnemies.remove(i);
+                    arrows.remove(j);
+                    break;
+                } else {
+                    j++;
+                }
+            }
+            if (i >= currLevelEnemies.size() || enemy == currLevelEnemies.get(i)) {
+                i++; // increment if this enemy wasn't deleted
+            }
         }
     }
     public static void setPlayerHealth(int difficultyVal) {

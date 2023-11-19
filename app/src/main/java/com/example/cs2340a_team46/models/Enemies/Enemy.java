@@ -74,9 +74,15 @@ public abstract class Enemy extends Agent implements Observer {
     public void resetLastDamageTime() {
         lastDamageTime = System.currentTimeMillis();
     }
-    private boolean checkPlayerCollision() {
+    protected boolean checkPlayerCollision() {
         double dx = (this.location.getX() - this.playerLocation.getX());
         double dy = (this.location.getY() - this.playerLocation.getY());
         return Math.sqrt(dx * dx + dy * dy) < 15;
+    }
+
+    public boolean checkArrowCollision(Location arrowLoc) {
+        double dx = (this.location.getX() - arrowLoc.getX());
+        double dy = (this.location.getY() - arrowLoc.getY());
+        return Math.sqrt(dx * dx + dy * dy) < 100;
     }
 }

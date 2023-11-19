@@ -123,6 +123,8 @@ public class Game extends View implements Observer {
                     (float) (enemy.getY() - b.getScaledHeight(canvas) / 2.0), null);
         }
 
+        GameViewModel.updateArrowLocations();
+
         Arrow[] arrows = GameViewModel.getArrows();
 
         for (Arrow arrow : arrows) {
@@ -151,7 +153,7 @@ public class Game extends View implements Observer {
         float drawX = playerX - (float) (playerSprite.getScaledWidth(canvas) / 2.0);
         float drawY = playerY - (float) (playerSprite.getScaledHeight(canvas) / 2.0);
         canvas.drawBitmap(playerSprite, drawX, drawY, null);
-        canvas.drawBitmap(bowSprite, drawX, drawY, null);
+        canvas.drawBitmap(bowSprite, drawX + 90, drawY + 100, null);
     }
 
 
