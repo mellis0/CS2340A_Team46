@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.example.cs2340a_team46.models.Arrow;
 import com.example.cs2340a_team46.models.Enemies.BasicEnemy;
 import com.example.cs2340a_team46.models.Enemies.BasicEnemyFactory;
 import com.example.cs2340a_team46.models.Location;
@@ -91,5 +92,20 @@ public class EllisUnitTests {
         Location loc1 = new Location(3.0, 4.0);
         Location loc2 = new Location(3.002, 3.997);
         assertEquals(true, loc1.equals(loc2));
+    }
+
+
+    // ~~~~~~~~~~~~~~~~~~ Sprint 5 Tests ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    @Test
+    public void testArrowinScreen() {
+        Arrow a = new Arrow(new Location(20, 20), 3.14f, 100, 100);
+        assertEquals(false, a.outOfScreen());
+    }
+
+    @Test
+    public void testArrowOutOfScreen() {
+        Arrow b = new Arrow(new Location(110, 20), 3.14f, 100, 100);
+        assertEquals(true, b.outOfScreen());
     }
 }
