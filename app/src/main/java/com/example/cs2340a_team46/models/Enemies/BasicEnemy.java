@@ -7,6 +7,7 @@ import com.example.cs2340a_team46.models.Player;
 public class BasicEnemy extends Enemy {
     public BasicEnemy(Player player) {
         super(player);
+        this.pointsWhenKilled = 30;
         this.sprite = R.drawable.skeleton;
         this.movementBehavior = new EnemyBasicMovement();
     }

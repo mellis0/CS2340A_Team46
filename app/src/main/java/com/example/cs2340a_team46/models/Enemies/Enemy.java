@@ -14,6 +14,7 @@ public abstract class Enemy extends Agent implements Observer {
     public boolean isDamagingPlayer = false;
     protected double cumDamage = 0;
     static final double DAMAGE_RATIO = 5;
+    public int pointsWhenKilled;
     public Enemy(Player player) {
         super();
         player.addObserver(this);
