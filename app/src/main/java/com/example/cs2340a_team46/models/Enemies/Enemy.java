@@ -14,11 +14,15 @@ public abstract class Enemy extends Agent implements Observer {
     public boolean isDamagingPlayer = false;
     protected double cumDamage = 0;
     static final double DAMAGE_RATIO = 5;
-    public int pointsWhenKilled;
+    protected int pointsWhenKilled;
     public Enemy(Player player) {
         super();
         player.addObserver(this);
     }
+    public int getPointsWhenKilled() {
+        return pointsWhenKilled;
+    }
+
     public void update(Observable observable, Object o) {
         Player player = ((Player) observable);
         this.playerLocation = ((Agent) observable).getLocation();
