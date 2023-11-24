@@ -65,6 +65,10 @@ public class Location {
         this.x = x;
         this.y = y;
     }
+    public Location(Location l) {
+        this.x = l.getX();
+        this.y = l.getY();
+    }
     public Location() {
         this(0, 0);
     }
