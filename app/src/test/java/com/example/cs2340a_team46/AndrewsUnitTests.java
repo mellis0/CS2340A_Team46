@@ -181,5 +181,15 @@ public class AndrewsUnitTests {
         boolean check = enemy.checkArrowCollision(ab.getLocation());
         assertEquals(true, check);
     }
+
+    @Test
+    public void testFalseArrowCollision() {
+        Location loc = new Location(0,0);
+        Arrow ab = new Arrow(loc,3.14f, 1, 1);
+        Player agent = new Player();
+        SmallEnemy enemy = new SmallEnemy(agent);
+        boolean check = enemy.checkArrowCollision(ab.getLocation());
+        assertEquals(false, check);
+    }
 }
 
