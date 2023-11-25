@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
 
 import org.junit.Test;
 
+import com.example.cs2340a_team46.models.Arrow;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Player;
@@ -122,7 +123,12 @@ public class AndrewsUnitTests {
     // sprint 5 test cases
 
     @Test
-    public void
+    public void testArrowLocation() {
+        Location loc = new Location(10,10);
+        Arrow a = new Arrow(loc,3.14f, 100);
+
+
+    }
 
 
 }
