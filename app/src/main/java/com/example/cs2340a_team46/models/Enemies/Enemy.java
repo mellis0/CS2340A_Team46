@@ -84,7 +84,8 @@ public abstract class Enemy extends Agent implements Observer {
         double dy = (this.location.getY() - this.playerLocation.getY());
         return Math.sqrt(dx * dx + dy * dy) < 15;
     }
-
+// could potentially make this checkArrowCollision protected instead of public -
+// in consistency with the checkPlayerCollision class
     public boolean checkArrowCollision(Location arrowLoc) {
         double dx = (this.location.getX() - arrowLoc.getX());
         double dy = (this.location.getY() - arrowLoc.getY());
