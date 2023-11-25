@@ -17,7 +17,10 @@ import org.junit.Test;
 
 import com.example.cs2340a_team46.models.Arrow;
 import com.example.cs2340a_team46.models.Enemies.BasicEnemy;
+import com.example.cs2340a_team46.models.Enemies.BigEnemy;
 import com.example.cs2340a_team46.models.Enemies.Enemy;
+import com.example.cs2340a_team46.models.Enemies.FastEnemy;
+import com.example.cs2340a_team46.models.Enemies.SmallEnemy;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Player;
@@ -140,11 +143,41 @@ public class AndrewsUnitTests {
         assertEquals(actualY, a.getY(), 0);
     }
     @Test
-    public void testArrowCollision() {
+    public void testArrowCollision_BasicEnemy() {
         Location loc = new Location(20,20);
         Arrow ab = new Arrow(loc,3.14f, 50, 50);
         Player agent = new Player();
         BasicEnemy enemy = new BasicEnemy(agent);
+        boolean check = enemy.checkArrowCollision(ab.getLocation());
+        assertEquals(true, check);
+    }
+
+    @Test
+    public void testArrowCollision_BigEnemy() {
+        Location loc = new Location(30,30);
+        Arrow ab = new Arrow(loc,3.14f, 50, 50);
+        Player agent = new Player();
+        BigEnemy enemy = new BigEnemy(agent);
+        boolean check = enemy.checkArrowCollision(ab.getLocation());
+        assertEquals(true, check);
+    }
+
+    @Test
+    public void testArrowCollision_FastEnemy() {
+        Location loc = new Location(40,40);
+        Arrow ab = new Arrow(loc,3.14f, 50, 50);
+        Player agent = new Player();
+        FastEnemy enemy = new FastEnemy(agent);
+        boolean check = enemy.checkArrowCollision(ab.getLocation());
+        assertEquals(true, check);
+    }
+
+    @Test
+    public void testArrowCollision_SmallEnemy() {
+        Location loc = new Location(50,50);
+        Arrow ab = new Arrow(loc,3.14f, 50, 50);
+        Player agent = new Player();
+        SmallEnemy enemy = new SmallEnemy(agent);
         boolean check = enemy.checkArrowCollision(ab.getLocation());
         assertEquals(true, check);
     }
