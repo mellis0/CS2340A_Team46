@@ -81,7 +81,17 @@ public class HsuUnitTest {
         assertEquals(0, enemy.lastDamageTime);
     }
 
+    @Test
+    public void checkBigEnemyPoints() {
+        Player player = Player.getInstance();
+        Enemy enemy = new BigEnemy(player);
+        assertEquals(100, enemy.getPointsWhenKilled());
+    }
 
-
-
+    @Test
+    public void checkSmallEnemyPoints() {
+        Player player = Player.getInstance();
+        Enemy enemy = new BigEnemy(player);
+        assertEquals(80, enemy.getPointsWhenKilled());
+    }
 }
