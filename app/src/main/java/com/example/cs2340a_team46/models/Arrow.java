@@ -38,6 +38,15 @@ public class Arrow {
         screenHeight = resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
+    // constructor for testing
+    public Arrow(Location l, float heading, int w, int h) {
+        this.location = l;
+        this.heading = heading; // should rotate by 90 here, doesn't matter tho since this is just for testing
+        this.speed = 20;
+        this.screenWidth = w;
+        this.screenHeight = h;
+    }
+
     public Bitmap getBitmap() {
         return this.bitmap;
     }
