@@ -1,5 +1,10 @@
 package com.example.cs2340a_team46;
 
+import com.example.cs2340a_team46.models.Enemies.BasicEnemy;
+import com.example.cs2340a_team46.models.Enemies.BigEnemy;
+import com.example.cs2340a_team46.models.Enemies.Enemy;
+import com.example.cs2340a_team46.models.Enemies.FastEnemy;
+import com.example.cs2340a_team46.models.Enemies.SmallEnemy;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.ScoreModel;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
@@ -65,5 +70,46 @@ public class HsuUnitTest {
         Player player = Player.getInstance();
         GameViewModel.setPlayerName("Gio");
         assertEquals("Gio", player.getPlayerName());
+    }
+    @Test
+    public void checkIsDamagingPlayer() {
+        Player player = Player.getInstance();
+        Enemy enemy = new BigEnemy(player);
+        assertEquals(false, enemy.isDamagingPlayer);
+    }
+    @Test
+    public void checkLastDamageTime() {
+        Player player = Player.getInstance();
+        Enemy enemy = new BigEnemy(player);
+        assertEquals(0, enemy.lastDamageTime);
+    }
+
+    // Unit Tests for sprint 5
+    @Test
+    public void checkBigEnemyPoints() {
+        Player player = Player.getInstance();
+        Enemy enemy = new BigEnemy(player);
+        assertEquals(100, enemy.getPointsWhenKilled());
+    }
+
+    @Test
+    public void checkSmallEnemyPoints() {
+        Player player = Player.getInstance();
+        Enemy enemy = new SmallEnemy(player);
+        assertEquals(80, enemy.getPointsWhenKilled());
+    }
+
+    @Test
+    public void checkBasicEnemyPoints() {
+        Player player = Player.getInstance();
+        Enemy enemy = new BasicEnemy(player);
+        assertEquals(30, enemy.getPointsWhenKilled());
+    }
+
+    @Test
+    public void checkFastEnemyPoints() {
+        Player player = Player.getInstance();
+        Enemy enemy = new FastEnemy(player);
+        assertEquals(50, enemy.getPointsWhenKilled());
     }
 }

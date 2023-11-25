@@ -81,7 +81,8 @@ public class EllisUnitTests {
     @Test
     public void testBasicEnemyFactory() {
         BasicEnemyFactory fac = new BasicEnemyFactory();
-        Object o = fac.generateEnemy();
+        Player p = Player.getInstance();
+        Object o = fac.generateEnemy(p);
         assertThat(o, instanceOf(BasicEnemy.class));
     }
 

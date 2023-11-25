@@ -15,6 +15,7 @@ public class Joystick {
     private Location innerLoc;
     private boolean isPressed;
     private double distance;
+    private float lastHeading;
     private static volatile Joystick instance;
 
     private Joystick() {
@@ -61,7 +62,21 @@ public class Joystick {
             this.innerLoc.setX((1 - ratioDist) * OUTER_X + (ratioDist * this.innerLoc.getX()));
             this.innerLoc.setY((1 - ratioDist) * OUTER_Y + (ratioDist * this.innerLoc.getY()));
         }
+        if (this.innerLoc.getX() != INNER_X || this.innerLoc.getY() != INNER_Y) {
+            lastHeading = getHeading();
+        }
     }
+
+    public float getHeading() {
+        double diffX = this.innerLoc.getX() - INNER_X;
+        double diffY = this.innerLoc.getY() - INNER_Y;
+        return (float) Math.atan2(diffY, diffX);
+    }
+
+    public float getLastHeading() {
+        return lastHeading;
+    }
+
     public void updateDistance() {
         double deltaX = this.innerLoc.getX() - OUTER_X;
         double deltaY = this.innerLoc.getY() - OUTER_Y;

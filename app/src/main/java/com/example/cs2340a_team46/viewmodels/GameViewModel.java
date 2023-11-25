@@ -1,10 +1,12 @@
 package com.example.cs2340a_team46.viewmodels;
 
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.os.CountDownTimer;
 import android.view.MotionEvent;
 
 import com.example.cs2340a_team46.R;
+import com.example.cs2340a_team46.models.Arrow;
 import com.example.cs2340a_team46.models.Enemies.BasicEnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.BigEnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.Enemy;
@@ -25,7 +27,9 @@ import com.example.cs2340a_team46.views.Game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class GameViewModel extends ViewModel {
 
@@ -53,6 +57,7 @@ public class GameViewModel extends ViewModel {
     private static boolean up = false;
     private static boolean down = false;
     private static boolean standStill = false;
+    private static ArrayList<Arrow> arrows = new ArrayList<Arrow>();
 
     private static Player player = Player.getInstance();
 
@@ -124,11 +129,33 @@ public class GameViewModel extends ViewModel {
         return postInvalidate;
     }
 
+    public static void playerAttack(Resources resources) {
+        arrows.add(new Arrow(new Location(getPlayerLocation()), joystick.getLastHeading(), resources));
+    }
+
+    public static Arrow[] getArrows() {
+        Arrow[] out = new Arrow[arrows.size()];
+        out = arrows.toArray(out);
+        return out;
+    }
+
+    public static void updateArrowLocations() {
+        int i = 0;
+        while (i < arrows.size()) {
+            if (arrows.get(i).outOfScreen()) {
+                arrows.remove(i);
+            } else {
+                arrows.get(i).updateLocation();
+                i++;
+            }
+        }
+    }
+
     private static void initializeCurrLevelEnemies() {
         currLevelEnemies = new ArrayList<Enemy>();
         for (Map.Entry<EnemyFactory, Integer> entry : ENEMY_COUNTS[level].entrySet()) {
             for (int i = 0; i < entry.getValue(); i++) {
-                currLevelEnemies.add(entry.getKey().generateEnemy());
+                currLevelEnemies.add(entry.getKey().generateEnemy(player));
             }
         }
         // initialize random enemy location to be not on top of the player
@@ -159,6 +186,7 @@ public class GameViewModel extends ViewModel {
     public static void incrementLevel() {
         level = Math.min(level + 1, MAX_LEVEL);
         initializeCurrLevelEnemies();
+        arrows.clear();
     }
 
     public static boolean nextLevelIfEndConditionSatisfied(Tilemap tm) {
@@ -197,22 +225,25 @@ public class GameViewModel extends ViewModel {
         player.updateLoc(tm, joystick.getInnerLoc(), true);
         postPlayerX = player.getX();
         postPlayerY = player.getY();
-        for (Enemy enemy : currLevelEnemies) {
-            enemy.updatePlayerLoc(player, new Location(player.getX(), player.getY()));
-        }
+//        for (Enemy enemy : currLevelEnemies) {
+//            enemy.updatePlayerLoc(player, new Location(player.getX(), player.getY()));
+//        }
     }
 
     public static void updateEnemyLocations(Tilemap tm) {
         if (currLevelEnemies == null) {
             initializeCurrLevelEnemies();
         }
-        for (Enemy enemy : currLevelEnemies) {
+        int i = 0;
+        while (i < currLevelEnemies.size()) {
             // @Ryan, I would reccomend moving updateLoc from the Agent class and putting it
             // in Enemy and Player. This way, the method signature can differ between enemies and
             // players, because enemies might need different info to move than the player.
 
             // up to you tho, there's probably a way to implement it with the
             // current method signature
+
+            Enemy enemy = currLevelEnemies.get(i);
 
             if (postPlayerX == curPlayerX && postPlayerY == curPlayerY) {
                 standStill = true;
@@ -236,6 +267,21 @@ public class GameViewModel extends ViewModel {
                 standStill = false;
             }
             enemy.updateLoc(tm, left, right, up, down, standStill, true);
+
+            int j = 0;
+            while (j < arrows.size()) {
+                if (enemy.checkArrowCollision(arrows.get(j).getLocation())) {
+                    currLevelEnemies.remove(i);
+                    arrows.remove(j);
+                    GameViewModel.scoreModel.setScore(score.getValue() + enemy.getPointsWhenKilled());
+                    break;
+                } else {
+                    j++;
+                }
+            }
+            if (i >= currLevelEnemies.size() || enemy == currLevelEnemies.get(i)) {
+                i++; // increment if this enemy wasn't deleted
+            }
         }
     }
     public static void setPlayerHealth(int difficultyVal) {
