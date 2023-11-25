@@ -130,14 +130,15 @@ public class AndrewsUnitTests {
         Arrow a = new Arrow(loc,3.14f, 100, 100);
         a.updateLocation();
         float deg = (float) Math.toDegrees(3.14);
+        deg += 180;
+        deg = (deg + 90) % 360;
+        deg -= 180;
         float head = (float) Math.toRadians(deg);
         float actualX = (float) (20 * Math.sin(head));
         float actualY = (float) (20 * -1 * Math.cos(head));
         assertEquals(actualX, a.getX(), 0);
         assertEquals(actualY, a.getY(), 0);
-
     }
-
     @Test
     public void testArrowCollision() {
         Location loc = new Location(20,20);
