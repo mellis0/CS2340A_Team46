@@ -16,6 +16,8 @@ import java.lang.reflect.Method;
 import org.junit.Test;
 
 import com.example.cs2340a_team46.models.Arrow;
+import com.example.cs2340a_team46.models.Enemies.BasicEnemy;
+import com.example.cs2340a_team46.models.Enemies.Enemy;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Player;
@@ -125,11 +127,25 @@ public class AndrewsUnitTests {
     @Test
     public void testArrowLocation() {
         Location loc = new Location(10,10);
-        Arrow a = new Arrow(loc,3.14f, 100);
-
+        Arrow a = new Arrow(loc,3.14f, 100, 100);
+        a.updateLocation();
+        float deg = (float) Math.toDegrees(3.14);
+        float head = (float) Math.toRadians(deg);
+        float actualX = (float) (20 * Math.sin(head));
+        float actualY = (float) (20 * -1 * Math.cos(head));
+        assertEquals(actualX, a.getX(), 0);
+        assertEquals(actualY, a.getY(), 0);
 
     }
 
-
+    @Test
+    public void testArrowCollision() {
+        Location loc = new Location(20,20);
+        Arrow ab = new Arrow(loc,3.14f, 50, 50);
+        Player agent = new Player();
+        BasicEnemy enemy = new BasicEnemy(agent);
+        boolean check = enemy.checkArrowCollision(ab.getLocation());
+        assertEquals(true, check);
+    }
 }
 
