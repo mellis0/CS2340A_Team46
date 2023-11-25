@@ -273,7 +273,7 @@ public class GameViewModel extends ViewModel {
                 if (enemy.checkArrowCollision(arrows.get(j).getLocation())) {
                     currLevelEnemies.remove(i);
                     arrows.remove(j);
-                    GameViewModel.scoreModel.setScore(score.getValue() + enemy.pointsWhenKilled);
+                    GameViewModel.scoreModel.setScore(score.getValue() + enemy.getPointsWhenKilled());
                     break;
                 } else {
                     j++;
