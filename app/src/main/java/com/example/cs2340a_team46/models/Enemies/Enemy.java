@@ -35,7 +35,6 @@ public abstract class Enemy extends Agent implements Observer {
                 cumDamage += damage;
                 player.setHealth(newHealth);
 
-                // player.setPlayerName(""+cumDamage);
                 lastDamageTime = currTime;
             } else {
                 lastDamageTime = currTime;
@@ -54,28 +53,6 @@ public abstract class Enemy extends Agent implements Observer {
         setChanged();
         notifyObservers();
     }
-//    public void updatePlayerLoc(Player player, Location playerLocation) {
-//        this.playerLocation = playerLocation;
-//        long currTime = System.currentTimeMillis();
-//        if (this.checkPlayerCollision()) {
-//            if (isDamagingPlayer) {
-//                double damage = DAMAGE_RATIO * player.getDifficultyInt()
-//                        * 0.001 * (currTime - lastDamageTime);
-//                double newHealth = Math.max(player.getHealth() - damage, 0);
-//                cumDamage += damage;
-//                player.setHealth(newHealth);
-//
-//                // player.setPlayerName(""+cumDamage);
-//                lastDamageTime = currTime;
-//            } else {
-//                lastDamageTime = currTime;
-//                isDamagingPlayer = true;
-//            }
-//        } else {
-//            isDamagingPlayer = false;
-//        }
-//
-//    }
     public void resetLastDamageTime() {
         lastDamageTime = System.currentTimeMillis();
     }

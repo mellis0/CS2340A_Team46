@@ -52,15 +52,12 @@ public class Arrow {
     public Bitmap getBitmap() {
         return this.bitmap;
     }
-
     public Location getLocation() {
         return this.location;
     }
-
     public float getX() {
         return (float) this.location.getX();
     }
-
     public float getY() {
         return (float) this.location.getY();
     }

@@ -23,8 +23,6 @@ public class Leaderboard {
         return instance;
     }
 
-
-
     public List<LeaderboardEntry> getLeaderboardData() {
         return leaderboardData;
     }
@@ -35,11 +33,9 @@ public class Leaderboard {
     public static void incrementLeaderboardSize() {
         size++;
     }
-
     public void setLeaderboardSize(int newSize) {
         size = newSize;
     }
-
     // method to reset the leaderboard entries
     public static void reset() {
         leaderboardData.clear();

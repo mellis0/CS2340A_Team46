@@ -12,13 +12,11 @@ public class LeaderboardEntry implements Comparable<LeaderboardEntry> {
         this.score = score;
         this.dateTime = dateTime;
     }
-
     @Override
     public int compareTo(LeaderboardEntry other) {
         // Compare attempts based on scores
         return Integer.compare(this.score, other.score);
     }
-
     // Getter methods for playerName, score, and dateTime
 
     public String getPlayerName() {

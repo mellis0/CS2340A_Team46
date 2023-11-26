@@ -225,9 +225,6 @@ public class GameViewModel extends ViewModel {
         player.updateLoc(tm, joystick.getInnerLoc(), true);
         postPlayerX = player.getX();
         postPlayerY = player.getY();
-//        for (Enemy enemy : currLevelEnemies) {
-//            enemy.updatePlayerLoc(player, new Location(player.getX(), player.getY()));
-//        }
     }
 
     public static void updateEnemyLocations(Tilemap tm) {
@@ -242,7 +239,6 @@ public class GameViewModel extends ViewModel {
 
             // up to you tho, there's probably a way to implement it with the
             // current method signature
-
             Enemy enemy = currLevelEnemies.get(i);
 
             if (postPlayerX == curPlayerX && postPlayerY == curPlayerY) {
