@@ -15,6 +15,7 @@ import com.example.cs2340a_team46.models.Enemies.FastEnemyFactory;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.ScoreModel;
+import com.example.cs2340a_team46.models.Character;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -312,15 +313,20 @@ public class GameViewModel extends ViewModel {
         player.setPlayerName(name);
     }
 
-    public static void setPlayerSprite(int characterRadioButton) {
-        if (characterRadioButton == 1) {
-            player.setSprite(R.drawable.angel);
-        } else if (characterRadioButton == 2) {
-            player.setSprite(R.drawable.knight);
-        } else if (characterRadioButton == 3) {
-            player.setSprite(R.drawable.lizard);
-        } else {
-            throw new IllegalArgumentException("characterRadioButton must be 1, 2, or 3");
+    public static void setPlayerSprite(Character selectedCharacter) {
+        switch (selectedCharacter) {
+            case ANGEL:
+                player.setSprite(R.drawable.angel);
+                break;
+            case KNIGHT:
+                player.setSprite(R.drawable.knight);
+                break;
+            case LIZARD:
+                player.setSprite(R.drawable.lizard);
+                break;
+            case NOT_CHOSEN:
+            default:
+                throw new IllegalArgumentException("selectedCharacter must not be NOT_CHOSEN");
         }
     }
 

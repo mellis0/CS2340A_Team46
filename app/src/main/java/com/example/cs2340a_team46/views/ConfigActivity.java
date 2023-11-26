@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.example.cs2340a_team46.R;
 import com.example.cs2340a_team46.models.Player;
+import com.example.cs2340a_team46.models.Character;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
 
 public class ConfigActivity extends AppCompatActivity {
@@ -22,7 +23,7 @@ public class ConfigActivity extends AppCompatActivity {
     private ImageView imageView;
     private EditText nameEditText;
     private int difficulty;
-    private int character;
+    private Character character;
     private Player player = Player.getInstance();
 
     public static boolean validName(String enteredName) {
@@ -38,9 +39,9 @@ public class ConfigActivity extends AppCompatActivity {
         return (3 >= enteredDifficulty && enteredDifficulty >= 1);
     }
 
-    public static boolean validCharacter(int enteredCharacter) {
-        // enteredCharacter must be between 1 & 3
-        return (3 >= enteredCharacter && enteredCharacter >= 1);
+    public static boolean validCharacter(Character enteredCharacter) {
+        // enteredCharacter must not equal NOT_CHOSEN
+        return enteredCharacter != Character.NOT_CHOSEN;
     }
 
     @Override
@@ -56,7 +57,7 @@ public class ConfigActivity extends AppCompatActivity {
             String enteredName = nameEditText.getText().toString().trim();
             // copy these vals so that they are not modified by a race condition
             int enteredDifficulty = difficulty;
-            int enteredCharacter = character;
+            Character enteredCharacter = character;
             if (!validName(enteredName)) {
                 Toast.makeText(ConfigActivity.this,
                         "Please enter a name",
@@ -96,13 +97,15 @@ public class ConfigActivity extends AppCompatActivity {
 
                 if (selectedRadioButton.getId() == R.id.characterRadioOption1) {
                     imageView.setImageResource(R.drawable.angel);
-                    character = 1;
+                    character = Character.ANGEL;
                 } else if (selectedRadioButton.getId() == R.id.characterRadioOption2) {
                     imageView.setImageResource(R.drawable.knight);
-                    character = 2;
+                    character = Character.KNIGHT;
                 } else if (selectedRadioButton.getId() == R.id.characterRadioOption3) {
                     imageView.setImageResource(R.drawable.lizard);
-                    character = 3;
+                    character = Character.LIZARD;
+                } else {
+                    character = Character.NOT_CHOSEN;
                 }
             }
         });

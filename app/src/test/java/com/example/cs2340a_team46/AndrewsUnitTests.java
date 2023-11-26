@@ -24,6 +24,7 @@ import com.example.cs2340a_team46.models.Enemies.SmallEnemy;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Player;
+import com.example.cs2340a_team46.models.Character;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
 import com.example.cs2340a_team46.views.ConfigActivity;
 import com.example.cs2340a_team46.views.Game;
@@ -34,14 +35,14 @@ public class AndrewsUnitTests {
     @Test
     public void validCharacter_isCorrect() {
         // testing to see if the characters are valid or not
-        int[] validCharacters = {1, 2, 3};
-        int[] invalidCharacters = {0, 4, -3, 90};
+        Character[] validCharacters = {Character.KNIGHT, Character.ANGEL, Character.LIZARD};
+        Character[] invalidCharacters = {Character.NOT_CHOSEN, Character.NOT_CHOSEN};
 
-        for (int validCharacter : validCharacters) {
+        for (Character validCharacter : validCharacters) {
             assertEquals(true, ConfigActivity.validCharacter(validCharacter));
         }
 
-        for (int invalidCharacter : invalidCharacters) {
+        for (Character invalidCharacter : invalidCharacters) {
             assertEquals(false, ConfigActivity.validCharacter(invalidCharacter));
         }
     }
