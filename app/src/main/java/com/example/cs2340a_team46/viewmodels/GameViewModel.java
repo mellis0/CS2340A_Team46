@@ -286,11 +286,11 @@ public class GameViewModel extends ViewModel {
     }
     public static void setPlayerHealth(int difficultyVal) {
         if (difficultyVal == 1) {
-            player.setHealth(150);
+            player.setHealth(Player.EASY_HEALTH);
         } else if (difficultyVal == 2) {
-            player.setHealth(100);
+            player.setHealth(Player.NORMAL_HEALTH);
         } else if (difficultyVal == 3) {
-            player.setHealth(50);
+            player.setHealth(Player.HARD_HEALTH);
         } else {
             throw new IllegalArgumentException("Difficulty must be 1, 2, or 3");
         }

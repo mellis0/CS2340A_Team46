@@ -3,6 +3,10 @@ package com.example.cs2340a_team46.models;
 public class Player extends Agent {
     private static volatile Player instance;
     private static final MovementBehavior DEFAULT_MOVEMENT_BEHAVIOR = new NormalMovement();
+    public static final int EASY_HEALTH = 150;
+    public static final int NORMAL_HEALTH = 100;
+    public static final int HARD_HEALTH = 50;
+
     private int difficulty;
     private String playerName;
 
