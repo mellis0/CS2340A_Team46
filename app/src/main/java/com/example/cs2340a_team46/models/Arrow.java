@@ -17,6 +17,8 @@ public class Arrow {
     private float heading; // in radians
     private int screenHeight;
     private int screenWidth;
+
+    // creates arrow based on location, heading, and resources
     public Arrow(Location playerLocation, float heading, Resources resources) {
         float degreesHeading = (float) Math.toDegrees(heading);
         degreesHeading += 180;
@@ -63,11 +65,13 @@ public class Arrow {
         return (float) this.location.getY();
     }
 
+    // updated location calculated through sine, cosine.. initial calculations are conducted within the constructor itself
     public void updateLocation() {
         this.location.changeX(this.speed * Math.sin(this.heading));
         this.location.changeY(this.speed * -1 * Math.cos(this.heading));
     }
 
+    // evaluates both in and out of screen arrows
     public boolean outOfScreen() {
         return this.location.getX() < 0
                 || this.location.getX() > this.screenWidth
