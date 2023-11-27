@@ -62,18 +62,12 @@ public class Game extends View implements Observer {
 
         //requestFocus();
         setFocusable(true); // can't capture keyboard input without this
-
         super.onDraw(canvas);
         //updateJoystick
         tileMaps[GameViewModel.getLevel()].drawTilemap(canvas);
         GameViewModel.drawJoystick(canvas);
 
-
-
-        //
-        //
         // display player info
-        //
         Paint tP = new Paint();
         tP.setColor(Color.WHITE);
         tP.setTextSize(50);
@@ -91,10 +85,6 @@ public class Game extends View implements Observer {
         canvas.drawText(difficulty, 100, 550, tP);
         canvas.drawText("SCORE: ", 50, 650, tP);
         canvas.drawText(score, 100, 750, tP);
-        //
-        //
-        //
-
 
         // Draw the image on the canvas at a specific position
 
@@ -141,9 +131,6 @@ public class Game extends View implements Observer {
         //72 is offset since image draws 72 pixels too high
         //56 to right gets to middle
         // 90 down to get to center
-
-        //Log.d("width", Integer.toString(playerSprite.getScaledWidth(canvas) / 2));
-        //Log.d("height", Integer.toString(playerSprite.getScaledHeight(canvas) / 2));
 
         // @Ryan, these values don't line up with the ones you had, but they're close
         // we need a way to programmatically find these values cus we're gonna have sprites with

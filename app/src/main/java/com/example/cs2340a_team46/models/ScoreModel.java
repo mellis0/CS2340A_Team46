@@ -17,8 +17,6 @@ public class ScoreModel {
         return score.getValue();
     }
 
-
-
     public void setScore(int newScore) {
         if (newScore < 0) {
             return;

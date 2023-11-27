@@ -8,11 +8,9 @@ public abstract class Agent extends Observable {
     protected Location location;
     protected int sprite;
 
-
     public void setMovementBehavior(MovementBehavior mb) {
         this.movementBehavior = mb;
     }
-
     public MovementBehavior getMovementBehavior() {
         return this.movementBehavior;
     }
@@ -52,15 +50,12 @@ public abstract class Agent extends Observable {
     public Location getLocation() {
         return this.location;
     }
-
     public double[] getLocationArr() {
         return this.location.getXY();
     }
 
-
     public void updateLoc(Tilemap tilemap, Location joystickLoc, boolean collideCheck) {
         this.movementBehavior.move(tilemap, this.location, joystickLoc, collideCheck);
-
         setChanged();
         notifyObservers();
     }

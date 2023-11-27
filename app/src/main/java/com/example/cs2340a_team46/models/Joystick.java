@@ -48,8 +48,6 @@ public class Joystick {
         canvas.drawCircle(OUTER_X, OUTER_Y, OUTER_RADIUS, blackPaint);
         canvas.drawCircle((float) this.innerLoc.getX(),
                 (float) this.innerLoc.getY(), INNER_RADIUS, p);
-        // is this function used for something?
-        // if (getDistance() < OUTER_RADIUS) {}
     }
 
     public void setInner(double x, double y) {

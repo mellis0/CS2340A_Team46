@@ -25,8 +25,6 @@ public class LeaderboardViewModel extends ViewModel {
         return leaderboard.getLeaderboardData();
     }
 
-    //public List<LeaderboardEntry> leaderboardData = leaderboard.getLeaderboardData();
-
     public int getCurrentScore() {
         return scoreModel.getCurrentScore();
     }
