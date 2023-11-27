@@ -123,5 +123,20 @@ public class HsiehUnitTests {
         assertTrue(leaderboard.getLeaderboardData().contains(attempt2));
         assertTrue(leaderboard.getLeaderboardData().contains(attempt3));
     }
-    
+
+
+    @Test
+    public void testAddingDuplicateEntriesToLeaderboard() {
+        // Add an attempt to the leaderboard
+        LeaderboardEntry attempt1 = new LeaderboardEntry("Player1", 80, new Date());
+        LeaderboardViewModel.addEntry(attempt1);
+
+        // Attempt to add the same entry again
+        LeaderboardViewModel.addEntry(attempt1);
+
+        // Check the total number of entries on the leaderboard
+        assertEquals(2, leaderboard.getLeaderboardData().size());
+        // Ensure only one instance of the attempt is present in the leaderboard
+        assertEquals(attempt1, leaderboard.getLeaderboardData().get(0));
+    }
 }
