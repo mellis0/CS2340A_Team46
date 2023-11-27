@@ -46,7 +46,10 @@ public abstract class Tilemap extends View {
         R.drawable.big_yellow_flask,
         R.drawable.bricks,
         R.drawable.dirt,
-        R.drawable.knight
+        R.drawable.knight,
+        R.drawable.health_pot,
+        R.drawable.speed_pot,
+        R.drawable.freeze_pot
     };
 
     public Tilemap(Context context) {
@@ -101,6 +104,28 @@ public abstract class Tilemap extends View {
         int x = Math.abs((int) coord1 / 128);
         int y = Math.abs((int) coord2 / 128);
         return tileMapLayer2[x][y] == 25;
+    }
+
+    public boolean getIfHealthPowerup(Location loc) {
+        double coord1 = loc.getX();
+        double coord2 = loc.getY();
+        int x = Math.abs((int) coord1 / 128);
+        int y = Math.abs((int) coord2 / 128);
+        return tileMapLayer2[x][y] == 29;
+    }
+    public boolean getIfSpeedPowerup(Location loc) {
+        double coord1 = loc.getX();
+        double coord2 = loc.getY();
+        int x = Math.abs((int) coord1 / 128);
+        int y = Math.abs((int) coord2 / 128);
+        return tileMapLayer2[x][y] == 30;
+    }
+    public boolean getIfFreezePowerup(Location loc) {
+        double coord1 = loc.getX();
+        double coord2 = loc.getY();
+        int x = Math.abs((int) coord1 / 128);
+        int y = Math.abs((int) coord2 / 128);
+        return tileMapLayer2[x][y] == 31;
     }
 
     protected static int[][] flip(int[][] mat) {
