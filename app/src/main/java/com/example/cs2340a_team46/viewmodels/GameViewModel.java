@@ -108,6 +108,12 @@ public class GameViewModel extends ViewModel {
         speed_pot = false;
         freeze_pot = false;
 
+        NormalMovement.speed = 1;
+        EnemyBasicMovement.movable = true;
+        EnemyDetectMovement.movable = true;
+        EnemyHiderMovement.movable = true;
+        EnemyRandomMovement.movable = true;
+
         // Enemies
         Enemy[] currLevelEnemies = getCurrLevelEnemies();
         for (Enemy enemy : currLevelEnemies) {
