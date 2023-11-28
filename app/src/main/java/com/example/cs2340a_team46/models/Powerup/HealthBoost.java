@@ -1,6 +1,7 @@
-package com.example.cs2340a_team46.models;
+package com.example.cs2340a_team46.models.Powerup;
 
 import com.example.cs2340a_team46.R;
+import com.example.cs2340a_team46.models.Location;
 
 public class HealthBoost extends Powerup {
     public HealthBoost(float x, float y) {
