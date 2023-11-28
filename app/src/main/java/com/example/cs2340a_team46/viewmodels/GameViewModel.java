@@ -246,7 +246,7 @@ public class GameViewModel extends ViewModel {
     private static final Powerup[][] POWERUP_DISPLAYS = new Powerup[][] {
             {new HealthBoost(800, 800)},
             {new SpeedBoost(1000, 1000)},
-            {new FreezePot(1000,1000)}
+            {new FreezePot(1000, 1000)}
     };
     public static void initializeCurrLevelPowerups() {
         currLevelPowerupDisplays = new ArrayList<Powerup>();
