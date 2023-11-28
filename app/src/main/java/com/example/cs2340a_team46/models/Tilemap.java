@@ -111,21 +111,33 @@ public abstract class Tilemap extends View {
         double coord2 = loc.getY();
         int x = Math.abs((int) coord1 / 128);
         int y = Math.abs((int) coord2 / 128);
-        return tileMapLayer2[x][y] == 29;
+        if (tileMap[x][y] == 29) {
+            //tileMap[x][y] = 0;
+            return true;
+        }
+        return false;
     }
     public boolean getIfSpeedPowerup(Location loc) {
         double coord1 = loc.getX();
         double coord2 = loc.getY();
         int x = Math.abs((int) coord1 / 128);
         int y = Math.abs((int) coord2 / 128);
-        return tileMapLayer2[x][y] == 30;
+        if (tileMap[x][y] == 30) {
+            //tileMap[x][y] = 0;
+            return true;
+        }
+        return false;
     }
     public boolean getIfFreezePowerup(Location loc) {
         double coord1 = loc.getX();
         double coord2 = loc.getY();
         int x = Math.abs((int) coord1 / 128);
         int y = Math.abs((int) coord2 / 128);
-        return tileMapLayer2[x][y] == 31;
+        if (tileMap[x][y] == 31) {
+            //tileMap[x][y] = 0;
+            return true;
+        }
+        return false;
     }
 
     protected static int[][] flip(int[][] mat) {

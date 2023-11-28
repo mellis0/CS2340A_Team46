@@ -10,10 +10,15 @@ import com.example.cs2340a_team46.models.Arrow;
 import com.example.cs2340a_team46.models.Enemies.BasicEnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.BigEnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.Enemy;
+import com.example.cs2340a_team46.models.Enemies.EnemyBasicMovement;
+import com.example.cs2340a_team46.models.Enemies.EnemyDetectMovement;
 import com.example.cs2340a_team46.models.Enemies.EnemyFactory;
+import com.example.cs2340a_team46.models.Enemies.EnemyHiderMovement;
+import com.example.cs2340a_team46.models.Enemies.EnemyRandomMovement;
 import com.example.cs2340a_team46.models.Enemies.FastEnemyFactory;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
+import com.example.cs2340a_team46.models.NormalMovement;
 import com.example.cs2340a_team46.models.ScoreModel;
 import com.example.cs2340a_team46.models.Character;
 
@@ -61,6 +66,10 @@ public class GameViewModel extends ViewModel {
     private static ArrayList<Arrow> arrows = new ArrayList<Arrow>();
 
     private static Player player = Player.getInstance();
+
+    private static boolean health_pot = false;
+    private static boolean speed_pot = false;
+    private static boolean freeze_pot = false;
 
 
     // length of this array should equal MAX_LEVEL + 1
@@ -204,6 +213,45 @@ public class GameViewModel extends ViewModel {
             player.setY(500);
         }
         return out;
+    }
+
+    public static void powerupPickup(Tilemap tm) {
+        if (tm.getIfHealthPowerup(player.getLocation())) {
+            //change text & give effect
+            health_pot = true;
+            player.setHealth((player.getHealth()) + 100);
+        }
+        if (tm.getIfSpeedPowerup(player.getLocation())) {
+            speed_pot = true;
+            NormalMovement.speed = 5;
+        }
+        if (tm.getIfFreezePowerup(player.getLocation())) {
+            freeze_pot = true;
+            EnemyBasicMovement.movable = false;
+            EnemyDetectMovement.movable = false;
+            EnemyHiderMovement.movable = false;
+            EnemyRandomMovement.movable = false;
+        }
+    }
+
+    public static String updatePowerupText() {
+        String ret = "";
+        if (health_pot) {
+            ret += "Health Boost";
+        }
+        if (speed_pot) {
+            if (!ret.equals("")) {
+                ret += ", ";
+            }
+            ret += "Speed Boost";
+        }
+        if (freeze_pot) {
+            if (!ret.equals("")) {
+                ret += ", ";
+            }
+            ret += "Freeze Enemies";
+        }
+        return "";
     }
 
     private static Joystick joystick = Joystick.getInstance();

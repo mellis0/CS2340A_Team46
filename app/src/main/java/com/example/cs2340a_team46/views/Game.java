@@ -77,6 +77,7 @@ public class Game extends View implements Observer {
         String difficulty = GameViewModel.getDifficultyString();
         LiveData<Integer> sc = GameViewModel.getPlayerScore();
         String score = Integer.toString(sc.getValue());
+        String powerups = GameViewModel.updatePowerupText();;
         canvas.drawText("NAME: ", 50, 50, tP);
         canvas.drawText(name, 100, 150, tP);
         canvas.drawText("HEALTH: ", 50, 250, tP);
@@ -85,6 +86,10 @@ public class Game extends View implements Observer {
         canvas.drawText(difficulty, 100, 550, tP);
         canvas.drawText("SCORE: ", 50, 650, tP);
         canvas.drawText(score, 100, 750, tP);
+        canvas.drawText("POWERUPS: ", 50, 850, tP);
+        canvas.drawText(powerups, 100, 950, tP);
+
+
 
         // Draw the image on the canvas at a specific position
 
@@ -101,6 +106,8 @@ public class Game extends View implements Observer {
             parentActivity.finish();
 
         }
+
+        GameViewModel.powerupPickup(tileMaps[GameViewModel.getLevel()]);
         postInvalidate();
 
         Enemy[] enemies = GameViewModel.getCurrLevelEnemies();
