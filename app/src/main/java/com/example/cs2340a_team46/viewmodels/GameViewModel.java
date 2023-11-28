@@ -10,10 +10,16 @@ import com.example.cs2340a_team46.models.Arrow;
 import com.example.cs2340a_team46.models.Enemies.BasicEnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.BigEnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.Enemy;
+import com.example.cs2340a_team46.models.Enemies.EnemyBasicMovement;
+import com.example.cs2340a_team46.models.Enemies.EnemyDetectMovement;
 import com.example.cs2340a_team46.models.Enemies.EnemyFactory;
+import com.example.cs2340a_team46.models.Enemies.EnemyHiderMovement;
+import com.example.cs2340a_team46.models.Enemies.EnemyRandomMovement;
 import com.example.cs2340a_team46.models.Enemies.FastEnemyFactory;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
+import com.example.cs2340a_team46.models.NormalMovement;
+import com.example.cs2340a_team46.models.Powerup;
 import com.example.cs2340a_team46.models.ScoreModel;
 import com.example.cs2340a_team46.models.Character;
 
@@ -23,6 +29,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Enemies.SmallEnemyFactory;
+import com.example.cs2340a_team46.models.SpeedBoost;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.views.Game;
 
@@ -61,6 +68,10 @@ public class GameViewModel extends ViewModel {
     private static ArrayList<Arrow> arrows = new ArrayList<Arrow>();
 
     private static Player player = Player.getInstance();
+
+    private static boolean health_pot = false;
+    private static boolean speed_pot = false;
+    private static boolean freeze_pot = false;
 
 
     // length of this array should equal MAX_LEVEL + 1
@@ -187,6 +198,7 @@ public class GameViewModel extends ViewModel {
     public static void incrementLevel() {
         level = Math.min(level + 1, MAX_LEVEL);
         initializeCurrLevelEnemies();
+        initializeCurrLevelPowerups();
         arrows.clear();
     }
 
@@ -205,6 +217,51 @@ public class GameViewModel extends ViewModel {
         }
         return out;
     }
+
+    public static void powerupPickup(Tilemap tm) {
+        if (tm.getIfHealthPowerup(player.getLocation())) {
+            //change text & give effect
+            health_pot = true;
+            player.setHealth((player.getHealth()) + 100);
+        }
+        if (tm.getIfSpeedPowerup(player.getLocation())) {
+            speed_pot = true;
+            NormalMovement.speed = 5;
+        }
+        if (tm.getIfFreezePowerup(player.getLocation())) {
+            freeze_pot = true;
+            EnemyBasicMovement.movable = false;
+            EnemyDetectMovement.movable = false;
+            EnemyHiderMovement.movable = false;
+            EnemyRandomMovement.movable = false;
+        }
+    }
+
+    private static ArrayList<Powerup> currLevelPowerupDisplays;
+
+    // length of this array should equal MAX_LEVEL + 1
+    // each sub-array here is the powerups for that respective level
+    private static final Powerup[][] POWERUP_DISPLAYS = new Powerup[][] {
+            {new SpeedBoost(600, 700)},
+            {new SpeedBoost(1000, 1000)},
+            {}
+    };
+    public static void initializeCurrLevelPowerups() {
+        currLevelPowerupDisplays = new ArrayList<Powerup>();
+        for (Powerup p : POWERUP_DISPLAYS[level]) {
+            currLevelPowerupDisplays.add(p);
+        }
+    }
+
+    public static Powerup[] getPowerups() {
+        if (currLevelPowerupDisplays == null) {
+            initializeCurrLevelPowerups();
+        }
+        Powerup[] out = new Powerup[currLevelPowerupDisplays.size()];
+        out = currLevelPowerupDisplays.toArray(out);
+        return out;
+    }
+
 
     private static Joystick joystick = Joystick.getInstance();
     public static void drawJoystick(Canvas canvas) {
@@ -226,6 +283,19 @@ public class GameViewModel extends ViewModel {
         player.updateLoc(tm, joystick.getInnerLoc(), true);
         postPlayerX = player.getX();
         postPlayerY = player.getY();
+
+        int i = 0;
+        while (i < currLevelPowerupDisplays.size()) {
+            if (currLevelPowerupDisplays.get(i).checkPlayerCollision(getPlayerLocation())) {
+                if (currLevelPowerupDisplays.get(i).getClass().getSimpleName().equals("SpeedBoost")) {
+                    NormalMovement.speed = 2;
+                }
+                currLevelPowerupDisplays.remove(i);
+                // do something else here to actually activate the powerup
+            } else {
+                i++;
+            }
+        }
     }
 
     public static void updateEnemyLocations(Tilemap tm) {
