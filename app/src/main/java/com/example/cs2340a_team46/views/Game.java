@@ -18,6 +18,7 @@ import com.example.cs2340a_team46.models.Arrow;
 import com.example.cs2340a_team46.models.Enemies.Enemy;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Player;
+import com.example.cs2340a_team46.models.Powerup;
 import com.example.cs2340a_team46.models.Tilemap;
 
 import androidx.lifecycle.LiveData;
@@ -119,6 +120,12 @@ public class Game extends View implements Observer {
 
         for (Arrow arrow : arrows) {
             canvas.drawBitmap(arrow.getBitmap(), arrow.getX(), arrow.getY(), null);
+        }
+
+        Powerup[] powerups = GameViewModel.getPowerups();
+        for (Powerup powerup : powerups) {
+            Bitmap b = getBitmapFromSprite(getContext().getResources(), powerup.getDrawable());
+            canvas.drawBitmap(b, powerup.getX(), powerup.getY(), null);
         }
 
 

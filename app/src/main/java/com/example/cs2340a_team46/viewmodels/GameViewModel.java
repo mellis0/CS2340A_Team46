@@ -14,6 +14,7 @@ import com.example.cs2340a_team46.models.Enemies.EnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.FastEnemyFactory;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
+import com.example.cs2340a_team46.models.Powerup;
 import com.example.cs2340a_team46.models.ScoreModel;
 import com.example.cs2340a_team46.models.Character;
 
@@ -23,6 +24,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Enemies.SmallEnemyFactory;
+import com.example.cs2340a_team46.models.SpeedBoost;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.views.Game;
 
@@ -77,6 +79,16 @@ public class GameViewModel extends ViewModel {
                 put(BASIC_ENEMY_FACTORY, 1);
                 put(BIG_ENEMY_FACTORY, 1);
             }}
+    };
+
+    private static ArrayList<Powerup> currLevelPowerups;
+
+    // length of this array should equal MAX_LEVEL + 1
+    // each sub-array here is the powerups for that respective level
+    private static final Powerup[][] POWERUPS = new Powerup[][] {
+        {new SpeedBoost(600, 700)},
+        {new SpeedBoost(1000, 1000)},
+        {}
     };
     private static CountDownTimer countDownTimer = new
             CountDownTimer(COUNTDOWN_DURATION, COUNTDOWN_INTERVAL) {
@@ -152,6 +164,22 @@ public class GameViewModel extends ViewModel {
         }
     }
 
+    public static void initializeCurrLevelPowerups() {
+        currLevelPowerups = new ArrayList<Powerup>();
+        for (Powerup p : POWERUPS[level]) {
+            currLevelPowerups.add(p);
+        }
+    }
+
+    public static Powerup[] getPowerups() {
+        if (currLevelPowerups == null) {
+            initializeCurrLevelPowerups();
+        }
+        Powerup[] out = new Powerup[currLevelPowerups.size()];
+        out = currLevelPowerups.toArray(out);
+        return out;
+    }
+
     private static void initializeCurrLevelEnemies() {
         currLevelEnemies = new ArrayList<Enemy>();
         for (Map.Entry<EnemyFactory, Integer> entry : ENEMY_COUNTS[level].entrySet()) {
@@ -187,6 +215,7 @@ public class GameViewModel extends ViewModel {
     public static void incrementLevel() {
         level = Math.min(level + 1, MAX_LEVEL);
         initializeCurrLevelEnemies();
+        initializeCurrLevelPowerups();
         arrows.clear();
     }
 
