@@ -106,4 +106,37 @@ public class HsiehUnitTests {
         assertNotEquals("Player2", LeaderboardViewModel.getLeaderboardData().get(0).getPlayerName());
     }
 
+    @Test
+    public void testAddMultipleAttemptsToLeaderboard() {
+        // Add multiple attempts to the leaderboard
+        LeaderboardEntry attempt1 = new LeaderboardEntry("Player1", 80, new Date());
+        LeaderboardViewModel.addEntry(attempt1);
+        LeaderboardEntry attempt2 = new LeaderboardEntry("Player2", 100, new Date());
+        LeaderboardViewModel.addEntry(attempt2);
+        LeaderboardEntry attempt3 = new LeaderboardEntry("Player3", 50, new Date());
+        LeaderboardViewModel.addEntry(attempt3);
+
+        // Check the total number of entries on the leaderboard
+        assertEquals(3, leaderboard.getLeaderboardData().size());
+        // Ensure all added attempts are present in the leaderboard
+        assertTrue(leaderboard.getLeaderboardData().contains(attempt1));
+        assertTrue(leaderboard.getLeaderboardData().contains(attempt2));
+        assertTrue(leaderboard.getLeaderboardData().contains(attempt3));
+    }
+
+
+    @Test
+    public void testAddingDuplicateEntriesToLeaderboard() {
+        // Add an attempt to the leaderboard
+        LeaderboardEntry attempt1 = new LeaderboardEntry("Player1", 80, new Date());
+        LeaderboardViewModel.addEntry(attempt1);
+
+        // Attempt to add the same entry again
+        LeaderboardViewModel.addEntry(attempt1);
+
+        // Check the total number of entries on the leaderboard
+        assertEquals(2, leaderboard.getLeaderboardData().size());
+        // Ensure only one instance of the attempt is present in the leaderboard
+        assertEquals(attempt1, leaderboard.getLeaderboardData().get(0));
+    }
 }
