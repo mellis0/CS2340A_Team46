@@ -13,4 +13,11 @@ public abstract class Powerup {
     public float getY() {
         return (float) this.location.getY();
     }
+
+    public boolean checkPlayerCollision(Location playerLoc) {
+        double dx = (this.location.getX() - playerLoc.getX());
+        double dy = (this.location.getY() - playerLoc.getY());
+        return Math.sqrt(dx * dx + dy * dy) < 100;
+    }
+
 }

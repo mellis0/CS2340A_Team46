@@ -255,6 +255,16 @@ public class GameViewModel extends ViewModel {
         player.updateLoc(tm, joystick.getInnerLoc(), true);
         postPlayerX = player.getX();
         postPlayerY = player.getY();
+
+        int i = 0;
+        while (i < currLevelPowerups.size()) {
+            if (currLevelPowerups.get(i).checkPlayerCollision(getPlayerLocation())) {
+                currLevelPowerups.remove(i);
+                // do something else here to actually activate the powerup
+            } else {
+                i++;
+            }
+        }
     }
 
     public static void updateEnemyLocations(Tilemap tm) {
