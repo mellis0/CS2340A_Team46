@@ -19,6 +19,7 @@ import com.example.cs2340a_team46.models.Enemies.FastEnemyFactory;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.NormalMovement;
+import com.example.cs2340a_team46.models.Powerup;
 import com.example.cs2340a_team46.models.ScoreModel;
 import com.example.cs2340a_team46.models.Character;
 
@@ -28,6 +29,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Enemies.SmallEnemyFactory;
+import com.example.cs2340a_team46.models.SpeedBoost;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.views.Game;
 
@@ -196,6 +198,7 @@ public class GameViewModel extends ViewModel {
     public static void incrementLevel() {
         level = Math.min(level + 1, MAX_LEVEL);
         initializeCurrLevelEnemies();
+        initializeCurrLevelPowerups();
         arrows.clear();
     }
 
@@ -234,25 +237,31 @@ public class GameViewModel extends ViewModel {
         }
     }
 
-    public static String updatePowerupText() {
-        String ret = "";
-        if (health_pot) {
-            ret += "Health Boost";
+    private static ArrayList<Powerup> currLevelPowerupDisplays;
+
+    // length of this array should equal MAX_LEVEL + 1
+    // each sub-array here is the powerups for that respective level
+    private static final Powerup[][] POWERUP_DISPLAYS = new Powerup[][] {
+            {new SpeedBoost(600, 700)},
+            {new SpeedBoost(1000, 1000)},
+            {}
+    };
+    public static void initializeCurrLevelPowerups() {
+        currLevelPowerupDisplays = new ArrayList<Powerup>();
+        for (Powerup p : POWERUP_DISPLAYS[level]) {
+            currLevelPowerupDisplays.add(p);
         }
-        if (speed_pot) {
-            if (!ret.equals("")) {
-                ret += ", ";
-            }
-            ret += "Speed Boost";
-        }
-        if (freeze_pot) {
-            if (!ret.equals("")) {
-                ret += ", ";
-            }
-            ret += "Freeze Enemies";
-        }
-        return "";
     }
+
+    public static Powerup[] getPowerups() {
+        if (currLevelPowerupDisplays == null) {
+            initializeCurrLevelPowerups();
+        }
+        Powerup[] out = new Powerup[currLevelPowerupDisplays.size()];
+        out = currLevelPowerupDisplays.toArray(out);
+        return out;
+    }
+
 
     private static Joystick joystick = Joystick.getInstance();
     public static void drawJoystick(Canvas canvas) {
@@ -274,6 +283,19 @@ public class GameViewModel extends ViewModel {
         player.updateLoc(tm, joystick.getInnerLoc(), true);
         postPlayerX = player.getX();
         postPlayerY = player.getY();
+
+        int i = 0;
+        while (i < currLevelPowerupDisplays.size()) {
+            if (currLevelPowerupDisplays.get(i).checkPlayerCollision(getPlayerLocation())) {
+                if (currLevelPowerupDisplays.get(i).getClass().getSimpleName().equals("SpeedBoost")) {
+                    NormalMovement.speed = 2;
+                }
+                currLevelPowerupDisplays.remove(i);
+                // do something else here to actually activate the powerup
+            } else {
+                i++;
+            }
+        }
     }
 
     public static void updateEnemyLocations(Tilemap tm) {

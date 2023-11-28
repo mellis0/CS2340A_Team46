@@ -18,6 +18,7 @@ import com.example.cs2340a_team46.models.Arrow;
 import com.example.cs2340a_team46.models.Enemies.Enemy;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.Player;
+import com.example.cs2340a_team46.models.Powerup;
 import com.example.cs2340a_team46.models.Tilemap;
 
 import androidx.lifecycle.LiveData;
@@ -77,7 +78,7 @@ public class Game extends View implements Observer {
         String difficulty = GameViewModel.getDifficultyString();
         LiveData<Integer> sc = GameViewModel.getPlayerScore();
         String score = Integer.toString(sc.getValue());
-        String powerups = GameViewModel.updatePowerupText();;
+        String powerups = "Test";
         canvas.drawText("NAME: ", 50, 50, tP);
         canvas.drawText(name, 100, 150, tP);
         canvas.drawText("HEALTH: ", 50, 250, tP);
@@ -129,7 +130,7 @@ public class Game extends View implements Observer {
         }
 
 
-        GameViewModel.updatePlayerLocation(tileMaps[GameViewModel.getLevel()]);
+
 
         Bitmap playerSprite = getBitmapFromSprite(getContext().getResources(),
                 GameViewModel.getPlayerSprite());
@@ -148,6 +149,14 @@ public class Game extends View implements Observer {
         float drawY = playerY - (float) (playerSprite.getScaledHeight(canvas) / 2.0);
         canvas.drawBitmap(playerSprite, drawX, drawY, null);
         canvas.drawBitmap(bowSprite, drawX + 90, drawY + 100, null);
+
+        Powerup[] powerupDisplays = GameViewModel.getPowerups();
+        for (Powerup powerupDisplay : powerupDisplays) {
+            Bitmap b = getBitmapFromSprite(getContext().getResources(), powerupDisplay.getDrawable());
+            canvas.drawBitmap(b, powerupDisplay.getX(), powerupDisplay.getY(), null);
+        }
+        GameViewModel.updatePlayerLocation(tileMaps[GameViewModel.getLevel()]);
+        postInvalidate();
     }
 
 
