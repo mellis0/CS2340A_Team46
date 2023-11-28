@@ -221,22 +221,15 @@ public class GameViewModel extends ViewModel {
         return out;
     }
 
-    public static void powerupPickup(Tilemap tm) {
-        if (tm.getIfHealthPowerup(player.getLocation())) {
+    public static void powerupPickup() {
+        if (player.getX() == 800 && player.getY() == 800) {
             //change text & give effect
             health_pot = true;
             player.setHealth((player.getHealth()) + 100);
         }
-        if (tm.getIfSpeedPowerup(player.getLocation())) {
+        if (player.getX() == 1000 && player.getY() == 1000) {
             speed_pot = true;
             NormalMovement.speed = 5;
-        }
-        if (tm.getIfFreezePowerup(player.getLocation())) {
-            freeze_pot = true;
-            EnemyBasicMovement.movable = false;
-            EnemyDetectMovement.movable = false;
-            EnemyHiderMovement.movable = false;
-            EnemyRandomMovement.movable = false;
         }
     }
 
