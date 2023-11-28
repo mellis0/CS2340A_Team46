@@ -199,7 +199,7 @@ public class GameViewModel extends ViewModel {
         level = newLevel;
     }
     public static void incrementLevel() {
-        level = Math.min(level + 1, MAX_LEVEL);
+        level = (level + 1) % (MAX_LEVEL + 1); // level wraps around after last level
         initializeCurrLevelEnemies();
         initializeCurrLevelPowerups();
         arrows.clear();
@@ -214,7 +214,7 @@ public class GameViewModel extends ViewModel {
             if (level >= MAX_LEVEL) {
                 out = true;
             }
-            incrementLevel(); // this won't increment past MAX_LEVEL
+            incrementLevel(); // this won't increment past MAX_LEVEL, it wraps around
             player.setX(500);
             player.setY(500);
         }
