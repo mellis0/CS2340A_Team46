@@ -104,6 +104,9 @@ public class GameViewModel extends ViewModel {
     public static void resetGame() {
         // Level
         level = 0;
+        health_pot = false;
+        speed_pot = false;
+        freeze_pot = false;
 
         // Enemies
         Enemy[] currLevelEnemies = getCurrLevelEnemies();
