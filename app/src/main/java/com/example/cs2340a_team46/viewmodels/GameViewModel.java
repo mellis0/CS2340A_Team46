@@ -16,11 +16,12 @@ import com.example.cs2340a_team46.models.Enemies.EnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.EnemyHiderMovement;
 import com.example.cs2340a_team46.models.Enemies.EnemyRandomMovement;
 import com.example.cs2340a_team46.models.Enemies.FastEnemyFactory;
-import com.example.cs2340a_team46.models.HealthBoost;
+import com.example.cs2340a_team46.models.Powerup.HealthBoost;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.NormalMovement;
-import com.example.cs2340a_team46.models.Powerup;
+import com.example.cs2340a_team46.models.Powerup.FreezePot;
+import com.example.cs2340a_team46.models.Powerup.Powerup;
 import com.example.cs2340a_team46.models.ScoreModel;
 import com.example.cs2340a_team46.models.Character;
 
@@ -30,15 +31,13 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Enemies.SmallEnemyFactory;
-import com.example.cs2340a_team46.models.SpeedBoost;
+import com.example.cs2340a_team46.models.Powerup.SpeedBoost;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.views.Game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class GameViewModel extends ViewModel {
 
@@ -243,9 +242,9 @@ public class GameViewModel extends ViewModel {
     // length of this array should equal MAX_LEVEL + 1
     // each sub-array here is the powerups for that respective level
     private static final Powerup[][] POWERUP_DISPLAYS = new Powerup[][] {
-            {new SpeedBoost(600, 700), new HealthBoost(800, 800)},
+            {new HealthBoost(800, 800)},
             {new SpeedBoost(1000, 1000)},
-            {}
+            {new FreezePot(1000,1000)}
     };
     public static void initializeCurrLevelPowerups() {
         currLevelPowerupDisplays = new ArrayList<Powerup>();
@@ -293,6 +292,12 @@ public class GameViewModel extends ViewModel {
                 }
                 if (currLevelPowerupDisplays.get(i).getClass().getSimpleName().equals("HealthBoost")) {
                     player.setHealth((player.getHealth()) + 100);
+                }
+                if (currLevelPowerupDisplays.get(i).getClass().getSimpleName().equals("FreezePot")) {
+                    EnemyBasicMovement.movable = false;
+                    EnemyDetectMovement.movable = false;
+                    EnemyHiderMovement.movable = false;
+                    EnemyRandomMovement.movable = false;
                 }
                 currLevelPowerupDisplays.remove(i);
                 // do something else here to actually activate the powerup
