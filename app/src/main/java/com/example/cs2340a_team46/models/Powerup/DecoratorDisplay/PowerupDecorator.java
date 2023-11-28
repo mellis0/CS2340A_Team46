@@ -7,5 +7,7 @@ public class PowerupDecorator implements PowerupDisplay {
         this.powerupDisplay = p;
     }
     @Override
-
+    public String displayPowerupStr() {
+        return this.powerupDisplay.displayPowerupStr();
+    }
 }

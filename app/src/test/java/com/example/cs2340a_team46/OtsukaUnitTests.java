@@ -13,6 +13,9 @@ import com.example.cs2340a_team46.models.Enemies.EnemyRandomMovement;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.models.Joystick;
+import com.example.cs2340a_team46.models.Tilemap1;
+import com.example.cs2340a_team46.models.Tilemap2;
+import com.example.cs2340a_team46.models.Tilemap3;
 import com.example.cs2340a_team46.viewmodels.GameViewModel;
 import com.example.cs2340a_team46.views.Game;
 

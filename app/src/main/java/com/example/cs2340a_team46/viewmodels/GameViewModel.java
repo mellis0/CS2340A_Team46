@@ -69,9 +69,9 @@ public class GameViewModel extends ViewModel {
 
     private static Player player = Player.getInstance();
 
-    private static boolean health_pot = false;
-    private static boolean speed_pot = false;
-    private static boolean freeze_pot = false;
+    public static boolean health_pot = false;
+    public static boolean speed_pot = false;
+    public static boolean freeze_pot = false;
 
 
     // length of this array should equal MAX_LEVEL + 1
@@ -104,6 +104,9 @@ public class GameViewModel extends ViewModel {
     public static void resetGame() {
         // Level
         level = 0;
+        health_pot = false;
+        speed_pot = false;
+        freeze_pot = false;
 
         // Enemies
         Enemy[] currLevelEnemies = getCurrLevelEnemies();
@@ -218,22 +221,15 @@ public class GameViewModel extends ViewModel {
         return out;
     }
 
-    public static void powerupPickup(Tilemap tm) {
-        if (tm.getIfHealthPowerup(player.getLocation())) {
+    public static void powerupPickup() {
+        if (player.getX() == 800 && player.getY() == 800) {
             //change text & give effect
             health_pot = true;
             player.setHealth((player.getHealth()) + 100);
         }
-        if (tm.getIfSpeedPowerup(player.getLocation())) {
+        if (player.getX() == 1000 && player.getY() == 1000) {
             speed_pot = true;
             NormalMovement.speed = 5;
-        }
-        if (tm.getIfFreezePowerup(player.getLocation())) {
-            freeze_pot = true;
-            EnemyBasicMovement.movable = false;
-            EnemyDetectMovement.movable = false;
-            EnemyHiderMovement.movable = false;
-            EnemyRandomMovement.movable = false;
         }
     }
 
@@ -288,12 +284,15 @@ public class GameViewModel extends ViewModel {
         while (i < currLevelPowerupDisplays.size()) {
             if (currLevelPowerupDisplays.get(i).checkPlayerCollision(getPlayerLocation())) {
                 if (currLevelPowerupDisplays.get(i).getClass().getSimpleName().equals("SpeedBoost")) {
+                    speed_pot = true;
                     NormalMovement.speed = 2;
                 }
                 if (currLevelPowerupDisplays.get(i).getClass().getSimpleName().equals("HealthBoost")) {
+                    health_pot = true;
                     player.setHealth((player.getHealth()) + 100);
                 }
                 if (currLevelPowerupDisplays.get(i).getClass().getSimpleName().equals("FreezePot")) {
+                    freeze_pot = true;
                     EnemyBasicMovement.movable = false;
                     EnemyDetectMovement.movable = false;
                     EnemyHiderMovement.movable = false;
