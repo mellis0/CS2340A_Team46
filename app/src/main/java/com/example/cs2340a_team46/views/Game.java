@@ -108,7 +108,7 @@ public class Game extends View implements Observer {
 
         }
 
-//        GameViewModel.powerupPickup(tileMaps[GameViewModel.getLevel()]);
+        // GameViewModel.powerupPickup(tileMaps[GameViewModel.getLevel()]);
         postInvalidate();
 
         Enemy[] enemies = GameViewModel.getCurrLevelEnemies();
@@ -190,7 +190,7 @@ public class Game extends View implements Observer {
     // but we need to implement it in the Observer pattern...
     @Override
     public void update(Observable observable, Object o) {
-//        Location playerLoc = GameViewModel.getPlayerLocation();
+        // Location playerLoc = GameViewModel.getPlayerLocation();
         Location playerLoc = ((Agent) observable).getLocation();
         playerX = (float) playerLoc.getX();
         playerY = (float) playerLoc.getY();
