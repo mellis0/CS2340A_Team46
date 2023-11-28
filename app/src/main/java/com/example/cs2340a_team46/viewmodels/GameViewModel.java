@@ -16,6 +16,7 @@ import com.example.cs2340a_team46.models.Enemies.EnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.EnemyHiderMovement;
 import com.example.cs2340a_team46.models.Enemies.EnemyRandomMovement;
 import com.example.cs2340a_team46.models.Enemies.FastEnemyFactory;
+import com.example.cs2340a_team46.models.HealthBoost;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
 import com.example.cs2340a_team46.models.NormalMovement;
@@ -242,7 +243,7 @@ public class GameViewModel extends ViewModel {
     // length of this array should equal MAX_LEVEL + 1
     // each sub-array here is the powerups for that respective level
     private static final Powerup[][] POWERUP_DISPLAYS = new Powerup[][] {
-            {new SpeedBoost(600, 700)},
+            {new SpeedBoost(600, 700), new HealthBoost(800, 800)},
             {new SpeedBoost(1000, 1000)},
             {}
     };
@@ -289,6 +290,9 @@ public class GameViewModel extends ViewModel {
             if (currLevelPowerupDisplays.get(i).checkPlayerCollision(getPlayerLocation())) {
                 if (currLevelPowerupDisplays.get(i).getClass().getSimpleName().equals("SpeedBoost")) {
                     NormalMovement.speed = 2;
+                }
+                if (currLevelPowerupDisplays.get(i).getClass().getSimpleName().equals("HealthBoost")) {
+                    player.setHealth((player.getHealth()) + 100);
                 }
                 currLevelPowerupDisplays.remove(i);
                 // do something else here to actually activate the powerup
