@@ -108,7 +108,7 @@ public class Game extends View implements Observer {
 
         }
 
-        GameViewModel.powerupPickup(tileMaps[GameViewModel.getLevel()]);
+//        GameViewModel.powerupPickup(tileMaps[GameViewModel.getLevel()]);
         postInvalidate();
 
         Enemy[] enemies = GameViewModel.getCurrLevelEnemies();
