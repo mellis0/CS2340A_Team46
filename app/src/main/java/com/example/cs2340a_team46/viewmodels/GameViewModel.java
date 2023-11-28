@@ -14,7 +14,7 @@ import com.example.cs2340a_team46.models.Enemies.EnemyFactory;
 import com.example.cs2340a_team46.models.Enemies.FastEnemyFactory;
 import com.example.cs2340a_team46.models.Joystick;
 import com.example.cs2340a_team46.models.Location;
-import com.example.cs2340a_team46.models.Powerup;
+import com.example.cs2340a_team46.models.PowerupDisplay;
 import com.example.cs2340a_team46.models.ScoreModel;
 import com.example.cs2340a_team46.models.Character;
 
@@ -24,15 +24,13 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Enemies.SmallEnemyFactory;
-import com.example.cs2340a_team46.models.SpeedBoost;
+import com.example.cs2340a_team46.models.SpeedBoostDisplay;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.views.Game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class GameViewModel extends ViewModel {
 
@@ -81,13 +79,13 @@ public class GameViewModel extends ViewModel {
             }}
     };
 
-    private static ArrayList<Powerup> currLevelPowerups;
+    private static ArrayList<PowerupDisplay> currLevelPowerupDisplays;
 
     // length of this array should equal MAX_LEVEL + 1
     // each sub-array here is the powerups for that respective level
-    private static final Powerup[][] POWERUPS = new Powerup[][] {
-        {new SpeedBoost(600, 700)},
-        {new SpeedBoost(1000, 1000)},
+    private static final PowerupDisplay[][] POWERUP_DISPLAYS = new PowerupDisplay[][] {
+        {new SpeedBoostDisplay(600, 700)},
+        {new SpeedBoostDisplay(1000, 1000)},
         {}
     };
     private static CountDownTimer countDownTimer = new
@@ -165,18 +163,18 @@ public class GameViewModel extends ViewModel {
     }
 
     public static void initializeCurrLevelPowerups() {
-        currLevelPowerups = new ArrayList<Powerup>();
-        for (Powerup p : POWERUPS[level]) {
-            currLevelPowerups.add(p);
+        currLevelPowerupDisplays = new ArrayList<PowerupDisplay>();
+        for (PowerupDisplay p : POWERUP_DISPLAYS[level]) {
+            currLevelPowerupDisplays.add(p);
         }
     }
 
-    public static Powerup[] getPowerups() {
-        if (currLevelPowerups == null) {
+    public static PowerupDisplay[] getPowerups() {
+        if (currLevelPowerupDisplays == null) {
             initializeCurrLevelPowerups();
         }
-        Powerup[] out = new Powerup[currLevelPowerups.size()];
-        out = currLevelPowerups.toArray(out);
+        PowerupDisplay[] out = new PowerupDisplay[currLevelPowerupDisplays.size()];
+        out = currLevelPowerupDisplays.toArray(out);
         return out;
     }
 
@@ -257,9 +255,9 @@ public class GameViewModel extends ViewModel {
         postPlayerY = player.getY();
 
         int i = 0;
-        while (i < currLevelPowerups.size()) {
-            if (currLevelPowerups.get(i).checkPlayerCollision(getPlayerLocation())) {
-                currLevelPowerups.remove(i);
+        while (i < currLevelPowerupDisplays.size()) {
+            if (currLevelPowerupDisplays.get(i).checkPlayerCollision(getPlayerLocation())) {
+                currLevelPowerupDisplays.remove(i);
                 // do something else here to actually activate the powerup
             } else {
                 i++;

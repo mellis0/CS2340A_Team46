@@ -1,6 +1,6 @@
 package com.example.cs2340a_team46.models;
 
-public abstract class Powerup {
+public abstract class PowerupDisplay {
     protected int drawable;
     protected Location location;
     public int getDrawable() {

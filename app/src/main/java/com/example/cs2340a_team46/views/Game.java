@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 
@@ -17,8 +16,7 @@ import com.example.cs2340a_team46.models.Agent;
 import com.example.cs2340a_team46.models.Arrow;
 import com.example.cs2340a_team46.models.Enemies.Enemy;
 import com.example.cs2340a_team46.models.Location;
-import com.example.cs2340a_team46.models.Player;
-import com.example.cs2340a_team46.models.Powerup;
+import com.example.cs2340a_team46.models.PowerupDisplay;
 import com.example.cs2340a_team46.models.Tilemap;
 
 import androidx.lifecycle.LiveData;
@@ -122,10 +120,10 @@ public class Game extends View implements Observer {
             canvas.drawBitmap(arrow.getBitmap(), arrow.getX(), arrow.getY(), null);
         }
 
-        Powerup[] powerups = GameViewModel.getPowerups();
-        for (Powerup powerup : powerups) {
-            Bitmap b = getBitmapFromSprite(getContext().getResources(), powerup.getDrawable());
-            canvas.drawBitmap(b, powerup.getX(), powerup.getY(), null);
+        PowerupDisplay[] powerupDisplays = GameViewModel.getPowerups();
+        for (PowerupDisplay powerupDisplay : powerupDisplays) {
+            Bitmap b = getBitmapFromSprite(getContext().getResources(), powerupDisplay.getDrawable());
+            canvas.drawBitmap(b, powerupDisplay.getX(), powerupDisplay.getY(), null);
         }
 
 
