@@ -10,6 +10,7 @@ import com.example.cs2340a_team46.models.Enemies.BasicEnemy;
 import com.example.cs2340a_team46.models.Enemies.BigEnemy;
 import com.example.cs2340a_team46.models.Enemies.EnemyBasicMovement;
 import com.example.cs2340a_team46.models.Enemies.EnemyRandomMovement;
+import com.example.cs2340a_team46.models.NormalMovement;
 import com.example.cs2340a_team46.models.Player;
 import com.example.cs2340a_team46.models.Tilemap;
 import com.example.cs2340a_team46.models.Joystick;
@@ -86,5 +87,24 @@ public class OtsukaUnitTests {
         Player p = Player.getInstance();
         BigEnemy enemy = new BigEnemy(p);
         assertEquals(enemy.getMovementBehavior().getClass().getSimpleName(), EnemyRandomMovement.class.getSimpleName());
+    }
+    @Test
+    public void testHealthPotEffect() {
+        Player p = Player.getInstance();
+        p.setDifficulty(2);
+        double health = p.getHealth();
+        p.setX(800);
+        p.setY(800);
+        GameViewModel.powerupPickup();
+        assertEquals(health + 100, p.getHealth(), 0);
+    }
+    @Test
+    public void testSpeedPotEffect() {
+        Player p = Player.getInstance();
+        p.setDifficulty(2);
+        p.setX(1000);
+        p.setY(1000);
+        GameViewModel.powerupPickup();
+        assertEquals(5, NormalMovement.speed, 0);
     }
 }
