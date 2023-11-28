@@ -106,6 +106,7 @@ public class HsiehUnitTests {
         assertNotEquals("Player2", LeaderboardViewModel.getLeaderboardData().get(0).getPlayerName());
     }
 
+
     @Test
     public void testAddMultipleAttemptsToLeaderboard() {
         // Add multiple attempts to the leaderboard
