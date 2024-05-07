@@ -1,5 +1,3 @@
 # CS2340A_Team46
-mellis0/CS2340A_Team46
-auth=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
 
-Press Space to shoot arrows
+CS 2340 group project from fall of 2023. We built a dungeon crawler game in android studio.
